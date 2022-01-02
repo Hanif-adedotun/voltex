@@ -1,0 +1,87 @@
+/* The primary color of voltex */
+:root{
+  --primary: rgb(54, 123, 252);
+}
+
+.nav{
+    max-width: 100%;
+    font-size: medium;
+    font-weight: bold;
+    margin: auto ;
+    /* font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+}
+.Navlin{
+  color: var(--primary);
+}
+.NavActive{
+  background-color: white;
+  border-bottom: 2px solid var(--primary);
+}
+.navbar{
+  background-color: #282c34;
+  /* background: transparent; */
+  color: var(--primary);
+}
+
+.nav-justified{
+    width: inherit;
+}
+.nav-list{
+  text-shadow: 1px 1px 5px #000000de;
+}
+
+.affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  .affix + .container-fluid {
+    padding-top: 70px;
+  }
+  
+  .img-circle {
+    border-radius: 50%;
+    height: auto;
+    width: auto;
+}
+.nav-img-circle{
+    border-radius: 50%;
+    height: 35%;
+    width: 35%;
+    border: 2.5px solid var(--primary);
+}
+
+/* .glyphicon-user{
+  color: var(--primary);
+} */
+.g-nav{
+  color: var(--primary);
+  font-size: large;
+}
+
+/* Logo  */
+.logo{
+  width: 35%;
+  max-height:35%;
+  padding: 0;
+  margin:  auto;
+  /* animation: logo-spin infinite 20s linear; */
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* End of logo */
+
+/* Content after the navbar */
+.content{
+  margin-top: 10%;
+}

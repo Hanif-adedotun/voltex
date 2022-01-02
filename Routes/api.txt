@@ -1,0 +1,49 @@
+This is the API documentation for Voltex Middlwear
+Written by Hanif Adedotun 2020
+
+
+|| Main server, Backend||
+Frameworks: Node.js, express
+Url: localhost:8080
+
+|| Main Server ||
+>> Node js/middlwear_server.js 
+--  '/api' to the router file, that processes all reqests from the frontend
+--  '/' leads to access denied 
+
+
+|| Router ||
+>> Node js/Routes/router.js
+-- '/users'  leads to all the front end activities and processes (validating form for a new table, storing table details to database, receiving table information,
+-- '/auth'  this is the authentication, log in and log out of user from the Google accounts signin,
+-- '/middlwear/data' processes the form fields sent by the user through the form fields set up by the user and saves them to mongodb.
+
+|| User || 
+>> Node js/users.js
+-- '/api/users/login/profile' returns the current user signed in to the system, if none returns null
+-- '/api/users/login/dashboard' returns the current user details and the user stored form in the mongodb if any
+-- '/api/users/delete/:id' deletes a row with (id) specified, then tells mongodb to delete it
+-- '/api/users/generateId' returns an 8 character alphanumeric string, used as a unique id to suthenticate a users form on the backend
+-- '/api/users/createDB' validates and then creates a user table with basic information (using Mysql)
+-- '/api/users/editVal' contacts mysql to edit the url of a page, (in future scaled to edit all other fields of user table)
+-- '/api/users/sendmail' Sends a mail to a particular email address
+-- '/api/users/test-v1' A test url for new features or updates befor interating it eith the front end
+
+|| Authentication ||
+>> Node js/passport.js
+-- '/api/auth/redirect' Google redirect if succesfull redirects to home page, if not throws error
+-- '/api/auth/signin' Authenticates the user using google passport startegy
+-- '/api/auth/github' Authenticates the user using Github passport startegy
+-- '/api/auth/github/callback Redirection for Github, success, profile, failure throws error view
+-- '/api/auth/login/success Return the user currently in the session
+-- '/api/auth/login/failure' Server Error: Sends an error to the front end
+-- 'api/auth/logout' Logs the user out of the session, then deletes the user stored in the file
+
+|| Backend ||
+>> Node js/Backend.js
+-- 'api/middlewear/data/:dbname/:key' Get, returns an authorized 401 page
+-- 'api/middlewear/data/:dbname/:key' Post the results to the mongo db database from the users form backend page
+   (/:dbname) is the login unique number of the user, to identify the user
+   (/:key) is  the unique url of the user, used to authorize and validate the user
+
+

@@ -1,0 +1,33 @@
+This is the config documentation for Voltex Middlwear
+Written by Hanif Adedotun 2020
+
+
+|| 404page.html ||
+>> This is the backend 404 Not Found page
+>> It is used if a user tries to access a page that does not exist on the server
+
+|| backend_page.html ||
+>> **Defunct**
+
+||backend.pug ||
+>> The dynamic html view for any message wanting to show to the user
+
+|| cache.js ||
+>> In-Memory cache for the current logged in user  storage
+>> **Now defunct**
+
+|| config.json ||
+>> File storage of the current users in session
+
+|| emailbody.pug ||
+>> The dynamic html view for the view of an email sent using nodemailer
+
+|| keys.js ||
+>> Important keys and values pairs of secrets and id used when vm is contacting an external/public server
+
+|| nconfig.js ||
+>> File to control the options of adding, extracting, and removing the current session user from the config file
+
+|| usertable.sql ||
+>> The sql file for the user table2 stored locally for the build version
+>> Can be exported later to an online mysql table

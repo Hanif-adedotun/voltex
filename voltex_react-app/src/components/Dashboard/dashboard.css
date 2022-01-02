@@ -1,0 +1,318 @@
+/* Primary color for vm */
+:root{
+    --primary: rgb(54, 123, 252);
+    --secondary: #61dafb;
+    --dark: #282c34;
+}
+*{
+    text-align: center; 
+}
+.bold{
+    font-weight: bold;
+}
+.inline{
+    display: inline;
+}
+/* #282c34
+#61dafb */
+.dashboard{
+    min-height: 70vh;;
+    font-size: medium;
+    text-align: center;
+    max-width: 99.9%;
+    margin: 0 auto;
+    background-color: #282c34;
+    color: white;
+    /* border-radius: 20px; */
+    padding: .5em;
+}
+.dashboard h2{
+    text-shadow: 2px 2px 4px #000000;
+}
+/* Div When the Dashboard is empty */
+#empty_logo{
+    height: 40%;
+    width: 40%;
+}
+.emptyDash{
+    font-size: medium;
+}
+.emptyDash  .btn-primary{
+    background-color: transparent;
+    border: 2px solid #61dafb;
+    color: #61dafb;
+    font-size: medium;
+    font-weight: bold;
+}
+.emptyDash  .btn-primary:hover{
+    background-color:  #61dafbd3;
+    color:  #282c34;
+}
+/* Form  styles */
+.btn-unique{/*button to generate unique id*/
+    background-color:  #61dafbd3;
+    color:  #282c34;
+    font-size: medium;
+    font-weight: bold;
+    padding: auto;
+    margin: auto 1em;
+}
+.btn-unique:hover{
+    border: 2px solid #61dafb;
+}
+.configForm{
+    margin: 1em auto;
+
+}
+.formHead{
+    margin: auto;
+    color: #61dafb;
+    font-size:x-large;
+    font-weight: bold;
+}
+.form-control{
+    margin: .5em auto;
+    width: 50%;
+}
+.readonly{
+    background-color: #2f6d7e70;
+    border: none;
+    border-radius: 4px;
+    margin: 1em;
+    color: whitesmoke;
+    line-height: 200%;
+}
+.readonly:active{
+    border: none;
+}
+
+/* End of form styles */
+/* End of Div When the Dashboard is empty */
+
+/* Form to Configure the database */
+
+/* Accordion styles */
+.small{
+    font-size: small;
+    /* color:  #444; */
+}
+.acc{
+    background-color: white;
+    color: black;
+    width: max-content;
+    padding: .3em 1em;
+    margin: .5em auto;
+    border-radius: 10px;
+}
+.acc-head{
+    font-size: medium;
+    font-weight: bold;
+    text-decoration: none;
+}
+.acc-body{
+    width: 100%;
+    padding: inherit;
+    font-size: medium;
+}
+.acc-body p{
+    text-align: left;
+    margin-top: 2%;
+}
+.acc-body-label{
+    font-weight: bold;
+    color: #1ea5ca;
+}
+
+.acc-body p a{
+    text-decoration: none;
+    color: #1ea5ca;
+}
+.acc-body p a:hover{
+    opacity: .7;
+}
+
+/* Form action */
+.Faction{
+    margin: 1em auto;
+    font-size: auto;
+    overflow:auto;
+   
+}
+    /* End of form action */
+.medium{
+    font-size: medium;
+}
+.small{
+    font-size: small;
+}
+/* Edit icon */
+.dEdit{
+    margin: .2em auto;
+    color: white;
+    background: none;
+    /* text-shadow: 1px 1px 5px var(--primary); */
+}
+.dEdit:hover{
+    color: #22697c;
+}
+/* Button element of dEdit */
+#dEdit-button{
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 5px;
+}
+/* Input feild for editing */
+.inputEdit{
+    border: 2px solid var(--secondary);
+    border-radius: 7px;
+}
+/* Style for the unique url button */
+.url{
+    display: flex;
+    max-width: fit-content;
+}
+.unique{
+    color: #61dafb;
+    margin: auto;
+}
+/* End of Accordion styles */
+
+/*Table styles  */
+.Tunique{
+    color: #61dafb;
+    margin: auto;
+    text-align: center;
+}
+.formTable{
+    margin:  1em auto ;
+    text-align: center;
+    
+    max-width: fit-content;
+}
+.table-dropdown{
+    width: auto;
+    margin: auto;
+}
+.table-placeholder{
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+}
+/* End of table styles */
+
+/* Form error messgae from the server */
+.form-error, .form-good{
+    color: white;
+    border-radius: 5px;
+    margin: auto;
+    width: max-content;
+    margin-bottom: 1em;
+}
+
+.form-error .error-li{
+    list-style-type: none;
+    font-weight: bold;
+    font-size: medium;
+    color: red;
+    margin: .1em auto;
+}
+
+.form-good{
+    background-color: green;
+}
+.form-good .good{
+    font-weight: bold;
+    font-size: medium;
+    margin: .1em auto;
+    padding: .3em;
+}
+.configureform{
+    margin: 1em;
+}
+.configureform form input{
+    color:  #282c34;
+}
+/* End of Form */
+
+/* Modal popup */
+.popup{
+    padding: 1em;
+    background-color: white;
+    border-radius: 10px;
+    width: max-content;
+    height: max-content;
+}
+.popup .close{
+text-decoration: none;
+border: none;
+font-size: x-large;
+color: red;
+}
+.popup .content{
+ font-weight: bold;
+ font-size: large;
+ margin: .5em auto;
+}
+
+.del_button{
+    margin: 1em  1em;
+    text-shadow: 2px 2px 4px #000000;
+    /* box-shadow:  4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) */
+}
+
+/* Table refresh button */
+#table-refresh{
+    text-align: center;
+    margin: auto 28%;
+}
+
+.rotate{
+    animation: logo-spin infinite 2s linear; 
+}
+
+@keyframes logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+/* End of popup */
+
+
+
+/* Export button */
+.table_details .btn{
+    margin: 1em 1em;
+}
+.export{
+    background-color: #61dafbd3;
+    color: black;
+}
+.export:hover{
+    color: whitesmoke;
+}
+/* End of export button */
+
+/* If a user is not signed in class */
+.signedout .s-text{
+    color:  #61dafb;
+}
+/* End of not signed in div */
+
+/* Loading text in dashboard */
+.loader{
+    margin: auto;
+}
+.space{
+    margin: 1em auto;
+}
+/* End of Loading text in dashboard  */
+
+/* Server Error text */
+.serverErr{
+    color: red;
+    margin: 1em auto;
+}
+/* End of server Error text */

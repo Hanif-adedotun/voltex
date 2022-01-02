@@ -1,0 +1,10 @@
+# GET   http://localhost:8080/api/users/refresh
+# content-type: application/json
+
+# {
+#     "username": "Hanif Adedotun",
+#     "key": "1234543"
+# }
+# GET https://api.nomics.com/v1/currencies/ticker?key=5100e2897b3012f64449c1302a5c90c2&ids=BTC,ETH&interval=1d,30d&convert=NGN&per-page=100&page=1
+# 
+GET https://api.coindesk.com/v1/bpi/currentprice/NGN.json

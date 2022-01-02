@@ -1,0 +1,201 @@
+/* To import style links to use */
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+/* Vm Primary Color */
+:root{
+    --primary: rgb(54, 123, 252);
+}
+
+
+.headGlass{
+    z-index: 99;
+    /* position: absolute;
+    top: 20vh;
+    left: 30vw; */
+    width: fit-content;
+    margin: 1em auto;
+    padding: 0.5em;
+    color: #282c34;
+   
+    /* The code for glasssmorphorsm */
+    background: rgba(255, 255, 255, 0.1);
+    /* background: #282c34; */
+    box-shadow: 0 8px 32px 0 rgba(85, 89, 145, 0.37);
+    backdrop-filter: blur( 20.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    border-radius: 10px;
+}
+
+
+.headGlass-head{
+    font-size: 3em;
+    font-weight: bold;
+    -webkit-text-stroke: 2px var(--primary);
+    -webkit-text-fill-color: transparent;
+}
+/* .tagline{
+    font-family:  Montserrat, 'Italianno', cursive;
+} */
+.head{
+    font-size: xx-large;
+    font-weight: bold;
+    color: #282c34;
+    /* text-shadow: 2px 2px 4px #000000; */
+}
+.time{
+    color: var(--primary);
+    font-weight: bold;
+}
+/* Crypto div and each text showing */
+#crypto_name{
+    color: #282c34;
+}
+#crypto_price{ 
+    font-weight: bold;
+    
+}
+.crypto{
+    display: inline-block;
+    color: var(--primary);
+   
+    /* Imitationg marqee element */
+        /* Starting position */
+    /* -moz-transform:translateX(100%);
+    -webkit-transform:translateX(100%);	
+    transform:translateX(100%); */
+    /* Apply animation to this element */	
+    /* -moz-animation: marquee 15s linear infinite;
+    -webkit-animation: marquee 15s linear infinite;
+    animation: marquee 15s linear infinite; */
+}
+/* Move it (define the animation) */
+@-moz-keyframes marquee {
+    0%   { -moz-transform: translateX(100%); }
+    100% { -moz-transform: translateX(-100%); }
+   }
+   @-webkit-keyframes marquee {
+    0%   { -webkit-transform: translateX(100%); }
+    100% { -webkit-transform: translateX(-100%); }
+   }
+   @keyframes marquee {
+    0%   { 
+    -moz-transform: translateX(100%); /* Firefox bug fix */
+    -webkit-transform: translateX(100%); /* Firefox bug fix */
+    transform: translateX(100%); 		
+    }
+    100% { 
+    -moz-transform: translateX(-100%); /* Firefox bug fix */
+    -webkit-transform: translateX(-100%); /* Firefox bug fix */
+    transform: translateX(-100%); 
+    }
+   }
+
+.crypto_container {
+    display: inline-block;
+    margin: .7em auto; 
+    font-size: medium;
+}
+.crypto_container span{
+    margin: auto .2em;
+    font-weight: bold;
+}
+.crypto_container :not(.glyphicon) {
+    font-family: Montserrat, Verdana, sans-serif;
+}
+
+.crypto_logo{
+    height: 5%;
+    width: 5%;
+}
+/* #cryptoChange{
+
+} */
+.green{color:rgb(6, 212, 6)}
+.red{color:red}
+.isContainer{
+    height: fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: rgb(185, 185, 29);
+    border-radius: 10px;
+}
+.internet_status{
+    color: white;
+    margin: 3em 1em; 
+}
+/* End of headGlass */
+/* The home icons and text */
+.hm {
+
+    border-radius: 10px;
+    margin: 2em auto;
+    background: white;
+    /* -webkit-box-shadow: 3px 3px 5px 6px #ccc;  
+    -moz-box-shadow: 3px 3px 5px 6px #ccc;  */
+    /* box-shadow: 1px 3px 5px 1px rgb(128, 166, 238);  */
+    box-shadow:  4px 8px 0 rgba(128, 166, 238, 0.2), 0 6px 20px 0 rgba(128, 166, 238, 0.1);
+    /* max-width: fit-content; */
+}
+.hm h5{
+    font-weight: bold;
+    font-size: large;
+}
+
+.hmicon{
+    height: 70%;
+    width: 70%;   
+}
+.hmHead{
+    float: right;
+    margin: .5em auto;
+    text-align: center;
+    color: var(--primary);
+}
+.hmText{
+   margin: 2em auto;
+   font-size: medium;
+   font-weight:normal;
+   font-family: Monteserrat, Arial, Helvetica, sans-serif;
+
+   /* Make the text fade into the page */
+   -webkit-animation: fadein ease 10s ; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein ease 10s ; /* Firefox < 16 */
+    -ms-animation: fadein ease 10s ; /* Internet Explorer */
+    -o-animation: fadein ease 10s ; /* Opera < 12.1 */
+    animation: fadein ease 10s ;
+}
+.large{
+    font-size: 500%;
+}
+.color{
+    color: var(--primary);
+}
+
+/* Animations */
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1;  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

@@ -1,0 +1,29 @@
+This is the database documentation for Voltex Middlwear
+Written by Hanif Adedotun 2020
+
+|| Frameworks ||
+Node.js, express, mongodb, mysql
+
+|| mongodb ||
+>> Mongodb Atlas used
+>> Used to store the client's form data
+>> Used because it is easire to insert informal data
+
+Properties
+-- (this.insert) insert  data into the mongodb atlas database
+-- (this.find) finds and return data from the mongodb atlas database
+-- (this.delete) deletes a row from the database, provided an id is given
+
+
+|| mysql ||
+>> Local Mysql  used
+>> Used to store the client's configuration of the form
+>> Used because of it's formal arrangement of data
+
+Properties
+-- (this.createDatabse) create database on mySql with name given before
+-- (this.createUserTable) create user table to store the name and other related values to the database for easy retreival
+-- (this.addToUserTable) to add a new user to the table with its table details
+-- (this.getfromtable) gets either the whole table or a specified row using params
+-- (this.editfield) to add a new user to the table with its important details
+ 

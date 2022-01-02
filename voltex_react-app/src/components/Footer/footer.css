@@ -1,0 +1,53 @@
+/* The whole footer section */
+.footer{
+    
+    margin: 0;
+    margin-top: 1em;
+    background-color: #282c34;
+    /* border-radius: 10px 10px 0 0; */
+    color: rgb(139, 136, 136);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font: small;
+    height: fit-content;
+    overflow-x: hidden;
+
+}
+/* Voltex logo */
+.footimg{
+    /* float: left; */
+    height: 8%;
+    width: 8%;
+    min-width: 100px;
+    min-height: 30px;
+    padding: 0;
+    margin: 1em auto;
+    margin-bottom: 0;
+    /* opacity: 90%; */
+}
+/* Div for contact links */
+.foot{
+    margin: 2em auto;
+    /* text-align: left; */
+}
+.foot label{
+    font-size: medium;
+    font-weight: bold;
+    color: white;
+}
+.foot ul{
+    text-align: center;
+    margin: auto;
+}
+.foot ul li{
+    cursor: pointer;
+    list-style-type: none;
+    text-align: left;
+    
+}
+.foot ul li a{
+    text-decoration: none;
+}
+/* The container for the private policies */
+

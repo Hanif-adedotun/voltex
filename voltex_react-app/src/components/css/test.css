@@ -1,0 +1,210 @@
+/* Css for all test files in the react app  */
+
+/* Github clone */
+.filelist {
+    text-align: left;
+    background-color: whitesmoke;
+    font-family: Helvetica, sans-serif;
+    width: 70%;
+    color: #333;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+  } 
+  .filelist td {
+    border-top: 1px solid #ccc;
+  } 
+  .file-name {
+    padding: 4px;
+    max-width: 180px;
+  }
+  .commitmessage{
+    text-align: left;
+    margin-left: 0;
+    padding-left: 0;
+    overflow: hidden;
+  }
+  
+  #icon-image{
+    display: inline-block;
+    height: inherit;
+    width: 20px;
+    padding-left: 4px;
+    padding-right: 0%;
+    margin-right: .5em;
+  }
+  
+.time{
+    width: 125px;
+    text-align: right;
+    padding-right: 4px;
+}
+  
+
+/* eCommerce Clone */
+.eCommerse{
+  max-width: 60%;
+  margin: 0 auto;
+  background-color: whitesmoke;
+  color:  #282c34;
+  border-radius: 10px;
+  padding-top: .1%;
+}
+.eCommerse-header{
+  color: #508FCA;
+  font-weight: bold;
+  font-size: x-large;
+  padding-top: .25em;
+}
+.eCommerse-nav{
+  margin: 1em;
+  padding: .25em;
+  border-bottom: 2px solid #508FCA;
+  text-align: left;
+}
+.eCommerse-nav ul{
+  padding: 0;
+  margin: 0;
+}
+.eCommerse-nav-item{
+  list-style: none;
+  display: inline-block;
+  margin-right: 1em;
+  font-size: medium;
+  border-bottom: 4px solid transparent;
+  font-weight: bold;
+}
+.eCommerse-nav-item span{
+  cursor: pointer;
+}
+.eCommerse-nav-item span:hover{
+  color: #999;
+}
+.eCommerse-nav-item.selected{
+  border-bottom-color: #FFAA3F;
+}
+.eCommerse-content{
+  margin: 0 .5em;
+  padding-bottom: 1em;
+  text-align: left;
+}
+
+
+/* Items page */
+.ItemPage-items{
+  margin: 0;
+  padding: 0;
+}
+.ItemPage-items li{
+  list-style: none;
+  margin-bottom: .5em;
+}
+
+.Item{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #ccc;
+  padding: .5em;
+}
+.Item-image{
+  width: 10%;
+  height: 80%;
+  border: 2px solid #ccc;
+  margin-right: 1em;
+  float: left;
+}
+.Item-image .Image{
+  width: 100%;
+  height: 100%;
+}
+.Item-title{
+  font-weight: bold;
+  margin-bottom: 0.4em;
+}
+.Item-price{
+  text-align: right;
+  font-size: medium;
+  color: #555;
+}
+.Item-AddToCart{
+  margin: 5px;
+  margin-right: 0;
+  font-size: small;
+  border: 2px solid #FFAA3F;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.Item-AddToCart:hover{
+  background-color: #FFDDB2;
+}
+.Item-AddToCart:active{
+  background-color: #ED8400;
+  color: #fff;
+  outline: none;
+}
+.Item-AddToCart:focus{
+  outline: none;
+}
+.Item-left{
+  flex: 1;
+}
+.Item-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* Add to cart popup message */
+.popUpmessage{
+  background-color: #FFDDB2;
+  border: 1.5px solid #FFAA3F;
+  text-align: center;
+  text-shadow: 2px;
+  color: #282c34;
+  font-size: small;
+  font-weight: bold;
+  padding: .1em;
+}
+/* End of Items page */
+
+/* Cart Page */
+.emptyCart{
+  padding: 2em;
+  text-align: center;
+  color:#777;
+  font-size: medium;
+  font-weight: bold;
+}
+.CartPage-items{
+  padding: 0;
+  padding-bottom: 1em;
+  margin: 0;
+}
+.CartPage-items li{
+  list-style: none;
+}
+.CartItem-count{
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+}
+.CartItem-addOne, 
+.CartItem-removeOne{
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+.CartItem-addOne{
+  border-left: none;
+}
+.CartItem-removeOne{
+  border-right: none;
+}
+/* Total price  */
+.Totalprice{
+  float: right;
+  margin: .5em;
+  color: #555;
+}
+/* End of Cart Page */
+
+/* End of eCommerse clone */

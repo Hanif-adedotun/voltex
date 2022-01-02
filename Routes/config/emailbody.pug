@@ -1,0 +1,44 @@
+doctype html
+html(lang="en")
+     head
+          //- title= pageTitle
+          meta(name="viewport" content="width=device-width, initial-scale=1.0")
+          link(rel="icon", href="https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c")
+          style(type="text/css").
+               @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+               body{
+                    font-family: Montserrat,'Courier New', Courier, monospace;
+                    text-align: center;
+                    margin: auto .5em;
+               }
+               h1{
+                    font-family: Azonix, Montserrat,'Courier New', Courier, monospace;
+                    text-align: center;
+                    margin: auto;
+               }
+               .logo{
+                    text-align: center;
+                    height: 20%;
+                    width: 10%;
+                    margin: auto;
+               }
+               a{
+                    color: #61dafb;
+                    text-decoration: none;
+               }
+               .ebody{
+                    text-align: left;
+               }
+               @media only screen and (max-width: 600px) {
+                    .logo{
+                         height: 30%;
+                         width: 20%;
+                    }
+               }
+     body
+          p
+          img(src="https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c", alt="Voltex Middlwear logo", class="logo")
+          h1 Voltex middlewear
+          div(class="ebody") #{body}
+          p 
+               a(href="http://hanif-adedotun.github.io/Portfolio/" ) Hanif Portfolio

@@ -1,0 +1,59 @@
+:root{
+  --primary: cornflowerblue;
+  --secondary: #57cff0cc;
+  --dark: #282c34;
+  --secHover: #49b0cccc;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background: url(./components/images/background.png) repeat; */
+  scroll-behavior: smooth;
+  text-align: center;
+}
+*{
+  font-family: Azonix, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Styling to change the appearance of the scroll bars */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: var(--dark); */
+  background: transparent;
+  /* background: #f1f1f1; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* background: var(--secondary); */
+  background: var(--dark);
+  border-radius: 5px;
+}
+/* The arrows at the beginning and end*/
+::-webkit-scrollbar-button{
+  display: none;
+}
+/* the track (progress bar) NOT covered by the handle. */
+/* ::-webkit-scrollbar-track-piece{
+  background: red;
+} */
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  /* background: #555; */
+  background: var(--secHover);
+}
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+} */
+
+
