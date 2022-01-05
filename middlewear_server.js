@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const router = require('./Routes/router');
-const port = process.env.port || 8080;
+const port = process.env.port || 5000;
 const cors = require('cors');
 // const publicPath = path.join(__dirname, '..', 'public');
 
@@ -24,4 +24,4 @@ app.get('/', function(req, res){
     res.status(403).send("Access Denied");
 });
 
-app.listen(port, () => console.log(`Voltex Middlewear on http://localhost:${port}`));
+app.listen(port, () => console.log(`Voltex on http://localhost:${port}`));

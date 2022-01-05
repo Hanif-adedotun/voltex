@@ -13,7 +13,7 @@ import Docs from '../Docs/docs';
 //Logo
 import logo from '../images/logo.png';
 
-
+let bg = "http://localhost:5000";
 class navigation extends React.Component{
     
     constructor(){
@@ -27,6 +27,15 @@ class navigation extends React.Component{
         // this.interval = setInterval(() => {
         //     this.getImage();
         //   }, 20000);//then check every minute 8 seconds for 
+        this.test();
+    }
+
+    // Test Server
+    test = () =>{
+        fetch(`/api/test`)//fetch the data from our express server running on localhost:8080
+        .then(res => res.json())//parse the data in json format
+        .then(response => console.log(response.message))
+        .catch((error) =>{console.error('Unable to get user image' + error);});
     }
 
     //function (getImage) get the user image from the database

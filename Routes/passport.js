@@ -30,7 +30,7 @@ const ncon = require('./config/nconfig');
 passport.use(new GoogleStrategy({
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret,
-    callbackURL: 'http://localhost:8080/api/auth/redirect',
+    callbackURL: 'http://localhost:5000/api/auth/redirect',
     passReqToCallback: true
   }, async function(request, accessToken, refreshToken, profile, done){
     // var User = usersDB.createTable(profile.id);
@@ -57,7 +57,7 @@ passport.use(new GoogleStrategy({
   passport.use(new GitHubStrategy({
     clientID: keys.github.clientID,
     clientSecret: keys.github.clientSecret,
-    callbackURL: 'http://localhost:8080/api/auth/github/callback'
+    callbackURL: 'http://localhost:5000/api/auth/github/callback'
   },
   async function(accessToken, refreshToken, profile, done) {
 
@@ -103,8 +103,9 @@ router.get('/redirect', passport.authenticate('google', {
 router.get('/signin', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 //(api/auth/github)
-//http://localhost:8080/api/auth/github
+//http://localhost:5000/api/auth/github
 router.get('/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
+
 
 //(api/auth/github/callback)
 router.get('/github/callback', 
