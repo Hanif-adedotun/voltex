@@ -54,12 +54,12 @@ class Profile extends React.Component{
    //@param {e} is the default event 
    handleusersignin = (e) =>{
     e.preventDefault();
-    window.open('http://localhost:8080/api/auth/signin', '_self');
+    window.open('http://localhost:5000/api/auth/signin', '_self');
    }
 
    handlegithubsignin = (e) =>{
     e.preventDefault();
-    window.open('http://localhost:8080/api/auth/github', '_self');
+    window.open('http://localhost:5000/api/auth/github', '_self');
    }
 
    //function (handlesignout) to sign a user out  using fetch api to the backend, then reload the page

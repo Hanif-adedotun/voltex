@@ -40,7 +40,10 @@ import Load from '../objects/loading';
          this.setState({rotate: true});
         fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
          .then(res => res.json())//parse the data in json format
-         .then(dashboard => this.setState({dashboard}, () => console.log('Dashboard updated'+JSON.stringify(dashboard)), this.setState({rotate: false})))
+         .then(dashboard => this.setState(
+             {dashboard}, 
+             this.setState({rotate: false})
+             ))
          .catch((error) =>{console.error('Unable to get data from database' + error);});
      }
 

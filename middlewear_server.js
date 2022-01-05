@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const router = require('./Routes/router');
-const port = process.env.port || 5000;
+const port = 5000;
 const cors = require('cors');
 // const publicPath = path.join(__dirname, '..', 'public');
 
