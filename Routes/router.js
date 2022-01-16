@@ -12,13 +12,7 @@ var passport = require('./passport');
 router.use('/users', users);//Go to users file for any request from the frontend
 router.use('/auth', passport);//To either sign in or sign out user using passport
 router.use('/middlewear/data', backend);//Go to the backend file for any form post request
-router.get('/test', async (req, res)=>{
-     res.status(200).json({
-          message: "testing the server",
-          status: "Good Job!"
-     });
-          
-});
+
    
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
-
+import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
  
 
 import './nav.css';
@@ -23,19 +23,10 @@ class navigation extends React.Component{
         };
     }
     componentDidMount(){
-        this.getImage();//Get the image initially
+        // this.getImage();//Get the image initially
         // this.interval = setInterval(() => {
         //     this.getImage();
         //   }, 20000);//then check every minute 8 seconds for 
-        this.test();
-    }
-
-    // Test Server
-    test = () =>{
-        fetch(`/api/test`)//fetch the data from our express server running on localhost:8080
-        .then(res => res.json())//parse the data in json format
-        .then(response => console.log(response.message))
-        .catch((error) =>{console.error('Unable to get user image' + error);});
     }
 
     //function (getImage) get the user image from the database
@@ -43,7 +34,7 @@ class navigation extends React.Component{
         getImage = () =>{
             fetch('/api/users/login/profile')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
-            .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user.imageUrl)); this.renderImage();}))
+            .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, this.renderImage()))
             .catch((error) =>{console.error('Unable to get user image' + error);});
         }
 
@@ -72,46 +63,37 @@ class navigation extends React.Component{
     render(){
         return(
             <Router>
-             {/* <Navbar>
-                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
-                   <Navbar.Collapse id='basic-navbar-nav'>
-                        <Nav className='mr-auto' justify='true' variant='pills' fill>
-                             <Nav.Item><Nav.Link className='Navlin' ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></Nav.Link></Nav.Item>
-                             <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></Nav.Link></Nav.Item>
-                             <Nav.Item><Nav.Link className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.renderImage()}</NavLink></Nav.Link></Nav.Item>
-                        </Nav>
-                     </Navbar.Collapse> 
-                 </Navbar>  */}
-              {/* navbar-fixed-top to make the navbar fixed at the top */}
-                <div className='nav'>
-                    <nav className="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="197">
-                    <div className="navbar-header">
-                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                    </div> 
-                     <div className='collapse navbar-collapse'>
-                        <ul className='nav nav-pills nav-justified'>
-                            {/* <li ><NavLink exact to='/'><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></NavLink></li> */}
-                            <li className='Navlin'><NavLink exact to='/'><img src={logo} alt="Voltex Middlwear logo" className='logo'/></NavLink></li> 
-                            <li className='Navlin' ><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></li>
-                            <li className='Navlin' ><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></li>
-                            <li className='Navlin' ><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></li>
-                            <li  className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.renderImage()}</NavLink></li>
-                        </ul>
-                    </div>
-                    </nav>
-                </div>
+             <Navbar bg="light" expand="md" fixed="top">
+                <Container>
+                    <Navbar.Brand href="/"><img
+                        src={logo}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        alt="Voltex logo"
+                    /></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                        <Nav.Link href="/docs">Docs</Nav.Link>
+                        <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                        <Nav.Link href="/profile">Login</Nav.Link>
+                    </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+                           
                 <div className='content'>
                 <Switch >
                     <Route path='/' exact component={Home}/>
                     <Route path='/dashboard' exact component={Dashboard}/>
                     <Route path='/profile' exact component={Profile}/>
-                    <Route path='/docs' exact component={Docs} />
+                    <Route path='/docs' exact component={() => {
+                        window.location.href = 'https://voltex.readme.io';
+                        return null;
+                    }} />
                 </Switch>
                 </div>
             </Router> 

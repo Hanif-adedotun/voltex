@@ -73,6 +73,7 @@ class Home extends React.Component{
             user: [],
             internet: tim(),
             //Crpto price
+            key: 'price',
             prices: []
         };
       }
@@ -104,8 +105,14 @@ class Home extends React.Component{
       cryptoPrice = () =>{
         fetch('https://api.nomics.com/v1/currencies/ticker?key=5100e2897b3012f64449c1302a5c90c2&ids=BTC,ETH&interval=1d,30d&convert=NGN&per-page=100&page=1')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
-            .then(prices => this.setState({prices: prices}))
-            .catch((error) =>{console.error('Unable to get prices' + error);});
+            .then(prices => {
+              this.setState({prices: prices});
+              localStorage.setItem(this.state.key, JSON.stringify(prices));
+          })
+            .catch((error) =>{
+              console.error('Unable to get prices' + error);
+              this.setState({prices: (localStorage[this.state.key]) ? JSON.parse(localStorage[this.state.key]):[]})
+            });
       }
 
       currency = (number) =>{
@@ -147,6 +154,8 @@ class Home extends React.Component{
                     </div> 
                   {this.offlineText()}    
             </header>
+
+                 
 
             <div className='container-fluid'>
               <div className='row '>

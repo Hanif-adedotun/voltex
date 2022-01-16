@@ -6,6 +6,7 @@ const port = 5000;
 const cors = require('cors');
 // const publicPath = path.join(__dirname, '..', 'public');
 
+
 app.use(cors({
   origin: "http://localhost:3000", // allow to server to accept request from different origin
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

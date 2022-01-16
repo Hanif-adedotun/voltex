@@ -2,6 +2,7 @@ import React from 'react';
 import './css/App.css';
 import './Home/home'
 import Nav from './Navigation/nav';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class App extends React.Component{
