@@ -4,7 +4,6 @@ import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
  
 
 import './nav.css';
-import '../css/bootstrap.min.css';
 import Dashboard from '../Dashboard/dashboard';
 import Home from '../Home/home';
 import Profile from '../Profile/profile';
@@ -63,26 +62,26 @@ class navigation extends React.Component{
     render(){
         return(
             <Router>
-             <Navbar bg="light" expand="md" fixed="top">
-                <Container>
+             <Navbar collapseOnSelect expand="md" fixed="top" className='nav-cus'>
                     <Navbar.Brand href="/"><img
                         src={logo}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
+                        width="50"
+                        height="50"
+                        className="d-inline-block align-top nav-logo"
                         alt="Voltex logo"
                     /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/docs">Docs</Nav.Link>
-                        <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                        <Nav.Link href="/profile">Login</Nav.Link>
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="ml-auto">
+                        <Nav.Link href="/" className='nav-l'>Home</Nav.Link>
+                        <Nav.Link href="/about" className='nav-l'>About</Nav.Link>
+                        <Nav.Link href="/docs" className='nav-l'>Docs</Nav.Link>
+                        <Nav.Link href="/dashboard" className='nav-l'>Dashboard</Nav.Link>
+                    </Nav>
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/profile" className='nav-p'>Login</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
-                </Container>
             </Navbar>
                            
                 <div className='content'>

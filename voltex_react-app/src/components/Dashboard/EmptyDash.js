@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import './dashboard.css';
-import '../css/bootstrap.min.css';
+
 
 class Emptydash extends React.Component{
     constructor(){

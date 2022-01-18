@@ -1,6 +1,5 @@
 import React from 'react';
 import './docs.css';
-import '../css/bootstrap.min.css';
 
 
 //Highlighter

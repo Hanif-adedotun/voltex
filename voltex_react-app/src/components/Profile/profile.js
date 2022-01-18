@@ -1,6 +1,5 @@
 // import { request } from 'express';
 import React from 'react';
-import '../css/bootstrap.min.css';
 import './profile.css';
 
 

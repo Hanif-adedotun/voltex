@@ -22,7 +22,6 @@ class App extends React.Component{
     // clearInterval(this.interval);
   }
 
-
   render() {
     return (
       <div className="App">

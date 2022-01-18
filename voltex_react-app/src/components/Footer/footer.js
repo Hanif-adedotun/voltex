@@ -2,8 +2,6 @@ import React from 'react';
 import './footer.css';
 import logo from '../images/voltex.png';
 
-//Import bootstrap 3
-import '../css/bootstrap.min.css';
 
 var year = new Date().getFullYear();
 class footer extends React.Component{
@@ -38,7 +36,7 @@ class footer extends React.Component{
                     </ul>
                 </div>
                 </div>
-                <p className='footext'>&copy; Copyright <a href='https://github.com/Voltex-designs'>Voltex Designs</a> {year}</p>
+                <p className='footext'>&copy; Copyright <a href='https://hanif-adedotun.com'>Hanif Adedotun</a> {year}</p>
             
             </div>
         )

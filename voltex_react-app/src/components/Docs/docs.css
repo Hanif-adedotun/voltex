@@ -1,7 +1,5 @@
 /* Primary color of vm */
-:root{
-     --primary: rgb(54, 123, 252);
-}
+
 .header{
      border-bottom: 2px solid var(--primary);
      text-shadow: .5px .5px 1px #000000de;

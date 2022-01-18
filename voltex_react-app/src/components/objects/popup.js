@@ -1,7 +1,7 @@
 import React from 'react';
 import './dashboard.css';
 import PropTypes from 'prop-types';
-import '../css/bootstrap.min.css';
+
 
 //popup
 import Popup from 'reactjs-popup';

@@ -1,21 +1,15 @@
-:root{
-  --primary: cornflowerblue;
-  --secondary: #57cff0cc;
-  --dark: #282c34;
-  --secHover: #49b0cccc;
-}
-
+@import  url(../src/components/utils/color.css);
 body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: url(./components/images/background.png) repeat; */
   scroll-behavior: smooth;
   text-align: center;
 }
 *{
-  font-family: Azonix, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* font-family: Azonix, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Styling to change the appearance of the scroll bars */
@@ -42,18 +36,5 @@ body {
 ::-webkit-scrollbar-button{
   display: none;
 }
-/* the track (progress bar) NOT covered by the handle. */
-/* ::-webkit-scrollbar-track-piece{
-  background: red;
-} */
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  /* background: #555; */
-  background: var(--secHover);
-}
-
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-} */
 
 

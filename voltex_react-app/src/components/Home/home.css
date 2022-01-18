@@ -1,46 +1,6 @@
 /* To import style links to use */
-@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
-/* Vm Primary Color */
-:root{
-    --primary: rgb(54, 123, 252);
-}
+@import url(../utils/color.css);
 
-
-.headGlass{
-    z-index: 99;
-    /* position: absolute;
-    top: 20vh;
-    left: 30vw; */
-    width: fit-content;
-    margin: 1em auto;
-    padding: 0.5em;
-    color: #282c34;
-   
-    /* The code for glasssmorphorsm */
-    background: rgba(255, 255, 255, 0.1);
-    /* background: #282c34; */
-    box-shadow: 0 8px 32px 0 rgba(85, 89, 145, 0.37);
-    backdrop-filter: blur( 20.0px );
-    -webkit-backdrop-filter: blur( 4.0px );
-    border-radius: 10px;
-}
-
-
-.headGlass-head{
-    font-size: 3em;
-    font-weight: bold;
-    -webkit-text-stroke: 2px var(--primary);
-    -webkit-text-fill-color: transparent;
-}
-/* .tagline{
-    font-family:  Montserrat, 'Italianno', cursive;
-} */
-.head{
-    font-size: xx-large;
-    font-weight: bold;
-    color: #282c34;
-    /* text-shadow: 2px 2px 4px #000000; */
-}
 .time{
     color: var(--primary);
     font-weight: bold;

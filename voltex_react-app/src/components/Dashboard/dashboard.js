@@ -1,6 +1,6 @@
 import React from 'react';
 import './dashboard.css';
-import '../css/bootstrap.min.css';
+
 import Emptydash from './EmptyDash';
 import Table from './table';
 import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';

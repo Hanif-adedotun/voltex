@@ -1,9 +1,5 @@
 /* Primary color for vm */
-:root{
-    --primary: rgb(54, 123, 252);
-    --secondary: #61dafb;
-    --dark: #282c34;
-}
+
 *{
     text-align: center; 
 }
