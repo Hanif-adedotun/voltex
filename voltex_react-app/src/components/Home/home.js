@@ -1,6 +1,8 @@
 import React from 'react';
 import './home.css';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
+import { ArrowRightShort} from 'react-bootstrap-icons';
+
 //All the illustrations going to be used
 import H from "../images/illustrations/home_desc.svg";
 
@@ -93,7 +95,6 @@ class Home extends React.Component{
       }
 
       currency = (number) =>{
-        var num = Number(number);
         var formatter = new Intl.NumberFormat('en-NG', {
           style: 'currency',
           currency: 'NGN',
@@ -102,7 +103,7 @@ class Home extends React.Component{
           //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
           //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
         });
-        return formatter.format(num);
+        return formatter.format(Number(number));
       }
 
       componentWillUnmount(){
@@ -113,40 +114,29 @@ class Home extends React.Component{
         // this.price();
           return(
             <div className='Home'>
-            <header className='headGlass'>
-                  <h1 className='headGlass-head'>Voltex Middlwear</h1>
-                  <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
-                  <p>Time is <span className='time'>{this.state.time}</span></p>
-                  <div className='crypto'>
-                    {(this.state.prices) ? 
-                    Object.values(this.state.prices).map((value, index) => 
-                    <div key={index} className="crypto_container">
-                      <span ><img src={value.logo_url} className='crypto_logo'></img></span> 
-                      <span  id='crypto_name'>{value.name}</span> 
-                      <span  id='crypto_price'>{this.currency(value.price)}</span>  
-                      <span  id='cryptoChange'>{(Number(value['1d'].price_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red">{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>: <span className="glyphicon glyphicon-chevron-up green">{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>}</span>
-                    </div>
-                    )
-                    : 'Crypto Price Placeholder, Coming Soon....   '}
-                    </div> 
-                  {this.offlineText()}    
-            </header>
+              <div className="h-head">
+                <h1>Voltex</h1>
+                <span>The only backend you need for your forms...</span>
+              </div>
 
-                 <Container>
-                   <Row>
-                     <Col sm={6}>
-                       <h2 className='h-head'>
-                       Quickly store your forms without hassle.
-                       </h2>
+                 <Container className="h-main">
+                   <Row >
+                     <Col sm={6} >
+                       <div className='h-head'>
+                        <h1 >
+                        Quickly store your forms without hassle.
+                        </h1>
+                       </div>
+                       <Row>
+                         <Col xs={6} className="btn-pri"><Button>Get Started <ArrowRightShort height={30} width={30}/></Button></Col>
+                         <Col xs={6} className="btn-sec"><Button>Learn more</Button></Col>
+                       </Row>
                      </Col>
                      <Col sm={6}>
-                       <img src={H} alt={"opaque definition"}/>
+                       <img src={H} className='h-img' alt={"opaque definition"}/>
                      </Col>
                    </Row>
                  </Container>
-
-            
-
             </div>
           );
       }

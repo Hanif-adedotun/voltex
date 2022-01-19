@@ -65,8 +65,8 @@ class navigation extends React.Component{
              <Navbar collapseOnSelect expand="md" fixed="top" className='nav-cus'>
                     <Navbar.Brand href="/"><img
                         src={logo}
-                        width="50"
-                        height="50"
+                        width="45"
+                        height="45"
                         className="d-inline-block align-top nav-logo"
                         alt="Voltex logo"
                     /></Navbar.Brand>
