@@ -7,9 +7,9 @@
     font-weight: bold;
     margin: auto;
     padding: 0 2em;
-    background-color: rgba( 50, 80, 187, 0.9);
+    background-color: var(--primary) ;
     border-radius:  0 0 20px 20px;
-    backdrop-filter: saturate(30%) blur(5px) !important;
+  
 }
 .nav-l{
   color: white !important;

@@ -1,13 +1,13 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
-import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import {Navbar, Nav} from 'react-bootstrap';
  
 
 import './nav.css';
 import Dashboard from '../Dashboard/dashboard';
 import Home from '../Home/home';
 import Profile from '../Profile/profile';
-import Docs from '../Docs/docs';
+
 
 //Logo
 import logo from '../images/logo.png';
@@ -62,7 +62,7 @@ class navigation extends React.Component{
     render(){
         return(
             <Router>
-             <Navbar collapseOnSelect expand="md" fixed="top" className='nav-cus'>
+             <Navbar collapseOnSelect expand="md" sticky="top" className='nav-cus shadow'>
                     <Navbar.Brand href="/"><img
                         src={logo}
                         width="45"

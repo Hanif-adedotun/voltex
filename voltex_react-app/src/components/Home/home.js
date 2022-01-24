@@ -1,11 +1,11 @@
 import React from 'react';
 import './home.css';
 import {Container, Row, Col, Button} from 'react-bootstrap';
-import { ArrowRightShort} from 'react-bootstrap-icons';
+import { ArrowRightShort, Clipboard} from 'react-bootstrap-icons';
 
 //All the illustrations going to be used
 import H from "../images/illustrations/home_desc.svg";
-
+import Doc from "../images/illustrations/doc.svg";
 
 //function (showTime) To get the current time and returns it in string format
 //This function is to show the time, and it updates itself after every 15 seconds 
@@ -53,7 +53,12 @@ class Home extends React.Component{
             internet: tim(),
             //Crpto price
             key: 'price',
-            prices: []
+            prices: [],
+            features: [
+              "Give your form a storage in less than 5 minutes",
+              "Quick one-step-integration",
+              "Works regardless of the frontend framework you are using"
+            ]
         };
       }
 
@@ -137,6 +142,34 @@ class Home extends React.Component{
                      </Col>
                    </Row>
                  </Container>
+
+                {/* Features section */}
+                <Container className='alt-sec' fluid>
+
+                  <Container className="feat">
+                    <h2>Features</h2>
+                    <ul>
+                      {this.state.features.map((f, i) =>
+                        <li>{f}</li>
+                      )}
+                    </ul>
+                  </Container>
+
+                  <Container className="h-docs">
+                          <Row>
+                            <Col xs={6} className='docs-txt'>
+                              <h2>Powerful and easy to use resources</h2>
+                              
+                              <Row>
+                                <Button>Read our api docs <Clipboard width={30} height={30}/></Button>
+                                </Row>
+                              </Col>
+                            <Col x={6}><img  className='h-docs-img' src={Doc} alt="Document"/></Col>
+                          </Row>
+                  </Container>
+
+                </Container>
+                 
             </div>
           );
       }

@@ -1,41 +1,19 @@
 import React from 'react';
 import './footer.css';
-import logo from '../images/voltex.png';
-
+import {Container, Row, Col} from 'react-bootstrap';
+import {EnvelopeFill, Github} from 'react-bootstrap-icons';
 
 var year = new Date().getFullYear();
 class footer extends React.Component{
     render(){
         return(
             <div className='footer'>
-                <span>
-                    <img className='footimg' src={logo} alt='Voltex logo'></img>   
-                </span>
-                <div className='row'>
-                <div className='col-md-4 foot' id='contactLinks'>
-                    <label>Contact US</label>
-                    <ul>
-                        <li><a href='https://github.com/Voltex-designs' >Github</a></li>
-                        <li><a href='#' >twitter</a></li>
-                        <li><a href='#' >Instagram</a></li>
-                        <li><a href='#'>E-mail</a></li>
-                    </ul>
-                </div>
-                <div className='col-md-4 foot' id='policies'>
-                <label>Policies</label>
-                    <ul>
-                        <li><a href='#'>Private policies</a></li>
-                        <li><a href='#'>Lincense</a></li>
-                    </ul>
-                </div>
-                <div className='col-md-4 foot' id='site'>
-                <label>Links</label>
-                    <ul>
-                        <li><a href='#'>Sitemap</a></li>
-                        <li><a href='#'>Report problem</a></li>
-                    </ul>
-                </div>
-                </div>
+             <Container className='foot-l'>
+                 <Row>
+                     <Col><a href="#"><Github height={45} width={45}/></a></Col>
+                     <Col><a href="mailto:hanif.adedotun@gmail.com"><EnvelopeFill height={45} width={45}/></a></Col>
+                 </Row>
+             </Container>
                 <p className='footext'>&copy; Copyright <a href='https://hanif-adedotun.com'>Hanif Adedotun</a> {year}</p>
             
             </div>

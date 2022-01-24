@@ -13,7 +13,7 @@
 .h-main{
     display: flex;
     justify-content: center;
-
+    margin-top: 1em;
 }
 .h-img{
     width: 70%;
@@ -37,4 +37,42 @@
 }
 .btn-sec Button:hover{
     background-color: var(--primary);
+}
+
+
+/* Secondary section */
+.alt-sec{
+    background-color: var(--primary);
+    color: white;
+    margin: 0;
+    padding: 2em 0;
+}
+.alt-sec h2{
+    text-align: left;
+}
+.feat{
+   text-align: left;
+}
+.feat ul{
+    list-style-image: url('../images/icon/cube.png');
+    padding: 0;
+    margin: 0;
+}
+
+.feat ul li{
+    text-decoration: none;
+     list-style-type: none;
+     margin: 2em 2em;
+     text-align: left;
+     line-height: 2em;
+}
+.docs-txt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h-docs-img{
+    height: auto;
+    width: 70%;
 }

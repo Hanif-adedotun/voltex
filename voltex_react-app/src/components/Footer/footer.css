@@ -1,53 +1,37 @@
+/* The primary color of voltex */
+@import url(../utils/color.css);
+
 /* The whole footer section */
 .footer{
-    
-    margin: 0;
-    margin-top: 1em;
-    background-color: #282c34;
-    /* border-radius: 10px 10px 0 0; */
-    color: rgb(139, 136, 136);
+    margin: 0 !important;
+    padding: 1em 0;
+    background-color: black;
+    color: white;
     position: relative;
     bottom: 0;
     width: 100%;
     font: small;
     height: fit-content;
     overflow-x: hidden;
+}
 
+.foot-l{
+    width: 30%;
 }
-/* Voltex logo */
-.footimg{
-    /* float: left; */
-    height: 8%;
-    width: 8%;
-    min-width: 100px;
-    min-height: 30px;
-    padding: 0;
-    margin: 1em auto;
-    margin-bottom: 0;
-    /* opacity: 90%; */
-}
-/* Div for contact links */
-.foot{
-    margin: 2em auto;
-    /* text-align: left; */
-}
-.foot label{
-    font-size: medium;
-    font-weight: bold;
+.foot-l a{
     color: white;
 }
-.foot ul{
-    text-align: center;
-    margin: auto;
+.foot-l a:hover{
+    color: var(--primary);
 }
-.foot ul li{
-    cursor: pointer;
-    list-style-type: none;
-    text-align: left;
-    
+.footext{
+    margin-top: 1em;
 }
-.foot ul li a{
+.footext a{
+    color: var(--primary);
     text-decoration: none;
+    font-weight: bold;
 }
-/* The container for the private policies */
-
+.footext a:hover{
+    text-decoration: underline;
+}
