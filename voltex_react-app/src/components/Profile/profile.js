@@ -8,22 +8,19 @@ import Load from '../objects/loading';
 
 
 //Import Login Logos
-import Gicon from '../images/icon/google.svg'
-import Giticon from '../images/icon/github.svg'
-
+import Gicon from '../images/icon/google.svg';
+import Giticon from '../images/icon/github.svg';
+import Facebook from '../images/icon/facebook.svg';
 
 //function (gsign) Google button both for sign in and sign out
 //@param {name} The text the will show in the button
 //@param {github} Default is false, but if true the github button settings will be activated
-var gsign = (name, github=false) =>{
-// var googlelogo = 'https://img.icons8.com/color/40/000000/google-logo.png';
-// var gitlogo = "https://img.icons8.com/windows/40/000000/github.png";
-
+var gsign = (name, icon) =>{
     return(
-        <div className=  {(github) ? 'github-sign-in sign-in': 'g-sign-in-button sign-in'}>
+        <div className=  {'sign-in'}>
             <div className='content-wrapper'>
                 <span className='logo-wrapper'>
-                    <img id='logo' alt='Google logo' src={(github) ? Giticon : Gicon}></img>
+                    <img id='img-login' alt={`${name} logo`} src={icon}></img>
                 </span>
                 <span className='text-container'> {name} </span>
             </div>
@@ -96,14 +93,20 @@ class Profile extends React.Component{
     //function (handlesignout) view when an account is not signed in
     notsignedin = () =>{
         return(
-            <div>
-                <h2>Seems you are not signed in, sign in now!</h2>
-                <div className='gsign' onClick={this.handleusersignin}>
-                 {gsign('Sign in With Google')}
-                </div>
-                
-                <div className='gsign' onClick={this.handlegithubsignin}>
-                 {gsign('Sign in With Github', true)}
+            <div className='l-card shadow' id='signin'>
+                <div className='signin-container'>
+                    <h2>Login</h2>
+                    <div className='gsign' onClick={this.handleusersignin}>
+                    {gsign('Continue With Google', Gicon)}
+                    </div>
+                    
+                    <div className='gsign' onClick={this.handlegithubsignin}>
+                    {gsign('Continue With Github', Giticon)}
+                    </div>
+
+                    <div className='gsign coming-soon'>
+                    {gsign('Continue With Facebook', Facebook)}
+                    </div>
                 </div>
             </div>
         );
@@ -111,14 +114,13 @@ class Profile extends React.Component{
 
     //function (renderuser) the switch button to change between views
     // Views Loading icon, signed in profile and not signed in profile
-    renderuser(){
-        console.log('The user profile '+String(this.state.authenticate));
-        
+    renderuser(){       
         switch(this.state.authenticate){
             default: return <Load color='rgb(54, 123, 252)' type='bubbles'/>
                 case false: return this.notsignedin();
                 case true: return this.userprofile();
         }
+        
     }
     
     //Render the Views on the screen

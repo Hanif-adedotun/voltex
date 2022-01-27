@@ -7,7 +7,7 @@ import './nav.css';
 import Dashboard from '../Dashboard/dashboard';
 import Home from '../Home/home';
 import Profile from '../Profile/profile';
-
+import About from '../about/about';
 
 //Logo
 import logo from '../images/logo.png';
@@ -87,6 +87,7 @@ class navigation extends React.Component{
                 <div className='content'>
                 <Switch >
                     <Route path='/' exact component={Home}/>
+                    <Route path='/about' exact component={About}/>
                     <Route path='/dashboard' exact component={Dashboard}/>
                     <Route path='/profile' exact component={Profile}/>
                     <Route path='/docs' exact component={() => {

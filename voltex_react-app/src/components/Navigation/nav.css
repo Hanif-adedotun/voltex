@@ -4,32 +4,35 @@
 .nav-cus{
     width: max-content;
     font-size: medium;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin: auto;
     padding: 0 2em;
     background-color: var(--primary) ;
     border-radius:  0 0 20px 20px;
-  
 }
 .nav-l{
   color: white !important;
 }
 .nav-l:hover{
- /* text-decoration: underline; */
- border-bottom: 2px solid var(--primary);
+ border-bottom: 2px solid var(--primary) !important;
 }
 .nav-p{
   background-color: rgba(255, 255, 255, 0.25);
-  border-radius:  7px;
+  border-radius:  5px;
   color: white !important;
-  margin-left: 3em;
+  margin-left: 6em;
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
-
+  font-weight: bold;
+  padding:  .25em 1em !important;
+}
+.nav-p:hover{
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.3);
 }
 .nav-logo{
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  margin-right: 2em;
+  margin-right: 5em;
 }
 .nav-toggle{
   border: none;
@@ -39,12 +42,15 @@
 }
 /* Content after the navbar */
 .content{
-  margin-top: 7em;
+  margin-top: 1em;
 }
 
 @media screen and (max-width:767px){
   .nav-cus{
     width: 100%;
     border-radius: 0;
+  }
+  .nav-p{
+    margin: auto 0;
   }
 }

@@ -160,9 +160,9 @@ class Home extends React.Component{
                             <Col xs={6} className='docs-txt'>
                               <h2>Powerful and easy to use resources</h2>
                               
-                              <Row>
+                              <p className='read-more'>
                                 <Button>Read our api docs <Clipboard width={30} height={30}/></Button>
-                                </Row>
+                              </p>
                               </Col>
                             <Col x={6}><img  className='h-docs-img' src={Doc} alt="Document"/></Col>
                           </Row>

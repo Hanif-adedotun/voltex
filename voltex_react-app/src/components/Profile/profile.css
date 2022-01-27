@@ -1,54 +1,45 @@
-/* Vm primary color */
-.color{
-    color: rgb(70, 123, 223);
-  }
+@import url(../utils/color.css);
 
-/* The user profile style*/
-.img-circle {
-    /* border-radius: 50%; */
-    height: 15%;
-    width: 15%;
-    /* border: 2px solid cornflowerblue; */
-    box-shadow: 1px 1px 7px #000000de;
-}
-
-/* Google sign in button */
-.gsign{
+.l-card{
+    background-color: var(--primary);
+    width: 50%;
     margin: auto;
-    width: max-content;
+    color: white;
+    border-radius: 30px 30px 0 0;
+    min-height: 70vh;
 }
-/* General sign i button sign */
-.sign-in{
-    border-radius: 20px;
-    margin: 2em auto; 
-    cursor: pointer;
-    width: max-content;
+#signin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+ .signin-container{
+     display: block;
+ }
+ .signin-container h2{
     font-weight: bold;
 }
-#logo{ 
+.img-login{
+    max-width: 10px;
+    max-height: 10px;
+}
+.gsign{
     background-color: white;
-    border-radius: 20px;
+    color: black;
+    font-weight: bold;
+    padding: 1em 2em;
+    width: max-content;
+    margin:  2em auto;
+    border-radius: 10px;
+    font-size: large;
 }
-.content-wrapper{
-    margin: .2em;
+.gsign:hover{
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
-/* Google specific sign in */
-.g-sign-in-button {
-    border: 2px solid rgb(70, 123, 223);
-    background-color: white;
-}
-.g-sign-in-button:hover{
-    background-color: rgb(70, 123, 223);
-    color: white;
-    font-size: medium;
-}
-/* Github specific sign in */
-.github-sign-in{
-    border: 2px solid black;
-    background-color: white;
-}
-.github-sign-in:hover{
-    background-color: black;
-    color: white;
-    font-size: medium;
+.coming-soon{
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: none !important;
+    cursor:not-allowed !important;
 }
