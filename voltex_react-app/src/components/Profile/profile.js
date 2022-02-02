@@ -1,8 +1,7 @@
 // import { request } from 'express';
 import React from 'react';
 import './profile.css';
-
-
+import {Link} from 'react-router-dom';
 //Loader
 import Load from '../objects/loading';
 
@@ -75,16 +74,18 @@ class Profile extends React.Component{
 //function (userprofile) the view for the user when signed in
     userprofile = () =>{
         return(
-            <div>
-                <h1>Hello {this.state.user.name}</h1>
-                <div className='user'>
-                    <p><img src={this.state.user.imageUrl} alt='User icon' className='img-circle'></img></p>
-                    <p>Welcome {this.state.user.name}</p>
-                    <p>E-mail: {this.state.user.email}</p>
-                    <p>Go to dashboard to access your tables</p>
-                </div>
-                <div className='gsign' onClick={this.handlesignout}>
-                    {gsign('Sign out')}
+            <div className='l-card'>
+                <div className='l-card-d'>
+                    {/* <h1>Hello {this.state.user.name}</h1> */}
+                    <div className='user'>
+                        <p className='img-prof-cont'><img src={this.state.user.imageUrl} alt='User icon' className='img-profile'></img></p>
+                        <p>Welcome {this.state.user.name}</p>
+                        <p>E-mail: {this.state.user.email}</p>
+                        <p className='dash-msg'>Go to <Link className="prof-link" to='/dashboard'>Dashboard</Link> to access your tables</p>
+                    </div>
+                    <div className='gsign signout' onClick={this.handlesignout}>
+                        {gsign('Sign out', "")}
+                    </div>
                 </div>
             </div>
         );

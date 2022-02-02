@@ -22,7 +22,7 @@ class navigation extends React.Component{
         };
     }
     componentDidMount(){
-        // this.getImage();//Get the image initially
+        this.getImage();//Get the image initially
         // this.interval = setInterval(() => {
         //     this.getImage();
         //   }, 20000);//then check every minute 8 seconds for 
@@ -33,7 +33,7 @@ class navigation extends React.Component{
         getImage = () =>{
             fetch('/api/users/login/profile')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
-            .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, this.renderImage()))
+            .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}))
             .catch((error) =>{console.error('Unable to get user image' + error);});
         }
 
@@ -79,7 +79,7 @@ class navigation extends React.Component{
                         <Nav.Link href="/dashboard" className='nav-l'>Dashboard</Nav.Link>
                     </Nav>
                     <Nav className="mr-auto">
-                        <Nav.Link href="/profile" className='nav-p'>Login</Nav.Link>
+                        <Nav.Link href="/profile" className={`nav-p ${(this.state.imageUrl) ? "img-c" : null}` } >{(this.state.imageUrl) ? this.renderImage(): "Logo"}</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
             </Navbar>
