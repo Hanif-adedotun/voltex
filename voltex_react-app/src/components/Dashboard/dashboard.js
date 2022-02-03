@@ -3,8 +3,10 @@ import './dashboard.css';
 
 import Emptydash from './EmptyDash';
 import Table from './table';
-import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
+import Form from './form';
 
+import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
+import {Button} from 'react-bootstrap';
 //Link
 import {Link } from "react-router-dom";
 
@@ -18,7 +20,18 @@ import Load from '../objects/loading';
          super();
          
          this.state = {
-             dashboard: [],
+             dashboard: {
+                 "data": [
+                     {
+                        "Tablename": "Test Table",
+                        "url": "https://test.com",
+                        "uniqueid": "9843948988nnsjhs",
+                     }
+                 ], 
+                 "action_url": "https://voltex.com/673778783778/89384",
+                 "table":[],
+                 "status": 404,
+             },
              activeDashboard: '',
              copyText: 'copy',
              //Table.js 
@@ -36,19 +49,19 @@ import Load from '../objects/loading';
          
      }
      //Load the database values from the MongoDB
-     loadDatabase = () => {
-         this.setState({rotate: true});
-        fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
-         .then(res => res.json())//parse the data in json format
-         .then(dashboard => this.setState(
-             {dashboard}, 
-             this.setState({rotate: false})
-             ))
-         .catch((error) =>{console.error('Unable to get data from database' + error);});
-     }
+    //  loadDatabase = () => {
+    //      this.setState({rotate: true});
+    //     fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
+    //      .then(res => res.json())//parse the data in json format
+    //      .then(dashboard => this.setState(
+    //          {dashboard}, 
+    //          this.setState({rotate: false})
+    //          ))
+    //      .catch((error) =>{console.error('Unable to get data from database' + error);});
+    //  }
 
      componentDidMount(){
-         this.loadDatabase();
+        //  this.loadDatabase();
      }
 
      //function (copyUrl) to copy the unique url to clipboard
@@ -136,8 +149,7 @@ import Load from '../objects/loading';
 
         //url to put in user form action
         const action_url = this.state.dashboard.action_url;
-        // console.log(action_url);
-
+   
         //Changes the icons to up and down when needed
         this.changeIcon = () =>{
             var icon = document.getElementById('acc-arrow');
@@ -176,8 +188,8 @@ import Load from '../objects/loading';
                                 <span className='acc-body-label'>
                                 <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>
                                 </span> 
-                                <button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</button>
-                                <button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</button>
+                                <Button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</Button>
+                                <Button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</Button>
                                 <p>{this.serverResponse()}</p>
                                 {/* {(this.state.Urledited) ? <p><span className="glyphicon glyphicon-warning-danger">Unable to edit value</span></p> : ''} */}
                                 </p>: ''}
@@ -287,6 +299,7 @@ import Load from '../objects/loading';
         // console.log('Status Server '+this.state.dashboard.status);
          switch(this.state.dashboard.status){
              default: return this.loading();
+
                  case 400: return this.signedout();
                  case 404: return <Emptydash />;
                  case 200: return this.dashboard_content();

@@ -10,6 +10,7 @@ import Load from '../objects/loading';
 import Gicon from '../images/icon/google.svg';
 import Giticon from '../images/icon/github.svg';
 import Facebook from '../images/icon/facebook.svg';
+import SignOut from '../images/icon/sign-out.svg';
 
 //function (gsign) Google button both for sign in and sign out
 //@param {name} The text the will show in the button
@@ -84,7 +85,7 @@ class Profile extends React.Component{
                         <p className='dash-msg'>Go to <Link className="prof-link" to='/dashboard'>Dashboard</Link> to access your tables</p>
                     </div>
                     <div className='gsign signout' onClick={this.handlesignout}>
-                        {gsign('Sign out', "")}
+                        {gsign('Sign out', SignOut)}
                     </div>
                 </div>
             </div>

@@ -79,7 +79,7 @@ class navigation extends React.Component{
                         <Nav.Link href="/dashboard" className='nav-l'>Dashboard</Nav.Link>
                     </Nav>
                     <Nav className="mr-auto">
-                        <Nav.Link href="/profile" className={`nav-p ${(this.state.imageUrl) ? "img-c" : null}` } >{(this.state.imageUrl) ? this.renderImage(): "Logo"}</Nav.Link>
+                        <Nav.Link href="/profile" className={`nav-p ${(this.state.imageUrl) ? "img-c" : null}` } >{(this.state.imageUrl) ? this.renderImage(): "Login"}</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
             </Navbar>

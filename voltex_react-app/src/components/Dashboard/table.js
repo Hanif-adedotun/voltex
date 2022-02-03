@@ -8,7 +8,7 @@ import Popup from 'reactjs-popup';
 // import 'reactjs-popup/dist/index.css';
 
 //Void SVG Logo
-import VoidLogo from '../images/empty_green.svg';
+import VoidLogo from '../images/illustrations/empty.svg';
 
 //Export to CSV 
 import { CSVLink } from "react-csv";

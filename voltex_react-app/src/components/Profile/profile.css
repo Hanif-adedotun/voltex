@@ -29,9 +29,9 @@
  .signin-container h2{
     font-weight: bold;
 }
-.img-login{
-    max-width: 10px;
-    max-height: 10px;
+#img-login{
+    width: 20px;
+    height: auto;
 }
 .img-profile{
     height: 8em;
