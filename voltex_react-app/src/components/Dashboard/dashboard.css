@@ -25,36 +25,62 @@
 .dashboard h2{
     text-shadow: 2px 2px 4px #000000;
 }
+
+
 /* Div When the Dashboard is empty */
-#empty_logo{
-    height: 40%;
-    width: 40%;
+.empty-svg{
+    height: 25em;
+    width: auto;
 }
 .emptyDash{
     font-size: medium;
 }
-.emptyDash  .btn-primary{
-    background-color: transparent;
-    border: 2px solid #61dafb;
-    color: #61dafb;
-    font-size: medium;
+.emptyDash  .btn-primary , .btn-primary:active{
+    background-color: white;
+    color: black;
     font-weight: bold;
+    padding: .55em 1em;
+    width: max-content;
+    margin:  2em auto;
+    border-radius: 10px;
+    font-size: large;
+    border: none;
 }
 .emptyDash  .btn-primary:hover{
-    background-color:  #61dafbd3;
-    color:  #282c34;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    color: black;
 }
 /* Form  styles */
-.btn-unique{/*button to generate unique id*/
-    background-color:  #61dafbd3;
-    color:  #282c34;
-    font-size: medium;
-    font-weight: bold;
-    padding: auto;
-    margin: auto 1em;
+.modal{
+    border-radius: 30px !important;
 }
-.btn-unique:hover{
-    border: 2px solid #61dafb;
+.f-head{
+    font-size: 2em;
+    color: var(--primary);
+    font-weight: bold;
+    margin: 0 auto 1em;
+}
+.f-label{
+    text-align: left !important;
+    font-weight: bold !important;
+}
+.f-addon{
+    background-color: var(--primary) !important;
+    color: white !important;
+    padding: none !important;
+}
+.f-btn{
+    background-color: var(--primary) !important;
+    color: white !important;
+    padding: .5em 1em !important;
+}
+.f-btn:hover{
+    box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.TableForm{
+    color: var(--primary);
 }
 .configForm{
     margin: 1em auto;

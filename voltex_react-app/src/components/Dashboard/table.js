@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './dashboard.css';
 import PropTypes from 'prop-types';
 import {Link } from "react-router-dom";
+import {Tab, Tabs} from "react-bootstrap";
 
 //popup
 import Popup from 'reactjs-popup';
 // import 'reactjs-popup/dist/index.css';
 
 //Void SVG Logo
-import VoidLogo from '../images/illustrations/empty.svg';
+import VoidLogo from '../images/illustrations/void.svg';
 
 //Export to CSV 
 import { CSVLink } from "react-csv";
@@ -51,9 +52,37 @@ delete_button.propTypes = {
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
 const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail}) =>{
-    
-    if(!table[0]){
+    const [key, setKey] = useState('home');
+   
+    //To get the the keys of the data
+    if(table[0]){
+        var head = Object.keys(table[0].db_values);
+        var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
+        var csv_body = table.map((item, index) =>
+            Object.values(item.db_values).map((val, ind)=> val)
+        );
+    }
+
         return(
+            <div>
+            <Tabs
+            id="controlled-tab-example"
+            activeKey={key}
+            onSelect={(k) => setKey(k)}
+            className="mb-3"
+          >
+            <Tab eventKey="home" title="Table 1">
+              Table 1
+            </Tab>
+            <Tab eventKey="profile" title="Table 2">
+              Table 2
+            </Tab>
+            <Tab eventKey="contact" title="+">
+              Table 3
+            </Tab>
+          </Tabs>
+
+          {(!table[0]) ? 
             <div>
                 <p>
                 <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
@@ -61,16 +90,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                 <p>No user has used your form yet, paste your unique link and start using, thank you</p>
                 <p>If you want learn more about how to integrate us with your website, <Link to='/docs'><span className="unique">Go to documentations</span></Link></p>
             </div>
-        )
-    }
-    //To get the the keys of the data
-    var head = Object.keys(table[0].db_values);
-    var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
-    var csv_body = table.map((item, index) =>
-        Object.values(item.db_values).map((val, ind)=> val)
-    );
-
-        return(
+           : 
             <div className='formTable'>
                     <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>
                     <table className='table table-responsive table-bodered'>
@@ -121,7 +141,9 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                             </button> </div>: ''}
                        
                 </div>
-             </div>            
+             </div>
+             }  
+             </div>          
         );
     
 }

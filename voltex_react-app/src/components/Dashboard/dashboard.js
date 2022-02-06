@@ -30,7 +30,7 @@ import Load from '../objects/loading';
                  ], 
                  "action_url": "https://voltex.com/673778783778/89384",
                  "table":[],
-                 "status": 404,
+                 "status": 200,
              },
              activeDashboard: '',
              copyText: 'copy',

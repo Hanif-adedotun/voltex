@@ -1,7 +1,10 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import './dashboard.css';
+import FormUI from './form';
 
+
+import EmpytSVG from '../images/illustrations/empty.svg';
 
 class Emptydash extends React.Component{
     constructor(){
@@ -14,7 +17,7 @@ class Emptydash extends React.Component{
             // Response from server after submitting form
             serverRes: [],
             // To set the view to fill the form of the database
-            configuredatabase: []
+            form: false
         };
     }
     
@@ -149,23 +152,32 @@ class Emptydash extends React.Component{
        );
     }
 
-    //The swith to controll all the views
-    renderContent(){
-        switch(this.state.configuredatabase){
-            default:
-                case []: return (<div>
-                                <p>Your Dashboard is empty!</p> 
-                                <button className='btn btn-primary' onClick={this.openConfigDB}>Click to configure your database</button>
-                                </div>);
-                case  'showForm'  : return this.configureDatabase();
-        }
-    }
+    // //The swith to controll all the views
+    // renderContent(){
+    //     switch(this.state.configuredatabase){
+    //         default:
+    //             case []: return (<div>
+    //                             <p>Your Dashboard is empty!</p> 
+    //                             <button className='btn btn-primary' onClick={this.openConfigDB}>Click to configure your database</button>
+    //                             </div>);
+    //             case  'showForm'  : return this.configureDatabase();
+    //     }
+    // }
 
 //Renders the switch onto the view
     render(){
         return(
             <div className='emptyDash'>
-                {this.renderContent()}
+                    <p>Your Dashboard is empty!</p> 
+                    <div>
+                        <img className="empty-svg" src={EmpytSVG} alt='Empty Illlustration'/>
+                    </div>
+                     <button className='btn-primary' onClick={() => this.setState({form: true})}>Setup a new Table</button>
+
+                     <FormUI
+                        show={this.state.form}
+                        onHide={() => this.setState({form: false})}
+                        />
              </div>
         );
     }
