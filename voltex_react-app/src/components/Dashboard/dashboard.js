@@ -3,10 +3,10 @@ import './dashboard.css';
 
 import Emptydash from './EmptyDash';
 import Table from './table';
-import Form from './form';
+import FormUI from './form';
 
 import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
-import {Button} from 'react-bootstrap';
+import {Button, Tab, Tabs} from 'react-bootstrap';
 //Link
 import {Link } from "react-router-dom";
 
@@ -29,15 +29,50 @@ import Load from '../objects/loading';
                      }
                  ], 
                  "action_url": "https://voltex.com/673778783778/89384",
-                 "table":[],
+                 "table":[
+                    [{
+                        "_id": "5fe908dae6b4883b08317084",
+                        "key": "2c59cdb53b692aeb",
+                        "db_values": {
+                            "say": "A greeting message",
+                            "to": "Dad",
+                            "num": "23"
+                        }
+                    },
+                    {
+                        "_id": "5fe909c1e2721709fc263e4b",
+                        "key": "2c59cdb53b692aeb",
+                        "db_values": {
+                            "say": "Hello",
+                            "to": "Uncle",
+                            "num": "20"
+                        }
+                    },
+                    {
+                        "_id": "600545a16a9f87368cbc7636",
+                        "key": "2c59cdb53b692aeb",
+                        "db_values": {
+                            "say": "A greeting message",
+                            "to": "Uncle",
+                            "num": "001"
+                        }
+                    }],
+                 ,null],
                  "status": 200,
              },
              activeDashboard: '',
              copyText: 'copy',
+            //  Table Tabs
+            key: 0,
+
+            // Form Modal state
+             form: false,
+
              //Table.js 
              delres: '',
              delText: null,
              rotate: false,
+
              //Edit url
              inputUrl: '',
              editUrl: false,
@@ -173,50 +208,70 @@ import Load from '../objects/loading';
         return(
             // The section before the table itself, for the table properties
             <div className='dashboard_content'>
-                <Accordion allowZeroExpanded={true} className='acc' onChange={this.changeIcon}>
-                    <AccordionItem>
-                        <AccordionItemHeading className='acc-head'>
-                            <AccordionItemButton>
-                                <span>Table details</span> <span id='acc-arrow' className='glyphicon glyphicon-chevron-down'></span>
-                            </AccordionItemButton>
-                        </AccordionItemHeading>
-                        <AccordionItemPanel className='acc-body'>
-                            <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
-                            {(this.state.editUrl === true) ? 
-                            <p>
-                                <span className='acc-body-label'>
-                                <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>
-                                </span> 
-                                <Button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</Button>
-                                <Button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</Button>
-                                <p>{this.serverResponse()}</p>
-                                {/* {(this.state.Urledited) ? <p><span className="glyphicon glyphicon-warning-danger">Unable to edit value</span></p> : ''} */}
-                                </p>: ''}
-                            <p><span className='acc-body-label'>Key:</span> {options.id}</p>
-                        </AccordionItemPanel>
-                    </AccordionItem>
-                    {/* {(this.state.editUrl) ? */}
-                </Accordion>
-                <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
-                <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> {this.state.copyText}</button></p>
-                </div>
+                 <Tabs
+                    id="controlled-tab-example"
+                    activeKey={this.state.key}
+                    onSelect={(k) => this.setState({key: k})}
+                    className="mb-3"
+                >
+                    {this.state.dashboard.table.map((v,i) => 
 
-               {/* The table data  */}
-               {/*
-                @param {tableName} The name of the user's table 
-                @param {table} The full table details of all the data
-                @param {delval} The function to delete the table row
-                @param {delText} *IN CONSTRUCTION* The text to display while deleting value
-                @param {loadDatabase} The function to refresh the table data from the server
-               */}
-                <Table 
-                tableName={this.state.dashboard.data[0].Tablename} 
-                table={this.state.dashboard.table} 
-                delval={this.tableDelete} delText={this.state.delres} 
-                loadDatabase={this.loadDatabase}
-                rotate={this.state.rotate}
-                sendmail={this.sendmail}/> 
+                       <Tab eventKey={i} title={"Table"+i} key={i}>
+                        <Accordion allowZeroExpanded={true} className='acc' onChange={this.changeIcon}>
+                        <AccordionItem>
+                            <AccordionItemHeading className='acc-head'>
+                                <AccordionItemButton>
+                                    <span>Table details</span> <span id='acc-arrow' className='glyphicon glyphicon-chevron-down'></span>
+                                </AccordionItemButton>
+                            </AccordionItemHeading>
+                            <AccordionItemPanel className='acc-body'>
+                                <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
+                                <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
+                                {(this.state.editUrl === true) ? 
+                                <p>
+                                    <span className='acc-body-label'>
+                                    <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>
+                                    </span> 
+                                    <Button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</Button>
+                                    <Button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</Button>
+                                    <p>{this.serverResponse()}</p>
+                                    {/* {(this.state.Urledited) ? <p><span className="glyphicon glyphicon-warning-danger">Unable to edit value</span></p> : ''} */}
+                                    </p>: ''}
+                                <p><span className='acc-body-label'>Key:</span> {options.id}</p>
+                            </AccordionItemPanel>
+                        </AccordionItem>
+                        {/* {(this.state.editUrl) ? */}
+                    </Accordion>
+                    <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
+                    <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> {this.state.copyText}</button></p>
+                    </div>
+
+                {/* The table data  */}
+                {/*
+                    @param {tableName} The name of the user's table 
+                    @param {table} The full table details of all the data
+                    @param {delval} The function to delete the table row
+                    @param {delText} *IN CONSTRUCTION* The text to display while deleting value
+                    @param {loadDatabase} The function to refresh the table data from the server
+                */}
+                    <Table 
+                    tableName={this.state.dashboard.data[0].Tablename} 
+                    table={this.state.dashboard.table[i]} 
+                    delval={this.tableDelete} delText={this.state.delres} 
+                    loadDatabase={this.loadDatabase}
+                    rotate={this.state.rotate}
+                    sendmail={this.sendmail}/>
+                       </Tab>
+                    )}
+                    <Tab eventKey="contact" title="+" onClick={() => this.setState({form: true})}>
+                   Fill the form
+                   <FormUI
+                        show={this.state.form}
+                        onHide={() => this.setState({form: false})}
+                        />
+                    </Tab>
+                   </Tabs>
+                
             
               <span className='unique'>{(this.state.sent) ? 'E-mail has been sent successfully!': ''}</span>
             </div>

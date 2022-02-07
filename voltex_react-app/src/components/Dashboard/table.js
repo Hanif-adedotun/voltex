@@ -52,10 +52,9 @@ delete_button.propTypes = {
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
 const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail}) =>{
-    const [key, setKey] = useState('home');
    
     //To get the the keys of the data
-    if(table[0]){
+    if(table){
         var head = Object.keys(table[0].db_values);
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
         var csv_body = table.map((item, index) =>
@@ -65,24 +64,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
 
         return(
             <div>
-            <Tabs
-            id="controlled-tab-example"
-            activeKey={key}
-            onSelect={(k) => setKey(k)}
-            className="mb-3"
-          >
-            <Tab eventKey="home" title="Table 1">
-              Table 1
-            </Tab>
-            <Tab eventKey="profile" title="Table 2">
-              Table 2
-            </Tab>
-            <Tab eventKey="contact" title="+">
-              Table 3
-            </Tab>
-          </Tabs>
-
-          {(!table[0]) ? 
+               {(!table) ? 
             <div>
                 <p>
                 <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
@@ -125,7 +107,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
                 {/* If there is table data, it displays all the table options */}
                 <div className='table_details'> 
-                    {(table[0])?  <div>
+                    {(table)?  <div>
                         <CSVLink headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"} className="btn export" >
                                 <span className='glyphicon glyphicon-export'></span>
                                 <span> Export table to csv</span>
