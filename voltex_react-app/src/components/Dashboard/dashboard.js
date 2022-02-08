@@ -7,11 +7,13 @@ import FormUI from './form';
 
 import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
 import {Button, Tab, Tabs} from 'react-bootstrap';
+import {Sliders} from 'react-bootstrap-icons';
 //Link
 import {Link } from "react-router-dom";
 
 //Loader
 import Load from '../objects/loading';
+import Settings from './settings';
 
 
 
@@ -67,6 +69,7 @@ import Load from '../objects/loading';
 
             // Form Modal state
              form: false,
+             setting: false,
 
              //Table.js 
              delres: '',
@@ -114,7 +117,6 @@ import Load from '../objects/loading';
     this.interval = setInterval(() => {
         this.setState({copyText: 'Copy'});
       }, 2000);
-        // document.getElementById('custom_email').disabled = true;
     }
      
 
@@ -185,20 +187,7 @@ import Load from '../objects/loading';
         //url to put in user form action
         const action_url = this.state.dashboard.action_url;
    
-        //Changes the icons to up and down when needed
-        this.changeIcon = () =>{
-            var icon = document.getElementById('acc-arrow');
-            var icon_down = 'glyphicon glyphicon-chevron-up small';
-            var icon_up = 'glyphicon glyphicon-chevron-down small';
-
-            if(icon.className === icon_down){
-                icon.className = icon_up;
-            }else{
-               icon.className = icon_down;
-            }
-        }
-
-        //function (editUrl) Used to edit the url of the front end page
+         //function (editUrl) Used to edit the url of the front end page
         this.editUrl = () =>{
             console.log(this.state.editUrl);
             this.setState({editUrl: true});
@@ -215,19 +204,28 @@ import Load from '../objects/loading';
                     className="mb-3"
                 >
                     {this.state.dashboard.table.map((v,i) => 
-
-                       <Tab eventKey={i} title={"Table"+i} key={i}>
-                        <Accordion allowZeroExpanded={true} className='acc' onChange={this.changeIcon}>
+                       <Tab eventKey={i} title={"Table "+i} key={i}>
+                           <div className='btn-setting'>
+                               <Button onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</Button>
+                           </div>
+                           <Settings
+                        show={this.state.setting}
+                        onHide={() => this.setState({setting: false})}
+                        options={options}
+                        />
+                        <Accordion allowZeroExpanded={true} className='acc'>
                         <AccordionItem>
                             <AccordionItemHeading className='acc-head'>
                                 <AccordionItemButton>
-                                    <span>Table details</span> <span id='acc-arrow' className='glyphicon glyphicon-chevron-down'></span>
+                                    <h3>
+                                        Table details
+                                    </h3>
                                 </AccordionItemButton>
                             </AccordionItemHeading>
                             <AccordionItemPanel className='acc-body'>
                                 <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
                                 <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
-                                {(this.state.editUrl === true) ? 
+                                {(this.state.editUrl === false) ? 
                                 <p>
                                     <span className='acc-body-label'>
                                     <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>
@@ -366,7 +364,6 @@ import Load from '../objects/loading';
           console.log(this.state.editUrl);
         return (
             <div className='dashboard'>
-            <h2>Dashboard</h2>
             {this.renderContent()}
             </div>
         );
