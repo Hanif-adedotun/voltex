@@ -318,7 +318,7 @@ import Load from '../objects/loading';
      serverError = () =>{
          return(
              <div>
-                 <p className='serverErr'>There is either a connection error or Server Error, Check your internet connection and refresh!</p>
+                 <p className='serverErr'>There is either a network error or Server Error, Check your internet connection and refresh!</p>
              </div>
          )
      }
