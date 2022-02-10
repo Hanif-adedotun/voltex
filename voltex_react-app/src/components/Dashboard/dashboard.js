@@ -5,9 +5,8 @@ import Emptydash from './EmptyDash';
 import Table from './table';
 import FormUI from './form';
 
-import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
 import {Button, Tab, Tabs} from 'react-bootstrap';
-import {Sliders} from 'react-bootstrap-icons';
+import {Sliders, Plus} from 'react-bootstrap-icons';
 //Link
 import {Link } from "react-router-dom";
 
@@ -38,7 +37,7 @@ import Settings from './settings';
                         "db_values": {
                             "say": "A greeting message",
                             "to": "Dad",
-                            "num": "23"
+                            "num": "23",
                         }
                     },
                     {
@@ -105,19 +104,7 @@ import Settings from './settings';
      //function (copyUrl) to copy the unique url to clipboard
      //@param {text} the text to copy to clipboard
      //To copy the form name 
-      copyUrl = (text) => {
-        navigator.clipboard.writeText(text).then(function(){
-            console.log('Copied: '+ text);
-        }, function(err){
-            console.error('Unable to copy to clipboard '+err);
-        });
-        //change the text of the copy button to copied
-        this.setState({copyText: 'Copied to clipboard!'})
-
-    this.interval = setInterval(() => {
-        this.setState({copyText: 'Copy'});
-      }, 2000);
-    }
+      
      
 
     //function (uploadEditVal) To upload the text of the user to the databas
@@ -152,13 +139,13 @@ import Settings from './settings';
         if(this.state.serverRes){
             // console.log(this.state.serverRes);
             return(
-                <span >
+                <div >
                     <ul className='form-error'>
                 {this.state.serverRes.map(error =>(
                     <li className='error-li' key={error.id}> {error.msg}</li>
                 ))}
                     </ul>
-                </span>
+                </div>
             );
         }else{
             window.location.reload();
@@ -175,7 +162,6 @@ import Settings from './settings';
 
     //function (dashboard_content) to render the dashboard view to the user, with different components
      dashboard_content = () => {
-       
         //table names
         const options ={
             name: this.state.dashboard.data[0].Tablename, 
@@ -183,67 +169,25 @@ import Settings from './settings';
             id: this.state.dashboard.data[0].uniqueid
 
         };
-
-        //url to put in user form action
-        const action_url = this.state.dashboard.action_url;
-   
-         //function (editUrl) Used to edit the url of the front end page
-        this.editUrl = () =>{
-            console.log(this.state.editUrl);
-            this.setState({editUrl: true});
-        }
-        
+       
 
         return(
             // The section before the table itself, for the table properties
             <div className='dashboard_content'>
                  <Tabs
-                    id="controlled-tab-example"
+                    className="tab-tabs"
                     activeKey={this.state.key}
-                    onSelect={(k) => this.setState({key: k})}
-                    className="mb-3"
+                    onSelect={(k) => {this.setState({key: k}); if (k==="+") {this.setState({form: true})}}}
                 >
                     {this.state.dashboard.table.map((v,i) => 
-                       <Tab eventKey={i} title={"Table "+i} key={i}>
-                           <div className='btn-setting'>
-                               <Button onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</Button>
-                           </div>
+                       <Tab tabClassName='tab-tab' eventKey={i} title={"Table "+i} key={i}>
+                            <div className='btn-setting' onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</div>
                            <Settings
                         show={this.state.setting}
                         onHide={() => this.setState({setting: false})}
                         options={options}
                         />
-                        <Accordion allowZeroExpanded={true} className='acc'>
-                        <AccordionItem>
-                            <AccordionItemHeading className='acc-head'>
-                                <AccordionItemButton>
-                                    <h3>
-                                        Table details
-                                    </h3>
-                                </AccordionItemButton>
-                            </AccordionItemHeading>
-                            <AccordionItemPanel className='acc-body'>
-                                <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                                <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
-                                {(this.state.editUrl === false) ? 
-                                <p>
-                                    <span className='acc-body-label'>
-                                    <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>
-                                    </span> 
-                                    <Button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</Button>
-                                    <Button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</Button>
-                                    <p>{this.serverResponse()}</p>
-                                    {/* {(this.state.Urledited) ? <p><span className="glyphicon glyphicon-warning-danger">Unable to edit value</span></p> : ''} */}
-                                    </p>: ''}
-                                <p><span className='acc-body-label'>Key:</span> {options.id}</p>
-                            </AccordionItemPanel>
-                        </AccordionItem>
-                        {/* {(this.state.editUrl) ? */}
-                    </Accordion>
-                    <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
-                    <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> {this.state.copyText}</button></p>
-                    </div>
-
+                   
                 {/* The table data  */}
                 {/*
                     @param {tableName} The name of the user's table 
@@ -258,17 +202,18 @@ import Settings from './settings';
                     delval={this.tableDelete} delText={this.state.delres} 
                     loadDatabase={this.loadDatabase}
                     rotate={this.state.rotate}
-                    sendmail={this.sendmail}/>
+                    sendmail={this.sendmail}
+                    actionUrl={this.state.dashboard.action_url}/>
                        </Tab>
                     )}
-                    <Tab eventKey="contact" title="+" onClick={() => this.setState({form: true})}>
+                    <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} >
                    Fill the form
                    <FormUI
                         show={this.state.form}
-                        onHide={() => this.setState({form: false})}
+                        onHide={() => {this.setState({form: false}); this.setState({key: 0})}}
                         />
                     </Tab>
-                   </Tabs>
+                </Tabs>
                 
             
               <span className='unique'>{(this.state.sent) ? 'E-mail has been sent successfully!': ''}</span>
@@ -361,7 +306,6 @@ import Settings from './settings';
      }
     //function (render) Renders the views
       render() {
-          console.log(this.state.editUrl);
         return (
             <div className='dashboard'>
             {this.renderContent()}

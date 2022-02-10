@@ -44,6 +44,8 @@ delete_button.propTypes = {
         val: PropTypes.string.isRequired
 }
 
+
+
 //function (Table) The component for the user table
 //@param {tableName} The name of the user's table 
 //@param {table} The full table details of all the data
@@ -51,8 +53,21 @@ delete_button.propTypes = {
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
-const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail}) =>{
-   
+const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
+   const [copyTxt, setCopyText] = useState("Copy!");
+
+   const copyUrl = (text) => {
+    navigator.clipboard.writeText(text).then(function(){
+    }, function(err){
+        console.error('Unable to copy to clipboard ');
+    });
+    //change the text of the copy button to copied
+    setCopyText("Copied to clipboard!");
+
+this.interval = setInterval(() => {
+    setCopyText("Copy!");
+  }, 2000);
+}
     //To get the the keys of the data
     if(table){
         var head = Object.keys(table[0].db_values);
@@ -64,14 +79,18 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
 
         return(
             <div>
+                <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(actionUrl)}</span>
+                    <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> copyUrl(actionUrl)}><span className='glyphicon glyphicon-copy'></span> {copyTxt}</button></p>
+                </div>
                {(!table) ? 
-            <div>
-                <p>
-                <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
-                </p>
-                <p>No user has used your form yet, paste your unique link and start using, thank you</p>
-                <p>If you want learn more about how to integrate us with your website, <Link to='/docs'><span className="unique">Go to documentations</span></Link></p>
-            </div>
+                <div>
+                    
+                    <p>
+                    <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
+                    </p>
+                    <p>No user has used your form yet, paste your unique link and start using, thank you</p>
+                    <p>If you want learn more about how to integrate us with your website, <Link to='/docs'><span className="unique">Go to documentations</span></Link></p>
+                </div>
            : 
             <div className='formTable'>
                     <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>

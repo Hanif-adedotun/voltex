@@ -52,6 +52,29 @@
     cursor: pointer;
     color: black;
 }
+/* Tab styles */
+.tab-tabs{
+    width: max-content;
+    border: none !important;
+    margin: auto;
+    text-decoration: none;
+}
+/* .tab-tabs .nav-link{
+    color: var(--primary) !important;
+} */
+
+.tab-tabs .nav-item .active{
+    color: var(--primary) !important;
+}
+
+/* Tab styles */
+.tab-tab{
+    color: white !important;
+   font-weight: bold !important;
+   border-radius: 20px 20px 0 20px !important;
+}
+/* End of Tab styles */
+
 /* Form  styles */
 .modal{
     border-radius: 30px !important;
@@ -79,34 +102,6 @@
 .f-btn:hover{
     box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.3);
 }
-.TableForm{
-    color: var(--primary);
-}
-.configForm{
-    margin: 1em auto;
-
-}
-.formHead{
-    margin: auto;
-    color: #61dafb;
-    font-size:x-large;
-    font-weight: bold;
-}
-.form-control{
-    margin: .5em auto;
-    width: 50%;
-}
-.readonly{
-    background-color: #2f6d7e70;
-    border: none;
-    border-radius: 4px;
-    margin: 1em;
-    color: whitesmoke;
-    line-height: 200%;
-}
-.readonly:active{
-    border: none;
-}
 
 /* End of form styles */
 /* End of Div When the Dashboard is empty */
@@ -114,17 +109,18 @@
 /* Form to Configure the database */
 
 /* Accordion styles */
-.small{
-    font-size: small;
-    /* color:  #444; */
-}
-.btn-setting Button{
+.btn-setting{
     border: none !important;
     background-color: rgba(255, 255, 255, .3) !important;
     color: white;
     box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
+.btn-setting:hover{
+    margin: none;
+}
+
+
 .acc{
     background-color: white;
     color: black;
@@ -160,20 +156,9 @@
     opacity: .7;
 }
 
-/* Form action */
-.Faction{
-    margin: 1em auto;
-    font-size: auto;
-    overflow:auto;
-   
-}
-    /* End of form action */
-.medium{
-    font-size: medium;
-}
-.small{
-    font-size: small;
-}
+ /* End of form action */
+
+
 /* Edit icon */
 .dEdit{
     margin: .2em auto;
@@ -186,7 +171,7 @@
 }
 /* Button element of dEdit */
 #dEdit-button{
-    background-color: var(--secondary);
+    background-color: var(--primary);
     border: none;
     border-radius: 5px;
 }

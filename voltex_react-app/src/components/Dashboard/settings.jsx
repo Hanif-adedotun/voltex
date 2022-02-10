@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Modal, Button, Form, Row, Col, InputGroup} from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
 import './dashboard.css';
 
-function Settings({show, onH, options}) {
+function Settings({show, onHide, options}) {
      const [editurl, seteditUrl] = useState(false);
      const [url, setUrl] = useState([]);
      const [serverRes, setServerRes] = useState([]);
@@ -15,7 +15,7 @@ function Settings({show, onH, options}) {
      console.log('Submitting new Url value');
 
      const data = {
-         inputUrl: this.state.inputUrl
+         inputUrl: url,
      };
 
      fetch('/api/users/editVal' , {
@@ -33,7 +33,7 @@ function Settings({show, onH, options}) {
      return (
        <Modal
          show={show}
-          onHide={onH}
+          onHide={onHide}
          size="md"
          centered
          className='modal'
@@ -43,7 +43,7 @@ function Settings({show, onH, options}) {
          <Modal.Body>
                   <h2 className='f-head'>Set Up your Table</h2>
                   <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                    <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <button id='dEdit-button' onClick={() => setUrl(true)}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
+                    <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <Button id='dEdit-button' onClick={() => seteditUrl(true)}>Edit</Button></p>
                     {(editurl === true) ? 
                     <p>
                          <span className='acc-body-label'>
