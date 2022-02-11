@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import './dashboard.css';
 import PropTypes from 'prop-types';
-import {Link } from "react-router-dom";
-import {Tab, Tabs} from "react-bootstrap";
+import {Link } from 'react-router-dom';
+import {Button, Row, Col, Form, InputGroup} from 'react-bootstrap';
+import {ArrowRepeat, FunnelFill, Search, CloudArrowDownFill} from 'react-bootstrap-icons';
 
 //popup
 import Popup from 'reactjs-popup';
@@ -20,7 +21,7 @@ import { CSVLink } from "react-csv";
 //@param {del}  A function called from the dashboard.js to communicate with the server
 var delete_button = (i, val, del) =>{
         return(
-            <Popup className='popup' trigger={<button className='btn btn-primary bold' > Delete </button>} modal>
+            <Popup className='popup' trigger={<Button className='btn btn-primary bold' > Delete </Button>} modal>
                 
             {close=>(
                 <div className='popup'>    
@@ -79,12 +80,8 @@ this.interval = setInterval(() => {
 
         return(
             <div>
-                <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(actionUrl)}</span>
-                    <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> copyUrl(actionUrl)}><span className='glyphicon glyphicon-copy'></span> {copyTxt}</button></p>
-                </div>
-               {(!table) ? 
+                {(!table) ? 
                 <div>
-                    
                     <p>
                     <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
                     </p>
@@ -93,8 +90,26 @@ this.interval = setInterval(() => {
                 </div>
            : 
             <div className='formTable'>
-                    <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>
-                    <table className='table table-responsive table-bodered'>
+                    <h4>{(tableName) ? tableName: 'Table'}</h4>
+                    <Form>
+                    <Row>
+                        {/* <Col xs={6}><Form.Control type="text" className="t-input" placeholder="Search..." /></Col> */}
+                        <Col xs={6}><InputGroup>
+                            <InputGroup.Text className="t-input-icon" placeholder><Search width={15} height={15}/></InputGroup.Text>
+                            <Form.Control type="text" className="t-input" placeholder="Search..." />
+                        </InputGroup></Col>
+                        <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col>
+                        <Col xs={3}>
+                        <Button className="t-button">
+                        <CSVLink  headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"}  >
+                                <span className="t-btn-export"><CloudArrowDownFill height={20} width={20}/> Export</span>
+                        </CSVLink>
+                        </Button>
+                        </Col>
+                    </Row>
+                    </Form>
+
+                    <table className='table table-responsive '>
                         <thead>
                         <tr>
                         <th>S/N</th>{
@@ -102,7 +117,10 @@ this.interval = setInterval(() => {
                                  <th key={index}>{key.toUpperCase()}</th>
                             )
                             }
-                            <th><button id='table-refresh' className='btn btn-primary medium' onClick={loadDatabase}><span className={(rotate) ? 'glyphicon glyphicon-refresh rotate':'glyphicon glyphicon-refresh'}></span></button></th> {/* for the delete row*/}
+                            <th><button id='table-refresh' className='btn btn-primary medium' onClick={loadDatabase}>
+                                <ArrowRepeat className={(rotate) ? ' rotate':''} width={20} height={20}/>
+                                </button>
+                            </th> {/* for the delete row*/}
                         </tr>
                         </thead>
                         <tbody>

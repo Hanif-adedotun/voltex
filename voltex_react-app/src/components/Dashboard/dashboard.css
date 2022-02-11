@@ -191,17 +191,47 @@
 }
 /* End of Accordion styles */
 
+
 /*Table styles  */
-.Tunique{
-    color: #61dafb;
-    margin: auto;
-    text-align: center;
+#empty_logo{
+    height: auto;
+    width: 25em;
 }
+
 .formTable{
     margin:  1em auto ;
     text-align: center;
-    
-    max-width: fit-content;
+    padding: 1em 2em;
+    width: max-content;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 15px;
+    box-shadow: 0px 25px 80px 1px rgba(0, 0, 0, 0.1);
+}
+
+.formTable Form{
+    margin: 1em auto 1em auto ;
+}
+.t-button{
+    background-color: white !important;
+    padding: .5em 1em;
+    color: var(--primary) !important;
+    border: none !important;
+    font-weight: bold;
+}
+.t-input-icon{
+    background: white !important;
+    border: none !important;
+    color: var(--primary) !important;
+}
+.t-input{
+    width: 100%;
+    color: var(--primary) !important;
+    border: none !important;
+    text-align: left;
+}
+.t-btn-export{
+    text-decoration: none !important;
+    color: var(--primary);
 }
 .table-dropdown{
     width: auto;
@@ -296,18 +326,7 @@ color: red;
 
 
 
-/* Export button */
-.table_details .btn{
-    margin: 1em 1em;
-}
-.export{
-    background-color: #61dafbd3;
-    color: black;
-}
-.export:hover{
-    color: whitesmoke;
-}
-/* End of export button */
+
 
 /* If a user is not signed in class */
 .signedout .s-text{

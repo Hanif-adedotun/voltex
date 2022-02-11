@@ -166,8 +166,8 @@ import Settings from './settings';
         const options ={
             name: this.state.dashboard.data[0].Tablename, 
             url: this.state.dashboard.data[0].url, 
-            id: this.state.dashboard.data[0].uniqueid
-
+            id: this.state.dashboard.data[0].uniqueid,
+            actionUrl: this.state.dashboard.action_url,
         };
        
 
@@ -181,7 +181,7 @@ import Settings from './settings';
                 >
                     {this.state.dashboard.table.map((v,i) => 
                        <Tab tabClassName='tab-tab' eventKey={i} title={"Table "+i} key={i}>
-                            <div className='btn-setting' onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</div>
+                            <Button className='btn-setting' onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</Button>
                            <Settings
                         show={this.state.setting}
                         onHide={() => this.setState({setting: false})}
