@@ -17,7 +17,7 @@ function Settings({show, onHide, options}) {
     //change the text of the copy button to copied
     setCopyText("Copied to clipboard!");
 
-  this.interval = setInterval(() => {
+   setInterval(() => {
       setCopyText("Copy!");
     }, 2000);
   }

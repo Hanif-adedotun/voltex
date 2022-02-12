@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import './dashboard.css';
+
 import PropTypes from 'prop-types';
 import {Link } from 'react-router-dom';
-import {Button, Row, Col, Form, InputGroup} from 'react-bootstrap';
-import {ArrowRepeat, FunnelFill, Search, CloudArrowDownFill} from 'react-bootstrap-icons';
-
+import {Table, Button, Row, Col, Form, InputGroup} from 'react-bootstrap';
+import {ArrowRepeat, FunnelFill, Search, CloudArrowDownFill, CaretLeftSquareFill, CaretRightSquareFill} from 'react-bootstrap-icons';
+import './dashboard.css';
 //popup
 import Popup from 'reactjs-popup';
 // import 'reactjs-popup/dist/index.css';
@@ -21,16 +21,16 @@ import { CSVLink } from "react-csv";
 //@param {del}  A function called from the dashboard.js to communicate with the server
 var delete_button = (i, val, del) =>{
         return(
-            <Popup className='popup' trigger={<Button className='btn btn-primary bold' > Delete </Button>} modal>
+            <Popup className='popup' trigger={<Button className='btn-delete' > Delete </Button>} modal>
                 
             {close=>(
                 <div className='popup'>    
-                <button className="close" id={i} onClick={close}> &times;</button>
+                <Button className="close" id={i} onClick={close}> &times;</Button>
                 <div className="content">
                 <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
                 </div>
-                <button className='btn btn-success del_button' onClick={()=>{del(val); close()}} >{'Delete'}</button>
-                <button className='btn btn-danger del_button' onClick={close}>Close</button>
+                <Button className='btn btn-success del_button' onClick={()=>{del(val); close()}} >{'Delete'}</Button>
+                <Button className='btn btn-danger del_button' onClick={close}>Close</Button>
                 </div>
             )}
                 
@@ -54,21 +54,7 @@ delete_button.propTypes = {
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
-const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
-   const [copyTxt, setCopyText] = useState("Copy!");
-
-   const copyUrl = (text) => {
-    navigator.clipboard.writeText(text).then(function(){
-    }, function(err){
-        console.error('Unable to copy to clipboard ');
-    });
-    //change the text of the copy button to copied
-    setCopyText("Copied to clipboard!");
-
-this.interval = setInterval(() => {
-    setCopyText("Copy!");
-  }, 2000);
-}
+const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
     //To get the the keys of the data
     if(table){
         var head = Object.keys(table[0].db_values);
@@ -100,36 +86,37 @@ this.interval = setInterval(() => {
                         </InputGroup></Col>
                         <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col>
                         <Col xs={3}>
-                        <Button className="t-button">
+                        
                         <CSVLink  headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"}  >
+                            <Button className="t-button">
                                 <span className="t-btn-export"><CloudArrowDownFill height={20} width={20}/> Export</span>
+                            </Button>
                         </CSVLink>
-                        </Button>
                         </Col>
                     </Row>
                     </Form>
 
-                    <table className='table table-responsive '>
-                        <thead>
+                    <Table responsive className="tbl">
+                        <thead className="table-head">
                         <tr>
                         <th>S/N</th>{
                             head.map((key, index)=>
-                                 <th key={index}>{key.toUpperCase()}</th>
+                                 <th key={index} >{key.toUpperCase()}</th>
                             )
                             }
-                            <th><button id='table-refresh' className='btn btn-primary medium' onClick={loadDatabase}>
+                            <th><Button id='table-refresh'  onClick={loadDatabase}>
                                 <ArrowRepeat className={(rotate) ? ' rotate':''} width={20} height={20}/>
-                                </button>
+                                </Button>
                             </th> {/* for the delete row*/}
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='table-body'>
                             {
                                 table.map((item, index) =>
                                 <tr key={index}> 
                                     <th>{index+1}</th>
-                                    {/* <th>{item._id}</th> */}
-                                    {/* <th>{item.key}</th> */}
+                                    {/* <th>{item._id}</th>
+                                    <th>{item.key}</th> */}
                                     {Object.values(item.db_values).map((val, ind)=>
                                         <th key={ind}>{(val) ? val:' '}</th>
                                     )
@@ -140,27 +127,15 @@ this.interval = setInterval(() => {
                             }
                             
                         </tbody>
-                        </table>
+                        </Table>
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
-                {/* If there is table data, it displays all the table options */}
-                <div className='table_details'> 
-                    {(table)?  <div>
-                        <CSVLink headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"} className="btn export" >
-                                <span className='glyphicon glyphicon-export'></span>
-                                <span> Export table to csv</span>
-                        </CSVLink>
-                        {/* disabled */}
-                            <button className='btn btn-success  ' id='custom_email' onClick={sendmail}>
-                                <span className='glyphicon glyphicon-envelope'></span>
-                                <span> Send Cutom email</span>
-                            </button>
-                            <button className='btn btn-danger' >
-                                <span className='glyphicon glyphicon-remove'></span>
-                                <span> Drop table</span>
-                            </button> </div>: ''}
-                       
+                        <div>
+                            <Row className='table-footer'>
+                                <Col xs={9} className='table-foot-txt'>Showing {table.length} results</Col>
+                                <Col xs={3} ><CaretLeftSquareFill className='table-foot-icon disabled' width={25} height={25}/>  <CaretRightSquareFill className='table-foot-icon ' width={25} height={25}/></Col>
+                            </Row>
+                        </div>
                 </div>
-             </div>
              }  
              </div>          
         );
@@ -178,4 +153,4 @@ Table.propTypes = {
     sendmail: PropTypes.func.isRequired
 }
 
-export default Table;
+export default Table_;

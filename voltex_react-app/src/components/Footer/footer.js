@@ -10,8 +10,7 @@ class footer extends React.Component{
             <div className='footer'>
              <Container className='foot-l'>
                  <Row>
-                     <Col><a href="#"><Github height={45} width={45}/></a></Col>
-                     <Col><a href="mailto:hanif.adedotun@gmail.com"><EnvelopeFill height={45} width={45}/></a></Col>
+                     <Col><a href="https://github.com/Hanif-adedotun"><Github height={30} width={30}/></a> <a href="mailto:hanif.adedotun@gmail.com"><EnvelopeFill height={30} width={30}/></a></Col>
                  </Row>
              </Container>
                 <p className='footext'>&copy; Copyright <a href='https://hanif-adedotun.com'>Hanif Adedotun</a> {year}</p>

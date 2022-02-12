@@ -11,11 +11,11 @@ import Popup from 'reactjs-popup';
 
 const popoup = ({primary, buttonName, message})=>{
      return(
-          <Popup trigger={<button className={(primary) ? primary: 'btn btn-primary'}> {(buttonName)} </button>} modal>
+          <Popup trigger={<Button className={(primary) ? primary: 'btn btn-primary'}> {(buttonName)} </Button>} modal>
               
           {close=>(
               <div className='modal'>
-              <button className="close" onClick={close}> &times;</button>
+              <Button className="close" onClick={close}> &times;</Button>
               <div className="content">
               {message}
               </div>

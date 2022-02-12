@@ -4,7 +4,7 @@
 /* The whole footer section */
 .footer{
     margin: 0 !important;
-    padding: 1em 0 0 0;
+    padding: 2em 0 0 0;
     background-color: black;
     color: white;
     position: relative;
@@ -20,6 +20,7 @@
 }
 .foot-l a{
     color: white;
+    margin: 0 1em;
 }
 .foot-l a:hover{
     color: var(--primary);
