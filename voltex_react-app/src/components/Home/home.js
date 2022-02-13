@@ -2,6 +2,7 @@ import React from 'react';
 import './home.css';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import { ArrowRightShort, Clipboard} from 'react-bootstrap-icons';
+import {Link} from 'react-router-dom';
 
 //All the illustrations going to be used
 import H from "../images/illustrations/home_desc.svg";
@@ -126,18 +127,18 @@ class Home extends React.Component{
 
                  <Container className="h-main">
                    <Row >
-                     <Col sm={6} >
+                     <Col md={{ span: 6, order: 'first'}} xs={{ span:12, order: 'last' }}>
                        <div className='h-head'>
                         <h1 >
                         Quickly store your forms without hassle.
                         </h1>
                        </div>
                        <Row>
-                         <Col xs={6} className="btn-pri"><Button>Get Started <ArrowRightShort height={30} width={30}/></Button></Col>
+                         <Col xs={6} className="btn-pri"><Link to="/profile"><Button onClick={(e) => {e.preventDefault();}}>Get Started <ArrowRightShort height={30} width={30}/></Button></Link></Col>
                          <Col xs={6} className="btn-sec"><Button>Learn more</Button></Col>
                        </Row>
                      </Col>
-                     <Col sm={6}>
+                     <Col md={{ span: 6, order: 'last'}} xs={{ span:12, order: 'first' }}>
                        <img src={H} className='h-img' alt={"opaque definition"}/>
                      </Col>
                    </Row>

@@ -16,15 +16,22 @@ class App extends React.Component{
 
   componentDidMount(){
     // this.interval = setInterval(() => this.setState({time: showTime()}), 15000);
+    console.log(window.location.pathname);
   }
 
   componentWillUnmount(){
     // clearInterval(this.interval);
   }
 
+  checkLocation = () => {
+    if(window.location.pathname === "/dashboard"){
+      return "blue";
+    }
+  }
+
   render() {
     return (
-      <div className="App">
+      <div className={`App ${this.checkLocation()}`}>
         <Nav/>
       </div>
     );

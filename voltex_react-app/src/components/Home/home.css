@@ -44,7 +44,7 @@
 .alt-sec{
     background-color: var(--primary);
     color: white;
-    margin: 0;
+    margin: 1em auto 0;
     padding: 2em 0;
 }
 .alt-sec h2{

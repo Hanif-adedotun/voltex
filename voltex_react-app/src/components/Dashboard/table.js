@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import PropTypes from 'prop-types';
 import {Link } from 'react-router-dom';
-import {Table, Button, Row, Col, Form, InputGroup} from 'react-bootstrap';
+import {Table, Button, Row, Col, Form, InputGroup, Modal} from 'react-bootstrap';
 import {ArrowRepeat, FunnelFill, Search, CloudArrowDownFill, CaretLeftSquareFill, CaretRightSquareFill} from 'react-bootstrap-icons';
 import './dashboard.css';
 //popup
@@ -19,28 +19,52 @@ import { CSVLink } from "react-csv";
 //@param {i} index of the row to be deleted
 //@param {val} the Object Id of the row, to be sent to the server
 //@param {del}  A function called from the dashboard.js to communicate with the server
-var delete_button = (i, val, del) =>{
+const Delete = ({i, val, del, show, onHide}) =>{
         return(
-            <Popup className='popup' trigger={<Button className='btn-delete' > Delete </Button>} modal>
+        //     <Popup className='popup' trigger={} modal>
                 
-            {close=>(
-                <div className='popup'>    
-                <Button className="close" id={i} onClick={close}> &times;</Button>
+        //     {close=>(
+        //         <div className='popup'>    
+        //         <Button className="close" id={i} onClick={close}> &times;</Button>
+        //         <div className="content">
+        //         <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
+        //         </div>
+        //         <Button className='btn btn-success del_button' onClick={()=>{del(val); close()}} >{'Delete'}</Button>
+        //         <Button className='btn btn-danger del_button' onClick={close}>Close</Button>
+        //         </div>
+        //     )}
+                
+        //   </Popup>
+
+            <Modal
+            show={show}
+            onHide={onHide}
+            size="md"
+            centered
+            className='modal'
+            >
+            <Modal.Header closeButton>
+            </Modal.Header>
+            <Modal.Body>
+            <div className='popup'>    
+                 <Button className="close" id={i} onClick={onHide}> &times;</Button>
                 <div className="content">
-                <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
+                 <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
                 </div>
-                <Button className='btn btn-success del_button' onClick={()=>{del(val); close()}} >{'Delete'}</Button>
-                <Button className='btn btn-danger del_button' onClick={close}>Close</Button>
+                <Button className='btn btn-success del_button' onClick={()=>{del(val); onHide()}} >{'Delete'}</Button>
+                <Button className='btn btn-danger del_button' onClick={onHide}>Close</Button>
                 </div>
-            )}
-                
-          </Popup>
+            </Modal.Body>
+            </Modal> 
+
           
         );
         
-}
+} 
+
+
 //The propety type of the function (delete_button)
-delete_button.propTypes = {
+Delete.propTypes = {
         i: PropTypes.number.isRequired,
         val: PropTypes.string.isRequired
 }
@@ -55,6 +79,8 @@ delete_button.propTypes = {
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
 const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
+
+    const [show, setShow] = useState(false);
     //To get the the keys of the data
     if(table){
         var head = Object.keys(table[0].db_values);
@@ -120,8 +146,16 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                                     {Object.values(item.db_values).map((val, ind)=>
                                         <th key={ind}>{(val) ? val:' '}</th>
                                     )
-                                    }                                    
-                                    <th id={index}>{delete_button(index, item._id, delval)}</th>
+                                    }           
+                                    {/* delete_button(index, item._id, delval) */}
+                                    <th id={index}>{<Button className='btn-delete' onClick={() => console.log(show)}> Delete </Button>}</th>
+                                    <Delete
+                                    i={index}
+                                    val={item._id}
+                                    del={delval}
+                                    show={show}
+                                    onHide={() => setShow(false)}
+                                    />
                                 </tr>
                                 )
                             }

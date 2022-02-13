@@ -1,4 +1,9 @@
 .App{
   max-width: 100%;
   min-height: 77vh;
+  
+}
+
+.blue{
+  background-color: var(--primary);
 }
