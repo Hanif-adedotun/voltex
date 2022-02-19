@@ -7,6 +7,9 @@ import {Link} from 'react-router-dom';
 //All the illustrations going to be used
 import H from "../images/illustrations/home_desc.svg";
 import Doc from "../images/illustrations/doc.svg";
+import Quick from "../images/illustrations/quick.svg";
+import Setup from "../images/Setuptable.png";
+import Merged from "../images/merged.gif";
 
 //function (showTime) To get the current time and returns it in string format
 //This function is to show the time, and it updates itself after every 15 seconds 
@@ -56,22 +59,17 @@ class Home extends React.Component{
             key: 'price',
             prices: [],
             features: [
-              "Give your form a storage in less than 5 minutes",
-              "Quick one-step-integration",
-              "Works regardless of the frontend framework you are using"
+             [ "Give your form a storage in less than 5 minutes", Quick],
+              ["Quick one-step-integration", Setup],
+             [ "Works regardless of the frontend framework you are using", Merged],
             ]
         };
       }
 
       componentDidMount(){
-        this.cryptoPrice();
         this.interval = setInterval(() => {
-          this.setState({time: showTime()});
           this.setState({internet: tim()});
         }, 1500);
-        this.interval = setInterval(() => {
-          this.cryptoPrice();
-        }, 50000);
       }
     
       //function (offlineText) checks if there is internet connection in the state 
@@ -86,38 +84,8 @@ class Home extends React.Component{
         }
       }
 
-      //function (cryptoPrice), gets the current prices of crypto
-      cryptoPrice = () =>{
-        fetch('https://api.nomics.com/v1/currencies/ticker?key=5100e2897b3012f64449c1302a5c90c2&ids=BTC,ETH&interval=1d,30d&convert=NGN&per-page=100&page=1')//fetch the data from our express server running on localhost:8080
-            .then(res => res.json())//parse the data in json format
-            .then(prices => {
-              this.setState({prices: prices});
-              localStorage.setItem(this.state.key, JSON.stringify(prices));
-          })
-            .catch((error) =>{
-              console.error('Unable to get prices' + error);
-              this.setState({prices: (localStorage[this.state.key]) ? JSON.parse(localStorage[this.state.key]):[]})
-            });
-      }
-
-      currency = (number) =>{
-        var formatter = new Intl.NumberFormat('en-NG', {
-          style: 'currency',
-          currency: 'NGN',
-        
-          // These options are needed to round to whole numbers if that's what you want.
-          //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-          //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-        });
-        return formatter.format(Number(number));
-      }
-
-      componentWillUnmount(){
-        clearInterval(this.interval);
-      }
 
       render(){
-        // this.price();
           return(
             <div className='Home'>
               <div className="h-head">
@@ -144,28 +112,33 @@ class Home extends React.Component{
                    </Row>
                  </Container>
 
-                {/* Features section */}
-                <Container className='alt-sec' fluid>
-
-                  <Container className="feat">
+                 <Container className="feat">
                     <h2>Features</h2>
-                    <ul>
+                  
                       {this.state.features.map((f, i) =>
-                        <li>{f}</li>
+                        <Row className="feat-cont">
+                        <Col xs={{ span: 6, order: (i%2 == 0) ? "first":"last"}} className="feat-head-cont"><div className="feat-head">{f[0]}</div></Col>
+                        <Col xs={6}><img src={f[1]} className="feat-img shadow" alt="html code form" /></Col>
+                      </Row>
                       )}
-                    </ul>
+                   
                   </Container>
+
+                {/* Secondary section */}
+                <Container className='alt-sec' fluid>
 
                   <Container className="h-docs">
                           <Row>
-                            <Col xs={6} className='docs-txt'>
-                              <h2>Powerful and easy to use resources</h2>
-                              
-                              <p className='read-more'>
-                                <Button>Read our api docs <Clipboard width={30} height={30}/></Button>
-                              </p>
+                            <Col xs={5} className='docs-txt'>
+                              <div className='docs-c'>
+                                <h2>Powerful and easy to use resources</h2>
+                                
+                                <p className='read-more'>
+                                  <Button>Read our api docs <Clipboard width={30} height={30}/></Button>
+                                </p>
+                              </div>
                               </Col>
-                            <Col x={6}><img  className='h-docs-img' src={Doc} alt="Document"/></Col>
+                            <Col xs={7}><img  className='h-docs-img' src={Doc} alt="Document"/></Col>
                           </Row>
                   </Container>
 

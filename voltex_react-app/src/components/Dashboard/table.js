@@ -5,13 +5,12 @@ import {Link } from 'react-router-dom';
 import {Table, Button, Row, Col, Form, InputGroup, Modal} from 'react-bootstrap';
 import {ArrowRepeat, FunnelFill, Search, CloudArrowDownFill, CaretLeftSquareFill, CaretRightSquareFill} from 'react-bootstrap-icons';
 import './dashboard.css';
-//popup
-import Popup from 'reactjs-popup';
+
 // import 'reactjs-popup/dist/index.css';
 
 //Void SVG Logo
 import VoidLogo from '../images/illustrations/void.svg';
-
+import EmptyIcon from '../images/illustrations/empty.svg';
 //Export to CSV 
 import { CSVLink } from "react-csv";
 
@@ -21,21 +20,6 @@ import { CSVLink } from "react-csv";
 //@param {del}  A function called from the dashboard.js to communicate with the server
 const Delete = ({i, val, del, show, onHide}) =>{
         return(
-        //     <Popup className='popup' trigger={} modal>
-                
-        //     {close=>(
-        //         <div className='popup'>    
-        //         <Button className="close" id={i} onClick={close}> &times;</Button>
-        //         <div className="content">
-        //         <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
-        //         </div>
-        //         <Button className='btn btn-success del_button' onClick={()=>{del(val); close()}} >{'Delete'}</Button>
-        //         <Button className='btn btn-danger del_button' onClick={close}>Close</Button>
-        //         </div>
-        //     )}
-                
-        //   </Popup>
-
             <Modal
             show={show}
             onHide={onHide}
@@ -81,6 +65,56 @@ Delete.propTypes = {
 const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
 
     const [show, setShow] = useState(false);
+    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState(0);
+
+
+    const searchResult = ({body, cells}) =>{
+        
+        if(body.length === 0){
+            return(
+                <tr>
+                    <td colspan={String(cells+2)}>
+                        <div className='empty-search'>
+                            <img  src={EmptyIcon} alt="Void Logo" />
+                        </div>
+                    </td>
+                    
+                </tr>
+                
+            )
+        }
+        return(
+                body.map((v,i) => 
+                <tr key={i}>
+                    <td>{i+1}</td>
+                 {Object.values(v.db_values).map((r,k) => <td key={k}>{r}</td> )}
+                 <td id={i}>{<Button className='btn-delete' onClick={(e) => {e.preventDefault(); setShow(true)}}> Delete </Button>}</td>
+                 <Delete
+                    i={i}
+                    val={v._id}
+                    del={delval}
+                    show={show}
+                    onHide={() => setShow(false)}
+                    />
+                </tr>
+                )
+        )
+         
+    }
+
+     
+    const searchTable = (f) =>{
+        return(
+            table.filter(item => {
+                var bd =  Object.values(item.db_values).map((val, ind)=> val);
+                return(
+                    bd[f].toLowerCase().includes(search.toLowerCase())
+                )
+            }
+            )
+        )
+    }
     //To get the the keys of the data
     if(table){
         var head = Object.keys(table[0].db_values);
@@ -108,9 +142,16 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                         {/* <Col xs={6}><Form.Control type="text" className="t-input" placeholder="Search..." /></Col> */}
                         <Col xs={6}><InputGroup>
                             <InputGroup.Text className="t-input-icon" placeholder><Search width={15} height={15}/></InputGroup.Text>
-                            <Form.Control type="text" className="t-input" placeholder="Search..." />
+                            <Form.Control type="text" className="t-input" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
                         </InputGroup></Col>
-                        <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col>
+                        {/* <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col> */}
+                        <Col xs={3}>
+                            <Form.Select size="md" value={filter} onChange={(e) => setFilter(e.target.value) }>
+                                {csv_head.map((v,i) =>
+                                <option value={i}>{v}</option>
+                                )}
+                            </Form.Select>
+                        </Col>
                         <Col xs={3}>
                         
                         <CSVLink  headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"}  >
@@ -137,29 +178,9 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                         </tr>
                         </thead>
                         <tbody className='table-body'>
-                            {
-                                table.map((item, index) =>
-                                <tr key={index}> 
-                                    <th>{index+1}</th>
-                                    {/* <th>{item._id}</th>
-                                    <th>{item.key}</th> */}
-                                    {Object.values(item.db_values).map((val, ind)=>
-                                        <th key={ind}>{(val) ? val:' '}</th>
-                                    )
-                                    }           
-                                    {/* delete_button(index, item._id, delval) */}
-                                    <th id={index}>{<Button className='btn-delete' onClick={() => console.log(show)}> Delete </Button>}</th>
-                                    <Delete
-                                    i={index}
-                                    val={item._id}
-                                    del={delval}
-                                    show={show}
-                                    onHide={() => setShow(false)}
-                                    />
-                                </tr>
-                                )
-                            }
-                            
+                                                       
+                            {searchResult({body: searchTable(filter), cells: csv_body[0].length})}
+                           
                         </tbody>
                         </Table>
                         <p className='Tunique'>{(delText) ? delText: ''}</p>

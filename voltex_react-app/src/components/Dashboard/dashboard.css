@@ -140,6 +140,7 @@
     width: 100%;
     padding: inherit;
     font-size: medium;
+    text-align: left !important;
 }
 .acc-body p{
     text-align: left;
@@ -147,12 +148,12 @@
 }
 .acc-body-label{
     font-weight: bold;
-    color: #1ea5ca;
+    color: var(--primary);
 }
 
 .acc-body p a{
     text-decoration: none;
-    color: #1ea5ca;
+    color: var(--primary);
 }
 .acc-body p a:hover{
     opacity: .7;
@@ -270,9 +271,15 @@
 }
 .disabled{
     opacity: .6;
-}
-.disabled{
     color: var(--primary) !important;
+}
+.empty-search{
+    margin: auto;
+}
+.empty-search img{
+    margin: auto;
+    width: 15em;
+    height: auto;
 }
 /* End of table styles */
 

@@ -54,7 +54,7 @@ function Settings({show, onHide, options}) {
        >
          <Modal.Header closeButton>
          </Modal.Header>
-         <Modal.Body>
+         <Modal.Body className="acc-body">
                   <h2 className='f-head'>Set Up your Table</h2>
                   <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
                   <p><span className='acc-body-label'>Form Action URL:</span> <a href={String(options.actionUrl)} >{String(options.actionUrl)}</a><Button id='dEdit-button' onClick={() => copyUrl(options.actionUrl)}>{copyTxt}</Button></p>

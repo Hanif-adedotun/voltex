@@ -38,8 +38,29 @@
 .btn-sec Button:hover{
     background-color: var(--primary);
 }
-
-
+/* features section */
+.feat{
+    color: var(--primary);
+    text-align: left;
+ }
+ .feat-cont{
+     margin: 25% auto;
+ }
+ .feat-head-cont{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .feat-head{
+     display: block;
+     font-size: 2em;
+     font-weight: bold;
+ }
+ .feat-img{
+     width: 100%;
+     height: auto;
+     border-radius: 20px;
+ }
 /* Secondary section */
 .alt-sec{
     background-color: var(--primary);
@@ -50,40 +71,31 @@
 .alt-sec h2{
     text-align: left;
 }
-.feat{
-   text-align: left;
-}
-.feat ul{
-    list-style-image: url('../images/icon/cube.png');
-    padding: 0;
-    margin: 0;
-}
 
-.feat ul li{
-    text-decoration: none;
-     list-style-type: none;
-     margin: 2em 2em;
-     text-align: left;
-     line-height: 2em;
-}
 .docs-txt{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.docs-c{
+    display: block;
+}
 .read-more Button{
+    margin-top: 2em;
     display: block;
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
     font-weight: bold;
     font-size: medium;
     border: none;
+    padding: .5em 1em;
 }
 .read-more Button:hover{
     background-color: white;
     color: var(--primary);
 }
 .h-docs-img{
+    margin: auto;
     height: auto;
-    width: 70%;
+    width: 60%;
 }
