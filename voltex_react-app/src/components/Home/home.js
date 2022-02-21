@@ -3,7 +3,7 @@ import './home.css';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import { ArrowRightShort, Clipboard} from 'react-bootstrap-icons';
 import {Link} from 'react-router-dom';
-
+import { Slide } from "react-awesome-reveal";
 //All the illustrations going to be used
 import H from "../images/illustrations/home_desc.svg";
 import Doc from "../images/illustrations/doc.svg";
@@ -89,40 +89,42 @@ class Home extends React.Component{
           return(
             <div className='Home'>
               <div className="h-head">
-                <h1>Voltex</h1>
+                <h1 className="h-head-h1">Voltex</h1>
                 <span>The only backend you need for your forms...</span>
               </div>
 
                  <Container className="h-main">
                    <Row >
-                     <Col md={{ span: 6, order: 'first'}} xs={{ span:12, order: 'last' }}>
+                     <Col className='h-left' md={{ span: 6, order: 'first'}} xs={{ span:12, order: 'last' }}>
+                       <div className="h-left-div">
                        <div className='h-head'>
-                        <h1 >
-                        Quickly store your forms without hassle.
-                        </h1>
+                        <h1 >Quickly store your forms without having any backend</h1>
                        </div>
                        <Row>
                          <Col xs={6} className="btn-pri"><Link to="/profile"><Button onClick={(e) => {e.preventDefault();}}>Get Started <ArrowRightShort height={30} width={30}/></Button></Link></Col>
                          <Col xs={6} className="btn-sec"><Button>Learn more</Button></Col>
                        </Row>
+                       </div>
                      </Col>
+                     
                      <Col md={{ span: 6, order: 'last'}} xs={{ span:12, order: 'first' }}>
-                       <img src={H} className='h-img' alt={"opaque definition"}/>
+                     <Slide direction="right"><img src={H} className='h-img' alt={"opaque definition"}/></Slide>
                      </Col>
+                     
                    </Row>
                  </Container>
 
                  <Container className="feat">
-                    <h2>Features</h2>
-                  
                       {this.state.features.map((f, i) =>
                         <Row className="feat-cont">
-                        <Col xs={{ span: 6, order: (i%2 == 0) ? "first":"last"}} className="feat-head-cont"><div className="feat-head">{f[0]}</div></Col>
-                        <Col xs={6}><img src={f[1]} className="feat-img shadow" alt="html code form" /></Col>
+                        <Col sm={{ span: 6, order: (i%2 == 0) ? "first":"last"}} className="feat-head-cont"><div className="feat-head">{f[0]}</div></Col>
+                        <Col sm={6}><img src={f[1]} className="feat-img shadow" alt="html code form" /></Col>
                       </Row>
                       )}
                    
                   </Container>
+
+
 
                 {/* Secondary section */}
                 <Container className='alt-sec' fluid>
@@ -131,7 +133,7 @@ class Home extends React.Component{
                           <Row>
                             <Col xs={5} className='docs-txt'>
                               <div className='docs-c'>
-                                <h2>Powerful and easy to use resources</h2>
+                                <h1>Effective and easy to use resources</h1>
                                 
                                 <p className='read-more'>
                                   <Button>Read our api docs <Clipboard width={30} height={30}/></Button>
@@ -141,6 +143,16 @@ class Home extends React.Component{
                             <Col xs={7}><img  className='h-docs-img' src={Doc} alt="Document"/></Col>
                           </Row>
                   </Container>
+
+                  <Container className="sec-advert">
+                  <Row>
+                    <Col className="sec-advert-text">
+                    <h1>Sign up for free.</h1>
+                    <h1>Connect your form right away!</h1></Col>
+                    <Col sm={3} className="get-started"><Slide direction="up"><Button size='medium'>Get started</Button></Slide></Col>
+                  </Row>
+                  </Container>
+
 
                 </Container>
                  
