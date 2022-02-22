@@ -4,6 +4,7 @@ import './index.css';
 import App from './components/App';
 import Footer from './components/Footer/footer';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // Index Page of the App

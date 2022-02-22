@@ -14,8 +14,9 @@ import {Link } from "react-router-dom";
 import Load from '../objects/loading';
 import Settings from './settings';
 
-
-
+// SVG
+import LoginIcon from "../images/login.svg";
+import Warning from "../images/illustrations/warning.svg";
  class Dashboard extends React.Component {
      constructor(){
          super();
@@ -59,7 +60,7 @@ import Settings from './settings';
                         }
                     }],
                  ,null],
-                 "status": 200,
+                 "status": 500,
              },
              activeDashboard: '',
              copyText: 'copy',
@@ -244,7 +245,11 @@ import Settings from './settings';
      signedout = () =>{
         return(
             <div className='signedout'>
-                <div className='s-text'>You need to Sign in to access dashboard, Go to <Link to='/profile'><span>profile</span></Link> to sign in now!</div>
+                <div className='signedout-cont'>
+                <img src={LoginIcon} className='signedout-img'/>
+                <div className='s-text'>You need to Sign in to access dashboard</div>
+                <Link to='/profile'><Button className='btn-setting'>Sign in now!</Button></Link>
+                </div>
             </div>
         )
      }
@@ -261,6 +266,7 @@ import Settings from './settings';
      serverError = () =>{
          return(
              <div>
+                  <img src={Warning} className='signedout-img'/>
                  <p className='serverErr'>There is either a network error or Server Error, Check your internet connection and refresh!</p>
              </div>
          )

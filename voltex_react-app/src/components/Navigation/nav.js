@@ -92,7 +92,14 @@ class navigation extends React.Component{
                     <Route path='/profile' exact component={Profile}/>
                     <Route path='/docs' exact component={() => {
                         window.location.href = 'https://voltex.readme.io';
-                        return null;
+                        return (
+                            <div className="nav-docs-cont">
+                                <div className="nav-docs">
+                                    <img className="nav-docs-logo" src={logo}/>
+                                    <p>Loading Docs...</p>
+                                </div>
+                            </div>
+                        );
                     }} />
                 </Switch>
                 </div>

@@ -1,0 +1,20 @@
+{
+  "short_name": "Voltex Middlwear",
+  "name": "Backend plug",
+  "icons": [
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "android-icon-36x36.png",
+      "type": "image/png",
+      "sizes": "36x36"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

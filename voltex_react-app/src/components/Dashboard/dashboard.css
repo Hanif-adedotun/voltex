@@ -368,9 +368,22 @@ color: red;
 
 
 /* If a user is not signed in class */
-.signedout .s-text{
-    color:  #61dafb;
+.signedout {
+    color:  white;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+.signedout-cont{
+    display: block;
+    font-size: large;
+}
+.signedout-img{
+    width: 20em;
+    height: auto;
+}
+
 /* End of not signed in div */
 
 /* Loading text in dashboard */
@@ -384,7 +397,7 @@ color: red;
 
 /* Server Error text */
 .serverErr{
-    color: red;
-    margin: 1em auto;
+    color: rgb(255, 255, 255);
+    margin: 4em auto;
 }
 /* End of server Error text */

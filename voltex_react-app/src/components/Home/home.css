@@ -11,6 +11,9 @@
     font-size: 6em;
     font-family: 'Arial Rounded MT Bold' !important;
 }
+.h-head{
+    margin-bottom: 3em;
+}
 .h-head span{
     font-size: medium;
 }
@@ -22,9 +25,7 @@
 .h-left-div{
     display: block;
 }
-.h-main{
-     margin-top: 2em;
-}
+
 .h-img{
     width: 70%;
     height: auto;
