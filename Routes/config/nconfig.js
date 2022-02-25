@@ -1,5 +1,6 @@
 var fs = require('fs');
 
+
 //(file) is where the file will be saved to
 var key = 'user';
 //A file to save the current user signed in 
@@ -23,6 +24,7 @@ async function wf(dataSent){
   console.log(dataSent);
   localStorage.setItem(key, JSON.stringify(dataSent));
   console.log(localStorage.getItem(key));
+  // console.log(req.user);
 }
 
 // function (readfil) used to get the properties of the current user 

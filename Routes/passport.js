@@ -8,7 +8,7 @@ const GitHubStrategy = require('passport-github').Strategy;
 const keys = require('./config/keys');
 
 // Cookies session and home url
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
 const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 
 
@@ -40,16 +40,18 @@ passport.use(new GoogleStrategy({
       name: profile.displayName,
       imageUrl: profile.photos[0].value
    };
+   
    await ncon.writeFile(user);
   // console.log(profile);
     return done(null, user);
 
   }));
-  router.use(cookieSession({
-    maxAge: 24*60*60*1000,
-    keys:[keys.session.cookieKey],
-    sameSite: 'strict'
-}));
+//   router.use(cookieSession({
+//     maxAge: 24*60*60*1000,
+//     name: 'session',
+//     keys:[keys.session.cookieKey],
+//     sameSite: 'strict'
+// }));
 
 
 
@@ -73,11 +75,7 @@ passport.use(new GoogleStrategy({
   // console.log(user);
       return done(null, user);
     }));
-    router.use(cookieSession({
-      maxAge: 24*60*60*1000,
-      keys:[keys.session.cookieKey],
-      sameSite: 'strict'
-}));
+
 
 router.use(passport.initialize());
 router.use(passport.session());
@@ -97,7 +95,10 @@ passport.deserializeUser(function(user, done) {
 router.get('/redirect', passport.authenticate('google', {
   successRedirect: CLIENT_PROFILE_URL,
   failureRedirect: 'api/auth/login/failure'
-}));
+}), async function(req,res){
+  var user = await ncon.readFile();
+  req.session.user = JSON.stringify(user);
+});
 
 //(api/auth/signin) is called by the front-end to use google api to sign in
 router.get('/signin', passport.authenticate('google', {scope: ['profile', 'email']}));
@@ -110,8 +111,11 @@ router.get('/github', passport.authenticate('github', { scope: [ 'user:email' ] 
 //(api/auth/github/callback)
 router.get('/github/callback', 
   passport.authenticate('github', { failureRedirect: '/api/auth/login/failure'}),
-  function(req, res) {
+ async function(req, res) {
     // Successful authentication, redirect home.
+    var user = await ncon.readFile();
+  req.session.user = JSON.stringify(user);
+  console.log('session User' + req.session.user);
     res.redirect(CLIENT_PROFILE_URL);
 });
 
@@ -119,8 +123,8 @@ router.get('/github/callback',
 //if the user is signed in, give the user properties to 
 router.get('/login/success', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
-  var user = await ncon.readFile();
-  console.log(user);
+  
+  
   if(user){   
     res.status(200).json({authenticate: true, user: user});
   }else{
@@ -143,6 +147,7 @@ router.get('/login/failure', (req, res)=>{
 // });
 router.get('/logout', (req, res) =>{
     // req.logout(); this stopped working after some use
+    delete req.session;
     req.logOut();//Used the alias to check, and it worked
     ncon.refresh(); //delete the user profile
     res.status(400).json({authenticate: false});

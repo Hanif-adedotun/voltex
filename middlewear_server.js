@@ -4,6 +4,8 @@ const app = express();
 const router = require('./Routes/router');
 const port = 5000;
 const cors = require('cors');
+// const session = require('cookie-session');
+// const cookieParser = require("cookie-parser");
 // const publicPath = path.join(__dirname, '..', 'public');
 
 
@@ -13,6 +15,14 @@ app.use(cors({
   credentials: true // allow session cookie from browser to pass through
 }));
 
+// app.use(session({
+//   maxAge: 24*60*60*1000,
+//   resave: false,
+//   sameSite: 'strict',
+//   secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+//   saveUninitialized:true,
+// }))
+// app.use(cookieParser());
 app.use('/api', router);//Go to my router folder to fetch inputs
 
 // app.use(express.static(publicPath));
