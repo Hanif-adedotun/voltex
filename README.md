@@ -1,2 +1,5 @@
 # voltex
-A middlewear software that takes the hassle of storing custom forms of your frontend application for you
+A tool that helps you store the responses from your form, without using any server
+
+## Development
+Currently in development 
