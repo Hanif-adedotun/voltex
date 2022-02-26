@@ -46,14 +46,6 @@ passport.use(new GoogleStrategy({
     return done(null, user);
 
   }));
-//   router.use(cookieSession({
-//     maxAge: 24*60*60*1000,
-//     name: 'session',
-//     keys:[keys.session.cookieKey],
-//     sameSite: 'strict'
-// }));
-
-
 
   // Github Strategy to login
   passport.use(new GitHubStrategy({
@@ -114,8 +106,7 @@ router.get('/github/callback',
  async function(req, res) {
     // Successful authentication, redirect home.
     var user = await ncon.readFile();
-  req.session.user = JSON.stringify(user);
-  console.log('session User' + req.session.user);
+    req.session.user = JSON.stringify(user);
     res.redirect(CLIENT_PROFILE_URL);
 });
 
@@ -123,7 +114,6 @@ router.get('/github/callback',
 //if the user is signed in, give the user properties to 
 router.get('/login/success', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
-  
   
   if(user){   
     res.status(200).json({authenticate: true, user: user});
@@ -153,7 +143,12 @@ router.get('/logout', (req, res) =>{
     res.status(400).json({authenticate: false});
 });
 
-
+//(api/auth/test)
+// router.get('/test/', async (req, res)=> {
+//   // req.session.test = "Testiing";
+//   console.log("user session check "+req.session.user);
+//   res.end(req.session.user);
+// });
 
 
 

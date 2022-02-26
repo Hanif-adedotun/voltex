@@ -15,6 +15,7 @@ const mongo = require('./Database/mongodb')
 //Test save to config
 const ncon = require('./config/nconfig');
 
+
 //Random number generator
 //Using the cryptocurrence hashing method
 const crypto = require('crypto');
@@ -25,16 +26,7 @@ router.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 router.use(bodyParser.urlencoded({ extended: true }));
 
-const session = require('cookie-session');
-const cookieParser = require("cookie-parser");
-router.use(session({
-  maxAge: 24*60*60*1000,
-  resave: false,
-  sameSite: 'strict',
-  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-  saveUninitialized:true,
-}))
-router.use(cookieParser());
+
 //Pug view for html
 const pug = require('pug');
 const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
@@ -49,7 +41,6 @@ router.get('/login/profile', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
   var user = usekey = await ncon.readFile();
   console.log("user session check "+req.session.user);
-  // var user = req.session.user || null;
   if(user){   
     res.status(200).json({authenticate: true, user:user});
   }else{
@@ -322,10 +313,20 @@ return res.status(200).send(emailhtml({
 }));
 })
 
-router.get('/test/', async (req, res)=> {
-  req.session.user = "Testiing";
-  console.log("user session check "+req.session.user);
-  res.end(req.session.user);
+// Firebase
+var fire = require('./Database/firebase');
+// userid:1
+// url:https://test.com
+// Tablename:Testing
+// uniqueID:74847hhhj898
+router.route('/firebase/add').post(async (req, res) => {
+  console.log(req.body.url);
+  await fire.write(req.body.userid, req.body).then((data) => {
+    res.end(data);
+  }).catch((err) => {
+    res.end("Error");
+  });
+  
 });
 
 
