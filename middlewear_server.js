@@ -6,8 +6,9 @@ const port = 5000;
 const cors = require('cors');
 const session = require('cookie-session');
 const cookieParser = require("cookie-parser");
+const passport = require('passport');
 // const publicPath = path.join(__dirname, '..', 'public');
-
+const keys = require('./Routes/config/keys');
 
 app.use(cors({
   origin: "http://localhost:3000", // allow to server to accept request from different origin
@@ -15,14 +16,20 @@ app.use(cors({
   credentials: true // allow session cookie from browser to pass through
 }));
 
+// Using Cookie Session 
 app.use(session({
   maxAge: 24*60*60*1000,
   resave: false,
   sameSite: 'strict',
-  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+  keys: [keys.session.cookieKey],
   saveUninitialized:true,
 }))
 app.use(cookieParser());
+
+// Initializing passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/api', router);//Go to my router folder to fetch inputs
 
 // app.use(express.static(publicPath));

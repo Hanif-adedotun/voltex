@@ -1,68 +1,64 @@
 // Import the functions you need from the SDKs you need
-var firebase = require('firebase-admin')
-
+var firebase = require('firebase')
+const config = require('../config/keys.js');
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDYlspvF0uu_Ubu2i6WqlgKLlipMnoTRZ8",
-  authDomain: "voltex-9b3e0.firebaseapp.com",
-  databaseURL: "https://voltex-9b3e0-default-rtdb.firebaseio.com",
-  projectId: "voltex-9b3e0",
-  storageBucket: "voltex-9b3e0.appspot.com",
-  messagingSenderId: "1048360397392",
-  appId: "1:1048360397392:web:a2840c0e123239ed03ff55",
-  measurementId: "G-G34PEPSNP7"
-};
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(config.firebase.config)
 
 // Data
-let database = firebase.database();
-// url` varchar(255) DEFAULT NULL,
-//   `Tablename` varchar(255) DEFAULT NULL,
-//   `uniqueid` varchar(255) NOT NULL,
-//   `UserID` varchar(128) NOT NULL
+let database = firebase.firestore();
+const User = database.collection('users');
 // @Params data:{
-//   url,
-//   Tablename,
-//   uniqueID
+// userid: id of the login method
+// url: the url of the database
+// Tablename: the user table name
+// uniqueID: identifier of the table
 // }
-var writeData = async (userid, data) => {
-  return new Promise(function(resolve, reject){
-    const ref = database.ref(`/users/${userid}`);
-  // database.ref(`/users/${userid}`).set({
-  //   url: data.url,
-  //   tableName: data.Tablename,
-  //   _id: data.uniqueID
-  // }, function(error) {
-  //   if (error) {
-  //     // The write failed...
-  //     console.log("Failed with error: " + error);
-  //     reject("Failed to add");
-  //   } else {
-  //     // The write was successful...
-  //     console.log("Mongodb success")
-  //     resolve("successful addition");
-  //   }
-// })
-});
+var writeData = async (data) => {
+  await User.add({
+    url: data.url,
+    Tablename: data.Tablename,
+    uniqueID: data.uniqueID,
+    userid: data.userid
+  });
+  return "Successfully added";
 }
 
-var ReadData = (userid) =>{
-  database.ref(`/users/${userid}`).once('value')
-.then(function(snapshot) {
-    console.log( snapshot.val() )
-})
+var readAll =  async() => {
+  const snapshot = await User.get();
+  let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+  return list;
+}
+
+var ReadData = async (userid) =>{
+  const snapshot = await User.get();
+  let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+  let data = list.filter((v) => v.userid == userid);
+  return data;
+}
+
+var update =  async(id, data) => {
+  await User.doc(id).update(data);
+  return "Successfully updated ";
+}
+
+var del =  async(id) => {
+  await User.doc(id).delete();
+  return "Successfully Deleted";
 }
 
 const realTimeDB = {
   write: writeData,
-  read: ReadData
+  read_all: readAll,
+  read: ReadData,
+  update: update,
+  delete: del
 }
 
 module.exports = realTimeDB;

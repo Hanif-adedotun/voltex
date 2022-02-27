@@ -40,7 +40,8 @@ const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
 router.get('/login/profile', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
   var user = usekey = await ncon.readFile();
-  console.log("user session check "+req.session.user);
+  // console.log("user session check "+JSON.stringify(req.session.user));
+  console.log("user",req.user);
   if(user){   
     res.status(200).json({authenticate: true, user:user});
   }else{
@@ -315,19 +316,37 @@ return res.status(200).send(emailhtml({
 
 // Firebase
 var fire = require('./Database/firebase');
-// userid:1
-// url:https://test.com
-// Tablename:Testing
-// uniqueID:74847hhhj898
+// userid: id of the login method
+// url: the url of the database
+// Tablename: the user table name
+// uniqueID: identifier of the table
 router.route('/firebase/add').post(async (req, res) => {
   console.log(req.body.url);
-  await fire.write(req.body.userid, req.body).then((data) => {
-    res.end(data);
-  }).catch((err) => {
-    res.end("Error");
-  });
-  
+  let d = await fire.write(req.body);
+  res.end(d);
 });
 
+router.route('/firebase/read/all').get(async (req, res) => {
+  let data = await fire.read_all();
+  res.json(data);
+});
+
+router.route('/firebase/read').get(async (req, res) => {
+  let data = await fire.read(req.body.userid);
+  res.json(data);
+});
+
+router.route('/firebase/update').post(async (req, res) => {
+  const id = req.body.id;
+  delete req.body.id;
+  let data = await fire.update(id, req.body);
+  res.end(JSON.stringify(data));
+});
+
+router.route('/firebase/delete').delete(async (req, res) => {
+  const id = req.body.id;
+  let response = await fire.delete(id);
+  res.json({msg: response});
+});
 
 module.exports = router;

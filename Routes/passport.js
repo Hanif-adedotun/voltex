@@ -8,7 +8,7 @@ const GitHubStrategy = require('passport-github').Strategy;
 const keys = require('./config/keys');
 
 // Cookies session and home url
-// const cookieSession = require('cookie-session');
+
 const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 
 
@@ -75,12 +75,13 @@ router.use(passport.session());
 
 //To save the user properties, to the req.session.user 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, JSON.stringify(user));
 });
 
 //To retreive the user properties, to the req.session.user 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+   done(null, JSON.parse(user));
+
 });
 
 //(api/auth/redirect) Google api will query this url to get the success redirect link or failure link
@@ -89,7 +90,8 @@ router.get('/redirect', passport.authenticate('google', {
   failureRedirect: 'api/auth/login/failure'
 }), async function(req,res){
   var user = await ncon.readFile();
-  req.session.user = JSON.stringify(user);
+  req.session.user = req.user;
+  console.log("user",req.user);
 });
 
 //(api/auth/signin) is called by the front-end to use google api to sign in
@@ -105,9 +107,9 @@ router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/api/auth/login/failure'}),
  async function(req, res) {
     // Successful authentication, redirect home.
-    var user = await ncon.readFile();
-    req.session.user = JSON.stringify(user);
+    // var user = await ncon.readFile();
     res.redirect(CLIENT_PROFILE_URL);
+    console.log("user ",req.user);
 });
 
 //(api/auth/login/success)
@@ -144,11 +146,10 @@ router.get('/logout', (req, res) =>{
 });
 
 //(api/auth/test)
-// router.get('/test/', async (req, res)=> {
-//   // req.session.test = "Testiing";
-//   console.log("user session check "+req.session.user);
-//   res.end(req.session.user);
-// });
+router.get('/test/', async (req, res)=> {
+  // req.session.test = "Testiing";
+  res.end("user",req.user);
+});
 
 
 
