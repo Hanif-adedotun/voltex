@@ -21,13 +21,37 @@ const User = database.collection('users');
 // uniqueID: identifier of the table
 // }
 var writeData = async (data) => {
+  try{
   await User.add({
-    url: data.url,
-    Tablename: data.Tablename,
-    uniqueID: data.uniqueID,
-    userid: data.userid
+    userid: data.userid,
+    tables: [{
+      url: data.url,
+      tablename: data.Tablename,
+      uniqueID: data.uniqueID,
+    }],
   });
+  
   return "Successfully added";
+}catch(e){
+  return e;
+}
+}
+
+var writeData = async (data) => {
+  try{
+  await User.add({
+    userid: data.userid,
+    tables: [{
+      url: data.url,
+      tablename: data.Tablename,
+      uniqueID: data.uniqueID,
+    }],
+  });
+  
+  return "Successfully added";
+}catch(e){
+  return e;
+}
 }
 
 var readAll =  async() => {
@@ -48,6 +72,22 @@ var update =  async(id, data) => {
   return "Successfully updated ";
 }
 
+var updateUrl =  async(id, key,data) => {
+  const k = `tables[${key}].url`;
+  await User.doc(id).update({
+    k: data,
+  });
+  return "Successfully updated Url";
+}
+
+var updateName =  async(id, key,name) => {
+  const k = `tables[${key}].tablename`;
+  await User.doc(id).update({
+    k: name,
+  });
+  return "Successfully updated Name";
+}
+
 var del =  async(id) => {
   await User.doc(id).delete();
   return "Successfully Deleted";
@@ -58,6 +98,7 @@ const realTimeDB = {
   read_all: readAll,
   read: ReadData,
   update: update,
+  update_name: updateName,
   delete: del
 }
 

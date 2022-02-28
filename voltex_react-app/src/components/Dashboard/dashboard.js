@@ -60,7 +60,7 @@ import Warning from "../images/illustrations/warning.svg";
                         }
                     }],
                  ,null],
-                 "status": 500,
+                 "status": 404,
              },
              activeDashboard: '',
              copyText: 'copy',

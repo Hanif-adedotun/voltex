@@ -16,8 +16,8 @@ Written by Hanif Adedotun 2020
 >> In-Memory cache for the current logged in user  storage
 >> **Now defunct**
 
-|| config.json ||
->> File storage of the current users in session
+|| req.user ||
+>> Cookie storage of the current user in session
 
 || emailbody.pug ||
 >> The dynamic html view for the view of an email sent using nodemailer
@@ -25,9 +25,7 @@ Written by Hanif Adedotun 2020
 || keys.js ||
 >> Important keys and values pairs of secrets and id used when vm is contacting an external/public server
 
-|| nconfig.js ||
->> File to control the options of adding, extracting, and removing the current session user from the config file
-
 || usertable.sql ||
 >> The sql file for the user table2 stored locally for the build version
 >> Can be exported later to an online mysql table
+

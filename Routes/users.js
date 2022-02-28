@@ -7,14 +7,12 @@ const path = require('path');
 //Mysql
 var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
-const { json } = require('body-parser');
+
+//Firebase
+// var firebase = require('./Database/firebase');
 
 //MongoDB
 const mongo = require('./Database/mongodb')
-
-//Test save to config
-const ncon = require('./config/nconfig');
-
 
 //Random number generator
 //Using the cryptocurrence hashing method
@@ -39,13 +37,12 @@ const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
 //if the user is signed in, give the user properties to 
 router.get('/login/profile', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
-  var user = usekey = await ncon.readFile();
+  var user = usekey = req.user;
   // console.log("user session check "+JSON.stringify(req.session.user));
-  console.log("user",req.user);
+  console.log("current user ", user);
   if(user){   
     res.status(200).json({authenticate: true, user:user});
   }else{
-    ncon.refresh();
     res.status(404).json({authenticate: false,user: null});
   }
 });
@@ -54,10 +51,11 @@ router.get('/login/profile', async (req, res)=>{
 //Router (GET method) {/api/users/login/dashboard}
 // To get both the current user details and the user stored form in the mongodb if any
 router.get('/login/dashboard', async (req, res) => {
-  var serverRes, usekey;
+  var serverRes, usekey, id;
   //get dashboard from its database
-    usekey = await ncon.readFile();
-
+    usekey = req.user;
+    id = (usekey) ? usekey.id : null;
+    
     const dummyTable = {
       databse: (usekey) ? usekey.id : null,
       table: keys.mysql.Table.tablename
@@ -121,6 +119,10 @@ router.get('/login/dashboard', async (req, res) => {
     });    
     
 });
+
+
+//Router (GET method) {/api/users/login/dashboard}
+// To get both the current user details and the user stored form in the mongodb if any
 
 //Router (GET method) {/api/users/delete/:id}
 //(:id) is the id of the file to delete form mongodb
@@ -221,7 +223,7 @@ router.route('/editVal').post(
         
   //(usekey) gets the current user details
   //Get the id to identify the row to edit in the database
-    var usekey = await ncon.readFile();
+    var usekey = req.user;
 
     var userID =  (usekey) ? usekey.id : null;
 
@@ -321,9 +323,9 @@ var fire = require('./Database/firebase');
 // Tablename: the user table name
 // uniqueID: identifier of the table
 router.route('/firebase/add').post(async (req, res) => {
-  console.log(req.body.url);
+  console.log(req.body.userid);
   let d = await fire.write(req.body);
-  res.end(d);
+  res.json({"msg": d});
 });
 
 router.route('/firebase/read/all').get(async (req, res) => {
@@ -341,6 +343,13 @@ router.route('/firebase/update').post(async (req, res) => {
   delete req.body.id;
   let data = await fire.update(id, req.body);
   res.end(JSON.stringify(data));
+});
+
+router.route('/firebase/update/table').post(async (req, res) => {
+ 
+  let data = await fire.update_name(req.body.id, req.body.key, req.body.Tablename);
+  
+  res.json(data);
 });
 
 router.route('/firebase/delete').delete(async (req, res) => {

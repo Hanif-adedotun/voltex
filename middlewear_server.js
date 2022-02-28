@@ -20,7 +20,6 @@ app.use(cors({
 app.use(session({
   maxAge: 24*60*60*1000,
   resave: false,
-  sameSite: 'strict',
   keys: [keys.session.cookieKey],
   saveUninitialized:true,
 }))

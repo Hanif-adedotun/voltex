@@ -11,11 +11,6 @@ const keys = require('./config/keys');
 
 const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 
-
-//nconf
-const ncon = require('./config/nconfig');
-
-
 //Default Google User details
 // {
 //   [0]   id: 'xxxxxxxxxxxxxxxxx',
@@ -41,9 +36,7 @@ passport.use(new GoogleStrategy({
       imageUrl: profile.photos[0].value
    };
    
-   await ncon.writeFile(user);
-  // console.log(profile);
-    return done(null, user);
+   return done(null, user);
 
   }));
 
@@ -61,16 +54,12 @@ passport.use(new GoogleStrategy({
       name: profile.displayName,
       imageUrl: profile.photos[0].value
    };
-
-
-  await ncon.writeFile(user);
-  // console.log(user);
       return done(null, user);
     }));
 
 
-router.use(passport.initialize());
-router.use(passport.session());
+// router.use(passport.initialize());
+// router.use(passport.session());
 
 
 //To save the user properties, to the req.session.user 
@@ -89,9 +78,7 @@ router.get('/redirect', passport.authenticate('google', {
   successRedirect: CLIENT_PROFILE_URL,
   failureRedirect: 'api/auth/login/failure'
 }), async function(req,res){
-  var user = await ncon.readFile();
-  req.session.user = req.user;
-  console.log("user",req.user);
+  console.log("User registered",req.user.email);
 });
 
 //(api/auth/signin) is called by the front-end to use google api to sign in
@@ -107,20 +94,18 @@ router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/api/auth/login/failure'}),
  async function(req, res) {
     // Successful authentication, redirect home.
-    // var user = await ncon.readFile();
     res.redirect(CLIENT_PROFILE_URL);
-    console.log("user ",req.user);
+    console.log("user registered",req.user.email);
 });
 
 //(api/auth/login/success)
 //if the user is signed in, give the user properties to 
 router.get('/login/success', async (req, res)=>{
-  // console.log(JSON.stringify(req.user));
-  
+  var user = req.user;
   if(user){   
     res.status(200).json({authenticate: true, user: user});
   }else{
-    ncon.refresh();
+    delete req.user;
     res.status(404).json({authenticate: false,user: null});
   }
 });
@@ -139,9 +124,8 @@ router.get('/login/failure', (req, res)=>{
 // });
 router.get('/logout', (req, res) =>{
     // req.logout(); this stopped working after some use
-    delete req.session;
+    delete req.user;
     req.logOut();//Used the alias to check, and it worked
-    ncon.refresh(); //delete the user profile
     res.status(400).json({authenticate: false});
 });
 

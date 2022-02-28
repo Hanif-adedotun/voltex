@@ -100,6 +100,7 @@ var addToUserTable = (dbname, url, name, id, userid) =>{
               return true;
           });
       });
+      
 }
 
 //function (getfromtable) gets either the whole table or a specified row using params
