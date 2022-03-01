@@ -38,6 +38,10 @@ var writeData = async (userid, data) => {
 }
 }
 
+// @Function addTable()
+// docid: the identification of a document
+// data: The data that needs to be updated
+// @Returns  "Successfully added"
 var addTable = async (docid, data) => {
   try{
   await User.doc(docid).update({
@@ -55,12 +59,17 @@ var addTable = async (docid, data) => {
 }
 }
 
+// @Function readAll()
+// @Returns  Object of all the users
 var readAll =  async() => {
   const snapshot = await User.get();
   let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
   return list;
 }
 
+// @Function ReadData()
+// userid: unique login ID of user
+// @Returns  (Object) of the specific user
 var ReadData = async (userid) =>{
   const snapshot = await User.get();
   let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
@@ -68,11 +77,31 @@ var ReadData = async (userid) =>{
   return data;
 }
 
-var update =  async(id, data) => {
-  await User.doc(id).update(data);
+// @Function getUniqeID()
+// userid: unique login ID of user
+// @Returns (array) the list of all unique id of tables
+var getUniqeID = async () =>{
+  const snapshot = await User.get();
+  let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+  let id = new Array();
+  list.map((table) => table.tables.map((v) => id.push(v.uniqueID)))
+  return id;
+}
+
+// @Function update()
+// id: unique login ID of user
+// data: The url that needs to be updated
+// @Returns  Successfully updated 
+var update =  async(docid, data) => {
+  await User.doc(docid).update(data);
   return "Successfully updated ";
 }
 
+// @Function updateUrl()
+// id: unique login ID of user
+// key: the numerical loaction of the table to be updated
+// data: The data that needs to be updated
+// @Returns  Successfully updated 
 var updateUrl =  async(id, key,data) => {
   const k = `tables[${key}].url`;
   await User.doc(id).update({
@@ -81,6 +110,11 @@ var updateUrl =  async(id, key,data) => {
   return "Successfully updated Url";
 }
 
+// @Function updateUrl()
+// id: unique login ID of user
+// key: the numerical loaction of the table to be updated
+// name: The name that needs to be updated
+// @Returns  Successfully updated 
 var updateName =  async(id, key,name) => {
   const k = `tables[${key}].tablename`;
   await User.doc(id).update({
@@ -89,8 +123,11 @@ var updateName =  async(id, key,name) => {
   return "Successfully updated Name";
 }
 
-var del =  async(id) => {
-  await User.doc(id).delete();
+// @Function updateUrl()
+// docid: unique ID of document
+// @Returns  Successfully Deleted 
+var del =  async(docid) => {
+  await User.doc(docid).delete();
   return "Successfully Deleted";
 }
 
@@ -98,6 +135,7 @@ const realTimeDB = {
   write: writeData,
   add_table: addTable,
   read_all: readAll,
+  get_id: getUniqeID,
   read: ReadData,
   update: update,
   update_name: updateName,

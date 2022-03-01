@@ -181,14 +181,22 @@ var resp;
 
 //Router (GET method) {/api/users/generateId}
 // To generate a 8 character string  containing number and letters to whcich whill be used in the unique link to secure the frontend form
-router.route('/generateId').get((req, res) => {
+router.route('/generateId').get( async (req, res) => {
     //This function is to generate a unique id and sends it to the user
     //{return} num as a string
-    function Generate(){
-        let num = crypto.randomBytes(8).toString('hex');
-        return num;
-    }
-    res.json(Generate());
+     function generate(){
+        return crypto.randomBytes(8).toString('hex');
+      }
+      let d = await firebase.get_id();
+      console.log(d);
+
+      if(!d.includes(generate())) {
+        res.json(generate());
+      }else{
+        res.json(generate());
+      }
+
+    
 });
 
 //Router (POST method) {/api/users/editVal}

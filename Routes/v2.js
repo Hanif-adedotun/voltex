@@ -114,7 +114,7 @@ router.route('/createDB')
                var  
                // user = req.user, 
                user =  {
-                    id: '115950407227191584229',
+                    id: '115950498727191584229',
                     email: 'https://github.com/Hanif-adedotun',
                     name: 'Hanif Adedotun ',
                     imageUrl: 'https://avatars.githubusercontent.com/u/54331442?v=4'
@@ -191,4 +191,10 @@ router.route('/addTable')
          
         }
 });
+
+//Router (GET method) {/api/v2/getID}
+router.route("/getID").get(async (req, res) => {
+     let d = await firebase.get_id();
+     res.json(d)
+})
 module.exports = router;
