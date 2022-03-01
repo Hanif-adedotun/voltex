@@ -29,3 +29,25 @@ Written by Hanif Adedotun 2020
 >> The sql file for the user table2 stored locally for the build version
 >> Can be exported later to an online mysql table
 
+{
+    "status": 200,
+    "action_url": [
+        "http://localhost:5000/api/middlewear/data/1006580689899733737299/2c59cdb53bjhjaeb"
+    ],
+    "data": [
+        {
+            "id": "DdNKfDK9KWTgQCBlOEGE",
+            "userid": "1006580689899733737299",
+            "tables": [
+                {
+                    "uniqueID": "2c59cdb53bjhjaeb",
+                    "tablename": "NewTest",
+                    "url": "https://test.io"
+                }
+            ]
+        }
+    ],
+    "table": [
+        {}
+    ]
+}

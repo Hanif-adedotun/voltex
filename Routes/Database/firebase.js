@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 var firebase = require('firebase')
 const config = require('../config/keys.js');
+const FieldValue = firebase.firestore.FieldValue;
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,10 +21,10 @@ const User = database.collection('users');
 // Tablename: the user table name
 // uniqueID: identifier of the table
 // }
-var writeData = async (data) => {
+var writeData = async (userid, data) => {
   try{
   await User.add({
-    userid: data.userid,
+    userid: userid,
     tables: [{
       url: data.url,
       tablename: data.Tablename,
@@ -37,20 +38,20 @@ var writeData = async (data) => {
 }
 }
 
-var writeData = async (data) => {
+var addTable = async (docid, data) => {
   try{
-  await User.add({
-    userid: data.userid,
-    tables: [{
+  await User.doc(docid).update({
+    tables: FieldValue.arrayUnion({
       url: data.url,
       tablename: data.Tablename,
       uniqueID: data.uniqueID,
-    }],
+    })
   });
   
   return "Successfully added";
 }catch(e){
-  return e;
+  console.log(e)
+  return null;
 }
 }
 
@@ -63,7 +64,7 @@ var readAll =  async() => {
 var ReadData = async (userid) =>{
   const snapshot = await User.get();
   let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
-  let data = list.filter((v) => v.userid == userid);
+  let data = list.filter((v) => v.userid == String(userid));
   return data;
 }
 
@@ -95,6 +96,7 @@ var del =  async(id) => {
 
 const realTimeDB = {
   write: writeData,
+  add_table: addTable,
   read_all: readAll,
   read: ReadData,
   update: update,

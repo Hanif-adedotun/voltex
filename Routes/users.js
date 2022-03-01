@@ -9,7 +9,7 @@ var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
 
 //Firebase
-// var firebase = require('./Database/firebase');
+var firebase = require('./Database/firebase');
 
 //MongoDB
 const mongo = require('./Database/mongodb')
@@ -51,78 +51,108 @@ router.get('/login/profile', async (req, res)=>{
 //Router (GET method) {/api/users/login/dashboard}
 // To get both the current user details and the user stored form in the mongodb if any
 router.get('/login/dashboard', async (req, res) => {
-  var serverRes, usekey, id;
-  //get dashboard from its database
-    usekey = req.user;
-    id = (usekey) ? usekey.id : null;
-    
-    const dummyTable = {
-      databse: (usekey) ? usekey.id : null,
-      table: keys.mysql.Table.tablename
-    }
+  try{
+       var 
+       serverRes,
+       data, 
+       user = req.user
+       id = (user) ? user.id : null;
+
+       // If the user is not logged in session, return 400 to client
+       if(!user){
+            serverRes = {
+            status: 400,
+            data: 'Log into databse'
+            }
+            res.status(404).json(serverRes);
+            return;
+       }
+
+       data = await firebase.read(id);
+
   
-    if(!dummyTable.databse){
-      console.log('User id '+ dummyTable.databse);
-      serverRes = {
-        status: 400,
-        data: 'Log into databse'
-      }
-      res.status(404).json(serverRes);
-      return;
-    }
+       if(data.length <= 0 || data[0].tables.length <= 0){
+       serverRes = {
+            status: 404,
+            data: 'Empty database'
+       }
+            res.status(404).json(serverRes);
+            return;
+       }
+
+       const unique_id = data[0].tables.map((t) => t.uniqueID);
+       const action_url = unique_id.map( (url) => 
+       `${keys.backend.path}/${id}/${url}`
+       )
+       
+       let tables = unique_id.map( async (i) => 
+            await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, i)
+       ); 
+
+       serverRes = {
+            status: 200,
+            action_url: action_url,
+            data: data,
+            table: tables
+       }
+       res.status(200).json(serverRes);
+       return;
+       
+}catch(e){
+  console.log('Fetch retrieval error '+ e);
+
+   serverRes = {
+     status: 500,
+     data: 'Server Error'
+   }
+   res.status(500).json(serverRes);
+   return;
+}
+})
 
 
-    usersDB.getfromtable(keys.mysql.database, dummyTable.table,` WHERE ${keys.mysql.Table.userID} ='${dummyTable.databse}'`).then(async function(dbResult){
+//Router (POST method) {/api/users/createDB}
+//This api is to parse the data of the form when creating a new table 
+//Using the express validator package
+//Returns a list of errors if there are errors or null if they are not
+
+router.route('/createDB')
+  .post([
+    body('url', 'Invalid Url').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false}),
+    body('Tablename', 'Enter a valid Name, must be less than 15 characters').isString().isLength({ max: 15, min: 1}),
+    body('uniqueID', 'Generate Unique ID').isAlphanumeric().isLength({ max: 16, min: 1})
       
-      var tableresult = await Object(dbResult);
-      
-      // console.log('Test table '+JSON.stringify(tableresult));
+    ],async function(req, res){
+        const errors = validationResult(req);
+        
+        if (errors.length > 0) {  
 
-      if(!tableresult[0]){
-        console.error('User file not available');
-  
-        serverRes = {
-          status: 404,
-          data: 'Empty database'
+          var err = errors.map((v,i) => ({id: i, ...v}));
+          return res.status(400).json({ errors: err});
+
+        }else{
+          try {
+
+               var  
+               user = req.user, 
+               id = (user) ? user.id : null;
+
+               if(id){ 
+                    await firebase.write(id, req.body);
+                    return res.status(200).json({errors: null, msg: "Successfully added"});
+               }
+               
+               return res.status(400).json({errors: {id:0, msg: "User not added"}});
+
+          } catch (error) {
+
+            console.log('Error adding to database:'+error);
+            return res.status(500).json(null);
+
+          }
+         
         }
-        res.status(404).json(serverRes);
-        return;
-      }
-
-      const uniqueid = tableresult[0].uniqueid;
-      const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
-
-      
-      await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, uniqueid).then(db_res => {    
-      // console.log(uniqueid);
-      // console.log('Testing data from users.js :'+db_res[0].key);
-     
-        serverRes = {
-          status: 200,
-          action_url: action_url,
-          data: tableresult,
-          table: db_res
-        }
-        res.status(200).json(serverRes);
-        return;
-    });          
-
-    }).catch(function(err){
-      console.log('Fetch retrieval error '+ err);
-
-      serverRes = {
-        status: 500,
-        data: 'Server Error'
-      }
-      res.status(500).json(serverRes);
-      return;
-    });    
-    
 });
-
-
-//Router (GET method) {/api/users/login/dashboard}
-// To get both the current user details and the user stored form in the mongodb if any
 
 //Router (GET method) {/api/users/delete/:id}
 //(:id) is the id of the file to delete form mongodb
@@ -159,54 +189,6 @@ router.route('/generateId').get((req, res) => {
         return num;
     }
     res.json(Generate());
-});
-
-//Router (POST method) {/api/users/createDB}
-//This api is to parse the data of the form when creating a new table 
-//Using the express validator package
-//Returns a list of errors if there are errors or null if they are not
-router.route('/createDB')
-  .post([
-    body('htmlUrl', 'Invalid Url').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false}),
-    body('dbname', 'Enter a valid Name, must be less than 15 characters').isString().isLength({ max: 15, min: 1}),
-    body('uniqueId', 'Generate Unique ID').isAlphanumeric().isLength({ max: 16, min: 1})
-      
-    ],async function(req, res){
-  
-      // console.log(req.body.htmlUrl);
-  
-        const errors = validationResult(req);
-        
-        if (!errors.isEmpty()) {  
-          
-          var idnum = new Array();
-           for (let i = 0; i <  errors.array().length; i++) {
-            idnum.push(i);
-          }
-          // console.log(idnum);
-          
-          return res.status(400).json({ errors: errors.array() , id: idnum});
-        }else{
-          try {
-
-            var usekey = await ncon.readFile();
-          
-            const Table = {
-              databse: (usekey) ? usekey.id : null
-            }
-            if(Table.databse){
-              usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId, Table.databse);
-            }
-            return res.status(200).json({errors: null});
-
-          } catch (error) {
-
-            console.log('Error adding to database:'+error);
-            return res.status(500).json(null);
-
-          }
-         
-        }
 });
 
 //Router (POST method) {/api/users/editVal}
@@ -317,44 +299,44 @@ return res.status(200).send(emailhtml({
 })
 
 // Firebase
-var fire = require('./Database/firebase');
+// var fire = require('./Database/firebase');
 // userid: id of the login method
 // url: the url of the database
 // Tablename: the user table name
 // uniqueID: identifier of the table
 router.route('/firebase/add').post(async (req, res) => {
   console.log(req.body.userid);
-  let d = await fire.write(req.body);
+  let d = await firebase.write(req.body);
   res.json({"msg": d});
 });
 
 router.route('/firebase/read/all').get(async (req, res) => {
-  let data = await fire.read_all();
+  let data = await firebase.read_all();
   res.json(data);
 });
 
 router.route('/firebase/read').get(async (req, res) => {
-  let data = await fire.read(req.body.userid);
+  let data = await firebase.read(req.body.userid);
   res.json(data);
 });
 
 router.route('/firebase/update').post(async (req, res) => {
   const id = req.body.id;
   delete req.body.id;
-  let data = await fire.update(id, req.body);
+  let data = await firebase.update(id, req.body);
   res.end(JSON.stringify(data));
 });
 
 router.route('/firebase/update/table').post(async (req, res) => {
  
-  let data = await fire.update_name(req.body.id, req.body.key, req.body.Tablename);
+  let data = await firebase.update_name(req.body.id, req.body.key, req.body.Tablename);
   
   res.json(data);
 });
 
 router.route('/firebase/delete').delete(async (req, res) => {
   const id = req.body.id;
-  let response = await fire.delete(id);
+  let response = await firebase.delete(id);
   res.json({msg: response});
 });
 

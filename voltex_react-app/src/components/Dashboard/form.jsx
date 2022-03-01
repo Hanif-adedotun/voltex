@@ -16,14 +16,14 @@ const uploadValues = (event) =>{
      console.log('Submitting form to server');
 
     const data = {
-        htmlUrl: url,
-        dbname: name,
-        uniqueId: key
+        url: "https://"+url,
+        Tablename: name,
+        uniqueID: key
      };
     
      // console.log(JSON.stringify(data));
 
-     fetch('/api/users/createDB' , {
+     fetch('/api/users/addTable' , {
          method: "POST",
          headers: {
              'Content-type': 'application/json'
@@ -107,7 +107,7 @@ const serverResponse = () =>{
 
                 <Form.Group className="mb-3" >
                     <Form.Label className='f-label'>Table Name</Form.Label>
-                    <Form.Control type="name" placeholder="Enter your table name" value={name} />
+                    <Form.Control type="name" placeholder="Enter your table name" value={name} onChange={(e) => setName(e.target.value)}/>
                </Form.Group>
 
                <Form.Label className='f-label'>Generate your unique key</Form.Label>

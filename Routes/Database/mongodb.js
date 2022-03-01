@@ -36,23 +36,26 @@ var connect_insert = (database, collection, data) =>{
 //@params (collection) the table to get data from
 var connect_find = async (database, collection, keyVal) =>{
      var res;
-     return new Promise(function(resolve, reject){
+     try{
      MongoClient.connect(url, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
      },async function(err, db) {
-          if (err) { reject(MongoClient); throw err;}
+          if (err) {return err;}
           var dbo = db.db(database);
           var query = {key: String(keyVal)};
           await dbo.collection(collection).find(query).toArray(async function(err, result) {
-            if (err) {reject(MongoClient); throw err; };
+            if (err) {return err; };
             res = result;
           //   console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
             db.close();
-            resolve(result);
+            return res;
           });
-        });
-     });      
+        });  
+     }catch(e) {
+          console.log(e);
+             return e;
+        }   
 }
 
  //function (delete_data): deletes a row from the database

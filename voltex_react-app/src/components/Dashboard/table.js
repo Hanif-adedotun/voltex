@@ -116,8 +116,9 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
         )
     }
     //To get the the keys of the data
-    if(table){
-        var head = Object.keys(table[0].db_values);
+    console.log(table);
+    if(table.length !== undefined) {
+        var head = Object.keys(table.db_values);
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
         var csv_body = table.map((item, index) =>
             Object.values(item.db_values).map((val, ind)=> val)
@@ -126,7 +127,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
 
         return(
             <div>
-                {(!table) ? 
+                {(table.length === undefined) ? 
                 <div>
                     <p>
                     <img id='empty_logo' src={VoidLogo} alt="Void Logo" />

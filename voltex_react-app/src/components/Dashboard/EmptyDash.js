@@ -80,14 +80,12 @@ class Emptydash extends React.Component{
         console.log('Submitting form to server');
 
        const data = {
-           htmlUrl: this.state.htmlUrl,
-           dbname: this.state.dbname,
-           uniqueId: this.state.uniqueId
+           url: `"https://"${this.state.htmlUrl}`,
+           Tablename: this.state.dbname,
+           uniqueID: this.state.uniqueId
         };
        
-        // console.log(JSON.stringify(data));
-
-        fetch('/api/users/createDB' , {
+          fetch('/api/users/createDB' , {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'

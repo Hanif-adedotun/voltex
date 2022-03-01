@@ -22,46 +22,7 @@ import Warning from "../images/illustrations/warning.svg";
          super();
          
          this.state = {
-             dashboard: {
-                 "data": [
-                     {
-                        "Tablename": "Test Table",
-                        "url": "https://test.com",
-                        "uniqueid": "9843948988nnsjhs",
-                     }
-                 ], 
-                 "action_url": "https://voltex.com/673778783778/89384",
-                 "table":[
-                    [{
-                        "_id": "5fe908dae6b4883b08317084",
-                        "key": "2c59cdb53b692aeb",
-                        "db_values": {
-                            "say": "A greeting message",
-                            "to": "Dad",
-                            "num": "23",
-                        }
-                    },
-                    {
-                        "_id": "5fe909c1e2721709fc263e4b",
-                        "key": "2c59cdb53b692aeb",
-                        "db_values": {
-                            "say": "Hello",
-                            "to": "Uncle",
-                            "num": "20"
-                        }
-                    },
-                    {
-                        "_id": "600545a16a9f87368cbc7636",
-                        "key": "2c59cdb53b692aeb",
-                        "db_values": {
-                            "say": "A greeting message",
-                            "to": "Uncle",
-                            "num": "001"
-                        }
-                    }],
-                 ,null],
-                 "status": 404,
-             },
+             dashboard: [],
              activeDashboard: '',
              copyText: 'copy',
             //  Table Tabs
@@ -87,26 +48,22 @@ import Warning from "../images/illustrations/warning.svg";
          
      }
      //Load the database values from the MongoDB
-    //  loadDatabase = () => {
-    //      this.setState({rotate: true});
-    //     fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
-    //      .then(res => res.json())//parse the data in json format
-    //      .then(dashboard => this.setState(
-    //          {dashboard}, 
-    //          this.setState({rotate: false})
-    //          ))
-    //      .catch((error) =>{console.error('Unable to get data from database' + error);});
-    //  }
-
-     componentDidMount(){
-        //  this.loadDatabase();
+     loadDatabase = () => {
+         this.setState({rotate: true});
+        fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
+         .then(res => res.json())//parse the data in json format
+         .then(dashboard => this.setState(
+             {dashboard}, 
+             this.setState({rotate: false})
+             ))
+         .catch((error) =>{console.error('Unable to get data from database' + error);});
      }
 
-     //function (copyUrl) to copy the unique url to clipboard
-     //@param {text} the text to copy to clipboard
-     //To copy the form name 
-      
-     
+     componentDidMount(){
+         this.loadDatabase();
+     }
+
+        
 
     //function (uploadEditVal) To upload the text of the user to the databas
     //@param {event} the inbuilt event parameter of js
@@ -163,15 +120,7 @@ import Warning from "../images/illustrations/warning.svg";
 
     //function (dashboard_content) to render the dashboard view to the user, with different components
      dashboard_content = () => {
-        //table names
-        const options ={
-            name: this.state.dashboard.data[0].Tablename, 
-            url: this.state.dashboard.data[0].url, 
-            id: this.state.dashboard.data[0].uniqueid,
-            actionUrl: this.state.dashboard.action_url,
-        };
-       
-
+           
         return(
             // The section before the table itself, for the table properties
             <div className='dashboard_content'>
@@ -180,13 +129,18 @@ import Warning from "../images/illustrations/warning.svg";
                     activeKey={this.state.key}
                     onSelect={(k) => {this.setState({key: k}); if (k==="+") {this.setState({form: true})}}}
                 >
-                    {this.state.dashboard.table.map((v,i) => 
-                       <Tab tabClassName='tab-tab' eventKey={i} title={"Table "+i} key={i}>
+                    {this.state.dashboard.data[0].tables.map((v,i) => 
+                       <Tab tabClassName='tab-tab' eventKey={i} title={v.tablename} key={i}>
                             <Button className='btn-setting' onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</Button>
                            <Settings
                         show={this.state.setting}
                         onHide={() => this.setState({setting: false})}
-                        options={options}
+                        options={({
+                            name: v.tablename, 
+                            url: v.url, 
+                            id: v.uniqueID,
+                            actionUrl: this.state.dashboard.action_url[i],
+                        })}
                         />
                    
                 {/* The table data  */}
@@ -198,13 +152,13 @@ import Warning from "../images/illustrations/warning.svg";
                     @param {loadDatabase} The function to refresh the table data from the server
                 */}
                     <Table 
-                    tableName={this.state.dashboard.data[0].Tablename} 
+                    tableName={v.tablename} 
                     table={this.state.dashboard.table[i]} 
                     delval={this.tableDelete} delText={this.state.delres} 
                     loadDatabase={this.loadDatabase}
                     rotate={this.state.rotate}
                     sendmail={this.sendmail}
-                    actionUrl={this.state.dashboard.action_url}/>
+                    actionUrl={this.state.dashboard.action_url[i]}/>
                        </Tab>
                     )}
                     <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} >
@@ -212,6 +166,7 @@ import Warning from "../images/illustrations/warning.svg";
                    <FormUI
                         show={this.state.form}
                         onHide={() => {this.setState({form: false}); this.setState({key: 0})}}
+                        newTable={false}
                         />
                     </Tab>
                 </Tabs>
