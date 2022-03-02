@@ -81,9 +81,11 @@ router.get('/login/dashboard', async (req, res) => {
        }
 
        const unique_id = data[0].tables.map((t) => t.uniqueID);
-       const action_url = unique_id.map( (url) => 
-       `${keys.backend.path}/${id}/${url}`
+       let action_url = new Array();
+       unique_id.map( (url) => 
+       action_url.push(`${keys.backend.path}/${id}/${url}`)
        )
+
        
        let tables = unique_id.map( async (i) => 
             await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, i)
@@ -305,47 +307,5 @@ return res.status(200).send(emailhtml({
   body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... `
 }));
 })
-
-// Firebase
-// var fire = require('./Database/firebase');
-// userid: id of the login method
-// url: the url of the database
-// Tablename: the user table name
-// uniqueID: identifier of the table
-router.route('/firebase/add').post(async (req, res) => {
-  console.log(req.body.userid);
-  let d = await firebase.write(req.body);
-  res.json({"msg": d});
-});
-
-router.route('/firebase/read/all').get(async (req, res) => {
-  let data = await firebase.read_all();
-  res.json(data);
-});
-
-router.route('/firebase/read').get(async (req, res) => {
-  let data = await firebase.read(req.body.userid);
-  res.json(data);
-});
-
-router.route('/firebase/update').post(async (req, res) => {
-  const id = req.body.id;
-  delete req.body.id;
-  let data = await firebase.update(id, req.body);
-  res.end(JSON.stringify(data));
-});
-
-router.route('/firebase/update/table').post(async (req, res) => {
- 
-  let data = await firebase.update_name(req.body.id, req.body.key, req.body.Tablename);
-  
-  res.json(data);
-});
-
-router.route('/firebase/delete').delete(async (req, res) => {
-  const id = req.body.id;
-  let response = await firebase.delete(id);
-  res.json({msg: response});
-});
 
 module.exports = router;

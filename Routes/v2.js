@@ -30,7 +30,7 @@ router.get('/login/dashboard', async (req, res) => {
           data, 
           // user = req.user, 
           user =  {
-               id: '1006580689899733737299',
+               id: '100658060989733737299',
                email: 'https://github.com/Hanif-adedotun',
                name: 'Hanif Adedotun ',
                imageUrl: 'https://avatars.githubusercontent.com/u/54331442?v=4'
@@ -49,7 +49,8 @@ router.get('/login/dashboard', async (req, res) => {
 
           data = await firebase.read(id);
 
-     
+          // res.json(data);
+
           if(data.length <= 0 || data[0].tables.length <= 0){
           serverRes = {
                status: 404,
@@ -60,13 +61,20 @@ router.get('/login/dashboard', async (req, res) => {
           }
 
           const unique_id = data[0].tables.map((t) => t.uniqueID);
-          const action_url = unique_id.map( (url) => 
-          `${keys.backend.path}/${id}/${url}`
+          let action_url = new Array();
+          unique_id.map( (url) => 
+               action_url.push(`${keys.backend.path}/${id}/${url}`)
           )
-          
-          let tables = unique_id.map( async (i) => 
-               await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, i)
+         
+          let tables = new Array();
+          await unique_id.map( async (i) => 
+               tables.push( await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, i))
           ); 
+
+          // let tables = unique_id.map( async (i) => 
+          //      await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, i)
+          // ); 
+
 
           serverRes = {
                status: 200,
@@ -172,7 +180,7 @@ router.route('/addTable')
                docid = req.body.docid;
 
                if(id){ 
-                    let  d = await firebase.add_table(req, req.body);
+                    let  d = await firebase.add_table(docid, req.body);
                     
                     return (d) ? 
                     res.status(200).json({errors: null, msg: "Successfully added table"}) 
@@ -192,9 +200,47 @@ router.route('/addTable')
         }
 });
 
-//Router (GET method) {/api/v2/getID}
-router.route("/getID").get(async (req, res) => {
-     let d = await firebase.get_id();
-     res.json(d)
-})
+
+// Firebase
+// var fire = require('./Database/firebase');
+// userid: id of the login method
+// url: the url of the database
+// Tablename: the user table name
+// uniqueID: identifier of the table
+router.route('/firebase/add').post(async (req, res) => {
+     console.log(req.body.userid);
+     let d = await firebase.write(req.body);
+     res.json({"msg": d});
+   });
+   
+   router.route('/firebase/read/all').get(async (req, res) => {
+     let data = await firebase.read_all();
+     res.json(data);
+   });
+   
+   router.route('/firebase/read').get(async (req, res) => {
+     let data = await firebase.read(req.body.userid);
+     res.json(data);
+   });
+   
+   router.route('/firebase/update').post(async (req, res) => {
+     const id = req.body.id;
+     delete req.body.id;
+     let data = await firebase.update(id, req.body);
+     res.end(JSON.stringify(data));
+   });
+   
+   router.route('/firebase/update/table').post(async (req, res) => {
+    
+     let data = await firebase.update_name(req.body.id, req.body.key, req.body.Tablename);
+     
+     res.json(data);
+   });
+   
+   router.route('/firebase/delete').delete(async (req, res) => {
+     const id = req.body.id;
+     let response = await firebase.delete(id);
+     res.json({msg: response});
+   });
+   
 module.exports = router;

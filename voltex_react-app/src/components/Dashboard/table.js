@@ -116,7 +116,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
         )
     }
     //To get the the keys of the data
-    console.log(table);
+    // console.log(table);
     if(table.length !== undefined) {
         var head = Object.keys(table.db_values);
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;

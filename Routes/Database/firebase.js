@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 var firebase = require('firebase')
 const config = require('../config/keys.js');
-const FieldValue = firebase.firestore.FieldValue;
+
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -45,11 +45,11 @@ var writeData = async (userid, data) => {
 var addTable = async (docid, data) => {
   try{
   await User.doc(docid).update({
-    tables: FieldValue.arrayUnion({
+    tables: firebase.firestore.FieldValue.arrayUnion(...[{
       url: data.url,
       tablename: data.Tablename,
       uniqueID: data.uniqueID,
-    })
+    }])
   });
   
   return "Successfully added";

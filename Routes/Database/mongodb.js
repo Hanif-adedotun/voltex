@@ -46,18 +46,40 @@ var connect_find = async (database, collection, keyVal) =>{
           var query = {key: String(keyVal)};
           await dbo.collection(collection).find(query).toArray(async function(err, result) {
             if (err) {return err; };
-            res = result;
-          //   console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
-            db.close();
-            return res;
+   
+            console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
+          db.close();
+          res = result;
+          return result;
+            
           });
-        });  
+        }); 
+     if(res) {return res; }
      }catch(e) {
           console.log(e);
              return e;
-        }   
+        } 
 }
+var connect_find_new = async (database, collection, keyVal) =>{
+     const client = await MongoClient.connect(url, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+     }).catch(err => {console.log(err);})
 
+     if(!client){return;}
+
+     try{
+          var dbo = client.db(database);
+          var query = {key: String(keyVal)};
+
+          let res = await dbo.collection(collection).find(query).toArray();
+          console.log(res);
+          return res;
+     }catch(e){console.log(e)}
+     finally{
+          client.close();
+     }
+}
  //function (delete_data): deletes a row from the database
 //@params (database) the name of the database to get data from
 //@params (collection) the table to get data from
@@ -87,6 +109,7 @@ var delete_data = async (database, collection, id)=>{
 const mongo ={
      insert : connect_insert,
      find: connect_find,
+     find_new: connect_find_new,
      delete: delete_data
 }
 module.exports = mongo;

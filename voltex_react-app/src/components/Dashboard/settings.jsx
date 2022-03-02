@@ -8,7 +8,7 @@ function Settings({show, onHide, options}) {
      const [serverRes, setServerRes] = useState([]);
 
      const [copyTxt, setCopyText] = useState("Copy!");
-
+console.log(options.actionUrl);
    const copyUrl = (text) => {
     navigator.clipboard.writeText(text).then(function(){
     }, function(err){
@@ -57,7 +57,7 @@ function Settings({show, onHide, options}) {
          <Modal.Body className="acc-body">
                   <h2 className='f-head'>Set Up your Table</h2>
                   <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                  <p><span className='acc-body-label'>Form Action URL:</span> <a href={String(options.actionUrl)} >{String(options.actionUrl)}</a><Button id='dEdit-button' onClick={() => copyUrl(options.actionUrl)}>{copyTxt}</Button></p>
+                  <p><span className='acc-body-label'>Form Action URL:</span> <a href={String(options.actionUrl)} >{options.actionUrl}</a><Button id='dEdit-button' onClick={() => copyUrl(options.actionUrl)}>{copyTxt}</Button></p>
                     <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <Button id='dEdit-button' onClick={() => seteditUrl(true)}>Edit</Button></p>
                     {(editurl === true) ? 
                     <p>

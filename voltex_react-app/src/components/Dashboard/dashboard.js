@@ -57,10 +57,13 @@ import Warning from "../images/illustrations/warning.svg";
              this.setState({rotate: false})
              ))
          .catch((error) =>{console.error('Unable to get data from database' + error);});
+
+        
      }
 
      componentDidMount(){
          this.loadDatabase();
+        
      }
 
         
@@ -139,9 +142,11 @@ import Warning from "../images/illustrations/warning.svg";
                             name: v.tablename, 
                             url: v.url, 
                             id: v.uniqueID,
-                            actionUrl: this.state.dashboard.action_url[i],
+                            actionUrl: String(this.state.dashboard.action_url[i]),
                         })}
+                       
                         />
+                         <p>{this.state.dashboard.action_url[i]}</p>
                    
                 {/* The table data  */}
                 {/*
