@@ -2,28 +2,32 @@ import React, {useState} from 'react';
 import {Modal, Button, Form, Row, Col, InputGroup} from 'react-bootstrap';
 import './dashboard.css';
 
-function FormUI(props) {
+function FormUI({show, onHide, newTable, docid,}) {
      const[name, setName] = useState([]);
      const [url, setUrl] = useState([]);
      const [key, setKey] = useState([]);
      const [serverRes, setServerRes] = useState([]);
+     const [SubmitBtn, setSubmitBtn] = useState("Create Table");
 
 //function (uploadValues) this function is to tell the server to upload the form 
 //@param {event} inbuilt event emmitter variable
 //{return} set the state
 const uploadValues = (event) =>{
      event.preventDefault();
+     setSubmitBtn("Submiting...");
      console.log('Submitting form to server');
 
     const data = {
         url: "https://"+url,
         Tablename: name,
-        uniqueID: key
+        uniqueID: key,
+        docid:docid,
      };
     
      // console.log(JSON.stringify(data));
+     let path = (newTable) ? "/api/users/createDB": "/api/users/addTable";
 
-     fetch('/api/users/addTable' , {
+     fetch(path , {
          method: "POST",
          headers: {
              'Content-type': 'application/json'
@@ -34,6 +38,7 @@ const uploadValues = (event) =>{
          .then((response) => {setServerRes(response.errors)})
          .catch( (error) =>{console.error('Unable to validate error ' + error);});
 
+    setSubmitBtn("Create Table");
   }
 
 //function (generateID) this function is to tell the server to generate a unique 8letter string 
@@ -62,10 +67,10 @@ const generateID = (event) =>{
 //If there are no errors, it shows a good message
 //{return} sets the state
 const serverResponse = () =>{
-          if(serverRes){
+            if(serverRes){
               // console.log(this.state.serverRes);
               return(
-                  <div >
+                  <div className='form-response'>
                       <ul className='form-error'>
                       {serverRes.map(error =>(
                       <li className='error-li' key={error.id}> {error.msg}</li>
@@ -85,7 +90,8 @@ const serverResponse = () =>{
      }
      return (
        <Modal
-         {...props}
+         show = {show}
+         onHide = {onHide}
          size="md"
          centered
          className='modal'
@@ -94,7 +100,7 @@ const serverResponse = () =>{
          </Modal.Header>
          <Modal.Body>
                   <h2 className='f-head'>Set Up your Table</h2>
-           <Form  className="TableForm" onSubmit={(e) => uploadValues(e)}>
+           <Form  className="TableForm" >
                <Form.Group className="mb-3">
                     <Form.Label className='f-label'>Website Url</Form.Label>                   
                     <InputGroup className="mb-1" >
@@ -120,30 +126,13 @@ const serverResponse = () =>{
                     </Col>
                </Row>
                {serverResponse()}
-               <Button variant="primary" type="submit" className="f-btn">
-               Create Table
+               <Button variant="primary" type="submit" className="f-btn" onClick={(e) => uploadValues(e)}>
+               {SubmitBtn}
                </Button>
           </Form>
          </Modal.Body>
        </Modal>
      );
    }
-   
-//    function App() {
-//      const [modalShow, setModalShow] = useState(false);
-   
-//      return (
-//        <div>
-//          <Button variant="primary" onClick={() => setModalShow(true)}>
-//            Launch vertically centered modal
-//          </Button>
-   
-//          <FormUI
-//            show={modalShow}
-//            onHide={() => setModalShow(false)}
-//          />
-//        </div>
-//      );
-//    }
 
 export default FormUI;

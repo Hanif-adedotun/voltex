@@ -36,12 +36,14 @@ import Warning from "../images/illustrations/warning.svg";
              delres: '',
              delText: null,
              rotate: false,
+             actionUrl: [],
 
              //Edit url
              inputUrl: '',
              editUrl: false,
              serverRes: [],
              Urledited: false,
+
              //Sendmail
              sent: false
          };
@@ -54,7 +56,8 @@ import Warning from "../images/illustrations/warning.svg";
          .then(res => res.json())//parse the data in json format
          .then(dashboard => this.setState(
              {dashboard}, 
-             this.setState({rotate: false})
+             this.setState({rotate: false}),
+            this.setState({actionUrl: dashboard.action_url}),
              ))
          .catch((error) =>{console.error('Unable to get data from database' + error);});
 
@@ -142,7 +145,7 @@ import Warning from "../images/illustrations/warning.svg";
                             name: v.tablename, 
                             url: v.url, 
                             id: v.uniqueID,
-                            actionUrl: String(this.state.dashboard.action_url[i]),
+                            actionUrl: this.state.actionUrl[i],
                         })}
                        
                         />
@@ -172,6 +175,7 @@ import Warning from "../images/illustrations/warning.svg";
                         show={this.state.form}
                         onHide={() => {this.setState({form: false}); this.setState({key: 0})}}
                         newTable={false}
+                        docid={this.state.dashboard.data[0].id}
                         />
                     </Tab>
                 </Tabs>
@@ -217,7 +221,7 @@ import Warning from "../images/illustrations/warning.svg";
      loading = () =>{
          return(
             <div>
-                <Load color=' #61dafb' type='bubbles'/> 
+                <Load color=' #ffffff' type='bubbles'/> 
                 <p className='unique space'>Please wait while we are checking for your table......</p>
             </div>
          )

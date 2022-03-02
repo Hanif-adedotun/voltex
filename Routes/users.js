@@ -38,8 +38,7 @@ const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
 router.get('/login/profile', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
   var user = usekey = req.user;
-  // console.log("user session check "+JSON.stringify(req.session.user));
-  console.log("current user ", user);
+  
   if(user){   
     res.status(200).json({authenticate: true, user:user});
   }else{
@@ -126,15 +125,13 @@ router.route('/createDB')
       
     ],async function(req, res){
         const errors = validationResult(req);
-        
-        if (errors.length > 0) {  
+        delete req.body.docid;
 
-          var err = errors.map((v,i) => ({id: i, ...v}));
+        if (!errors.isEmpty()) {  
+          var err = errors.errors.map((v,i) => ({id: i, ...v}));
           return res.status(400).json({ errors: err});
-
         }else{
           try {
-
                var  
                user = req.user, 
                id = (user) ? user.id : null;
@@ -144,6 +141,55 @@ router.route('/createDB')
                     return res.status(200).json({errors: null, msg: "Successfully added"});
                }
                
+               return res.status(400).json({errors: {id:0, msg: "User not added"}});
+
+          } catch (error) {
+
+            console.log('Error adding to database:'+error);
+            return res.status(500).json(null);
+
+          }
+         
+        }
+});
+
+
+//Router (POST method) {/api/v2/addTable}
+//This api is to parse the data of the form when creating a new table 
+//Using the express validator package
+//Returns a list of errors if there are errors or null if they are not
+router.route('/addTable')
+  .post([
+    body('url', 'Invalid Url').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false}),
+    body('Tablename', 'Enter a valid Name, must be less than 15 characters').isString().isLength({ max: 15, min: 1}),
+    body('uniqueID', 'Generate Unique ID').isAlphanumeric().isLength({ max: 16, min: 1})
+      
+    ],async function(req, res){
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {  
+
+          var err = errors.errors.map((v,i) => ({id: i, ...v}));
+          return res.status(400).json({ errors: err});
+
+        }else{
+          try {
+
+               var  
+               user = req.user, 
+               // Expects document id from frontend
+               id = (user) ? user.id : null
+               docid = req.body.docid;
+               delete req.body.docid;
+               
+               if(id){ 
+                    let  d = await firebase.add_table(docid, req.body);
+                    
+                    return (d) ? 
+                    res.status(200).json({errors: null, msg: "Successfully added table"}) 
+                    : 
+                    res.status(500).json({errors: {id:0, msg: "Server Error"}});
+               }
+
                return res.status(400).json({errors: {id:0, msg: "User not added"}});
 
           } catch (error) {
@@ -190,7 +236,6 @@ router.route('/generateId').get( async (req, res) => {
         return crypto.randomBytes(8).toString('hex');
       }
       let d = await firebase.get_id();
-      console.log(d);
 
       if(!d.includes(generate())) {
         res.json(generate());

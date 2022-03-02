@@ -178,7 +178,8 @@ router.route('/addTable')
                }
                id = (user) ? user.id : null
                docid = req.body.docid;
-
+               delete req.body.docid;
+               
                if(id){ 
                     let  d = await firebase.add_table(docid, req.body);
                     
