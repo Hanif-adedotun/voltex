@@ -116,11 +116,15 @@ var updateUrl =  async(id, key,data) => {
 // name: The name that needs to be updated
 // @Returns  Successfully updated 
 var updateName =  async(id, key,name) => {
-  const k = `tables[${key}].tablename`;
-  await User.doc(id).update({
-    k: name,
-  });
-  return "Successfully updated Name";
+  try{
+    const k = `tables[${key}].tablename`;
+    await User.doc(id).update({
+      [k]: name,
+    });
+    return "Successfully updated Name";
+  }catch(e){
+    return e;
+  }
 }
 
 // @Function updateUrl()

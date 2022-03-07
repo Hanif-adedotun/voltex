@@ -28,8 +28,9 @@ router.get('/mongodb/table', async (req, res) => {
           //   await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, i)
           // ); 
           let tables = new Array();
-          await Promise.all(u_id.map(async (table) => {
-            tables.push(await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, table))
+          await Promise.all(u_id.map(async (table, i) => {
+               tables.splice(i, 0, await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, table))
+          //   tables.push(await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, table))
           }));
 
           

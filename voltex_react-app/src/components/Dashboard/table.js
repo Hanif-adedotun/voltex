@@ -109,6 +109,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
         return(
             table.filter(item => {
                 var bd =  Object.values(item.db_values).map((val, ind)=> val);
+                // console.log(bd[f]);
                 return(
                     bd[f].toLowerCase().includes(search.toLowerCase())
                 )
