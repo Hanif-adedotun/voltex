@@ -11,7 +11,7 @@
     "watch": "babel src –presets react –out-dir static –watch",
     "test": "jest",
     "start": "node middlewear_server.js",
-    "server": "nodemon middlewear_server.js",
+    "server": "set NODE_ENV=dev && nodemon middlewear_server.js",
     "client": "npm start --prefix voltex_react-app",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

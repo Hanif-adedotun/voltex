@@ -8,7 +8,9 @@ function Settings({show, onHide, options}) {
      const [serverRes, setServerRes] = useState([]);
 
      const [copyTxt, setCopyText] = useState("Copy!");
-console.log(options.actionUrl);
+    console.log(options.i);
+
+
    const copyUrl = (text) => {
     navigator.clipboard.writeText(text).then(function(){
     }, function(err){

@@ -67,10 +67,11 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
     const [show, setShow] = useState(false);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState(0);
+    const [t_length, set_length] = useState(0);
 
 
     const searchResult = ({body, cells}) =>{
-        
+               
         if(body.length === 0){
             return(
                 <tr>
@@ -116,18 +117,18 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
         )
     }
     //To get the the keys of the data
-    // console.log(table);
-    if(table.length !== undefined) {
-        var head = Object.keys(table.db_values);
+  
+    if(table.length > 0) {
+        var head = Object.keys(table[0].db_values); 
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
         var csv_body = table.map((item, index) =>
             Object.values(item.db_values).map((val, ind)=> val)
         );
     }
-
+  
         return(
             <div>
-                {(table.length === undefined) ? 
+                {(table === [] || table.length <= 0) ? 
                 <div>
                     <p>
                     <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
@@ -143,7 +144,10 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                         {/* <Col xs={6}><Form.Control type="text" className="t-input" placeholder="Search..." /></Col> */}
                         <Col xs={6}><InputGroup>
                             <InputGroup.Text className="t-input-icon" placeholder><Search width={15} height={15}/></InputGroup.Text>
-                            <Form.Control type="text" className="t-input" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <Form.Control type="text" className="t-input" placeholder="Search..." value={search} onChange={(e) => {
+                                setSearch(e.target.value); 
+                                set_length(searchTable(e.target.value).length || csv_body.length)
+                                }} />
                         </InputGroup></Col>
                         {/* <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col> */}
                         <Col xs={3}>
@@ -187,7 +191,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
                         <div>
                             <Row className='table-footer'>
-                                <Col xs={9} className='table-foot-txt'>Showing {table.length} results</Col>
+                                <Col xs={9} className='table-foot-txt'>Showing {t_length} results</Col>
                                 <Col xs={3} ><CaretLeftSquareFill className='table-foot-icon disabled' width={25} height={25}/>  <CaretRightSquareFill className='table-foot-icon ' width={25} height={25}/></Col>
                             </Row>
                         </div>

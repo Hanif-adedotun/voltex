@@ -17,6 +17,7 @@ import Settings from './settings';
 // SVG
 import LoginIcon from "../images/login.svg";
 import Warning from "../images/illustrations/warning.svg";
+import LogoAlt from "../images/logo2.png";
  class Dashboard extends React.Component {
      constructor(){
          super();
@@ -141,16 +142,16 @@ import Warning from "../images/illustrations/warning.svg";
                            <Settings
                         show={this.state.setting}
                         onHide={() => this.setState({setting: false})}
-                        options={({
+                        options={{
                             name: v.tablename, 
                             url: v.url, 
                             id: v.uniqueID,
                             actionUrl: this.state.actionUrl[i],
-                        })}
-                       
+                            i:i
+                        }}
                         />
-                         <p>{this.state.dashboard.action_url[i]}</p>
-                   
+                         {/* <p>{this.state.dashboard.action_url[i]}</p>
+                         <p>{v.tablename}{JSON.stringify(this.state.dashboard.table[i])}</p> */}
                 {/* The table data  */}
                 {/*
                     @param {tableName} The name of the user's table 
@@ -167,7 +168,7 @@ import Warning from "../images/illustrations/warning.svg";
                     rotate={this.state.rotate}
                     sendmail={this.sendmail}
                     actionUrl={this.state.dashboard.action_url[i]}/>
-                       </Tab>
+                    </Tab>
                     )}
                     <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} >
                    Fill the form
@@ -220,9 +221,13 @@ import Warning from "../images/illustrations/warning.svg";
       //function (loading) returns the loading animation with a text of waiting
      loading = () =>{
          return(
-            <div>
-                <Load color=' #ffffff' type='bubbles'/> 
-                <p className='unique space'>Please wait while we are checking for your table......</p>
+            <div className='loading-cont'>
+                <div className='loading'>
+                        {/* <Load color=' #ffffff' type='bubbles'/> 
+                        <p className='unique space'>Please wait while we are checking for your table......</p> */}
+                    <img src={LogoAlt} className='load-logo'/>
+                    <p>Loading table.....</p>
+                </div>
             </div>
          )
      }

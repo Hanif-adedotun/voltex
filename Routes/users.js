@@ -85,11 +85,12 @@ router.get('/login/dashboard', async (req, res) => {
        action_url.push(`${keys.backend.path}/${id}/${url}`)
        )
 
-       
-       let tables = unique_id.map( async (i) => 
-            await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, i)
-       ); 
-
+      
+       let tables = new Array();
+       await Promise.all(unique_id.map(async (table) => {
+         tables.push(await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, table))
+       }));
+      //  console.log("Server",tables);
        serverRes = {
             status: 200,
             action_url: action_url,

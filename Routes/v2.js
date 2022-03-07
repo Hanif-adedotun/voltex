@@ -21,6 +21,24 @@ var firebase = require('./Database/firebase');
 const mongo = require('./Database/mongodb')
 
 
+router.get('/mongodb/table', async (req, res) => {
+     try{
+          const u_id = ["2c59cdb53b692aeb", "3989395f11238efe"]
+          // let tables = u_id.map(async (i,j) => 
+          //   await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, i)
+          // ); 
+          let tables = new Array();
+          await Promise.all(u_id.map(async (table) => {
+            tables.push(await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, table))
+          }));
+
+          
+          // let d = await mongo.find_new(keys.mongodb.db.name, keys.mongodb.db.collection, "")
+          res.status(200).json(tables);
+     }catch(e){
+          res.json({ error: e})
+     }
+})
 //Router (GET method) {/api/v2/login/dashboard}
 // To get both the current user details and the user stored form in the mongodb if any
 router.get('/login/dashboard', async (req, res) => {
