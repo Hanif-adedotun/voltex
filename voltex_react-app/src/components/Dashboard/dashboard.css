@@ -245,11 +245,13 @@
     color: white !important;
     border-radius: 5px !important;
     font-weight: bold;
+    padding: .25em .5em;
 }
 .btn-delete:active, .btn-delete:hover, .btn-delete:focus{
     outline: 0 !important;
     box-shadow: none;
     background-color: var(--primary) !important;
+    border: 2px solid var(--primary) !important;
 }
 
 .table-head{

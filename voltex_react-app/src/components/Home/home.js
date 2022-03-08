@@ -101,8 +101,8 @@ class Home extends React.Component{
                         <h1 >Quickly store your forms without having any backend</h1>
                        </div>
                        <Row>
-                         <Col xs={6} className="btn-pri"><Link to="/profile"><Button onClick={(e) => {e.preventDefault();}}>Get Started <ArrowRightShort height={30} width={30}/></Button></Link></Col>
-                         <Col xs={6} className="btn-sec"><Button>Learn more</Button></Col>
+                         <Col xs={6} className="btn-pri"><Link to="/profile"><Button>Get Started <ArrowRightShort height={30} width={30}/></Button></Link></Col>
+                         <Col xs={6} className="btn-sec"><Link to ="/about" ><Button>Learn more</Button></Link></Col>
                        </Row>
                        </div>
                      </Col>
@@ -149,7 +149,7 @@ class Home extends React.Component{
                     <Col className="sec-advert-text">
                     <h1>Sign up for free.</h1>
                     <h1>Connect your form right away!</h1></Col>
-                    <Col sm={3} className="get-started"><Slide direction="up"><Button size='medium'>Get started</Button></Slide></Col>
+                    <Col sm={3} className="get-started"><Slide direction="up"><Link to ="/profile" ><Button size='medium'>Get started</Button></Link></Slide></Col>
                   </Row>
                   </Container>
 

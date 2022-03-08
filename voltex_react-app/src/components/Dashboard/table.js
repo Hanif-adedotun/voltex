@@ -31,9 +31,10 @@ const Delete = ({i, val, del, show, onHide}) =>{
             </Modal.Header>
             <Modal.Body>
             <div className='popup'>    
-                 <Button className="close" id={i} onClick={onHide}> &times;</Button>
+                 {/* <Button className="close" id={i} onClick={onHide}> &times;</Button> */}
                 <div className="content">
                  <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
+                 <p>{i} {val}</p>
                 </div>
                 <Button className='btn btn-success del_button' onClick={()=>{del(val); onHide()}} >{'Delete'}</Button>
                 <Button className='btn btn-danger del_button' onClick={onHide}>Close</Button>
@@ -41,7 +42,6 @@ const Delete = ({i, val, del, show, onHide}) =>{
             </Modal.Body>
             </Modal> 
 
-          
         );
         
 } 
@@ -71,7 +71,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
 
 
     const searchResult = ({body, cells}) =>{
-               
+
         if(body.length === 0){
             return(
                 <tr>
@@ -90,7 +90,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                 <tr key={i}>
                     <td>{i+1}</td>
                  {Object.values(v.db_values).map((r,k) => <td key={k}>{r}</td> )}
-                 <td id={i}>{<Button className='btn-delete' onClick={(e) => {e.preventDefault(); setShow(true)}}> Delete </Button>}</td>
+                 <td id={i}>{<button className='btn-delete' onClick={(e) => {console.log(i);setShow(true)}}> Delete </button>}
                  <Delete
                     i={i}
                     val={v._id}
@@ -98,6 +98,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                     show={show}
                     onHide={() => setShow(false)}
                     />
+                    </td>
                 </tr>
                 )
         )
