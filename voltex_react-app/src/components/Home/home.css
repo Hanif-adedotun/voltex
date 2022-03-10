@@ -30,25 +30,31 @@
     width: 70%;
     height: auto;
 }
-.btn-pri Button{
+.btn-pri button{
     background-color: var(--primary);
     border-radius: 7px;
     border: none;
-    padding: auto 1em;
+    padding: .5em 1em;
+    color: white;
+
+    box-shadow: 5px 5px 10px 1px white;
 }
-.btn-pri Button:hover{
+.btn-pri button:hover{
     margin-bottom: .5em;
+    box-shadow: 5px 5px 10px 1px #32509d70;
 }
-.btn-sec Button{
+.btn-sec button{
     background-color: var(--accent);
     border: none;
     border-radius: 7px;
-    padding: auto 1em;
+    padding: .5em 1em;
     color: var(--primary);
 }
-.btn-sec Button:hover{
+.btn-sec button:hover{
     background-color: var(--primary);
+    color: var(--accent) !important;
 }
+
 /* features section */
 .feat{
     color: var(--primary);

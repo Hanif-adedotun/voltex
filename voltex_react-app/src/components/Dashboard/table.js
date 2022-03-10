@@ -19,6 +19,7 @@ import { CSVLink } from "react-csv";
 //@param {val} the Object Id of the row, to be sent to the server
 //@param {del}  A function called from the dashboard.js to communicate with the server
 const Delete = ({i, val, del, show, onHide}) =>{
+    console.log(i);
         return(
             <Modal
             show={show}
@@ -36,8 +37,8 @@ const Delete = ({i, val, del, show, onHide}) =>{
                  <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
                  <p>{i} {val}</p>
                 </div>
-                <Button className='btn btn-success del_button' onClick={()=>{del(val); onHide()}} >{'Delete'}</Button>
-                <Button className='btn btn-danger del_button' onClick={onHide}>Close</Button>
+                <button className='btn btn-success del_button' onClick={()=>{del(val); onHide()}} >{'Delete'}</button>
+                <button className='btn btn-danger del_button' onClick={onHide}>Close</button>
                 </div>
             </Modal.Body>
             </Modal> 
@@ -178,9 +179,9 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                                  <th key={index} >{key.toUpperCase()}</th>
                             )
                             }
-                            <th><Button id='table-refresh'  onClick={loadDatabase}>
+                            <th><button id='table-refresh'  onClick={loadDatabase}>
                                 <ArrowRepeat className={(rotate) ? ' rotate':''} width={20} height={20}/>
-                                </Button>
+                                </button>
                             </th> {/* for the delete row*/}
                         </tr>
                         </thead>

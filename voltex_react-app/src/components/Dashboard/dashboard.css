@@ -350,6 +350,16 @@ color: red;
 #table-refresh{
     text-align: center;
     margin: auto;
+    background-color: var(--primary);
+    outline: none; 
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: .5em 1em;
+}
+#table-refresh:hover{
+    /* color: var(--primary); */
+    background-color: rgba(255, 255, 255, .3) !important;
 }
 
 .rotate{
