@@ -5,7 +5,6 @@ const { body, validationResult } = require('express-validator');
 const path = require('path');
 
 //Mysql
-var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
 
 //Firebase

@@ -194,7 +194,7 @@ import LogoAlt from "../images/logo2.png";
          
          this.setState({delText: 'Deleting...'});
 
-        await fetch(`/api/users/delete/${val}`, {
+         await fetch(`/api/users/delete/${val}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8' // Indicates the content 

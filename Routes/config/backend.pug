@@ -4,12 +4,22 @@ html(lang="en")
     title= pageTitle
     link(rel="icon", href="https://lh3.googleusercontent.com/d/1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c=s220?authuser=0")
     style(type="text/css").
+       @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;500&display=swap');
         body{
-          font-family: Azonix, 'Courier New', Courier, monospace;
-          background-color: rgb(39, 45, 73);
+          font-family: 'Manrope', 'Courier New', Courier, monospace;
+          background-color: #32509D;
           color: white;
           text-align: center;
           margin: auto;
+          height: 100%;
+        }
+        .bd-cont{
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;  
+        }
+        .bd{
+          display: block;
         }
         h1{
           position: relative;
@@ -30,15 +40,18 @@ html(lang="en")
           font-size: 900%;
         }
   body
-    p
-     img(src="https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c", alt="Voltex Middlwear logo", class="logo")
-    h1 Voltex middlewear
-    if four
-      p.four #{four}
-    if error 
-      p.error #{text}
-    else
-      p #{text}
+    div.bd-cont
+      div.bd
+        p
+        img(src="https://firebasestorage.googleapis.com/v0/b/voltex-9b3e0.appspot.com/o/app%2Flogo2.png?alt=media&token=30f411fe-3e21-4270-8e2d-fabddf7d66aa", alt="Voltex Middlwear logo", class="logo")
+        //-  img(src="./logo.png", alt="Voltex Middlwear logo", class="logo")
+        h1 Voltex 
+        if four
+          p.four #{four}
+        if error 
+          p.error #{text}
+        else
+          p #{text}
 
 
 

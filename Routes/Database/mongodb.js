@@ -47,7 +47,7 @@ var connect_find = async (database, collection, keyVal) =>{
           await dbo.collection(collection).find(query).toArray(async function(err, result) {
             if (err) {return err; };
    
-            console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
+          //   console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
           db.close();
           res = result;
           return result;
@@ -73,7 +73,7 @@ var connect_find_new = async (database, collection, keyVal) =>{
           var query = {key: String(keyVal)};
 
           let res = await dbo.collection(collection).find(query).toArray();
-          console.log(res);
+          // console.log(res);
           return res;
      }catch(e){console.log(e)}
      finally{
