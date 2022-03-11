@@ -16,6 +16,9 @@ app.use(cors({
   credentials: true // allow session cookie from browser to pass through
 }));
 
+process.on('uncaughtException', function (err) {
+  console.log(err);
+}); 
 
 // Using Cookie Session 
 app.use(session({

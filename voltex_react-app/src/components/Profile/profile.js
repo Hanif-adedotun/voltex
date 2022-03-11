@@ -3,7 +3,7 @@ import React from 'react';
 import './profile.css';
 import {Link} from 'react-router-dom';
 //Loader
-import Load from '../objects/loading';
+import logo from '../images/logo.png';
 
 
 //Import Login Logos
@@ -118,7 +118,14 @@ class Profile extends React.Component{
     // Views Loading icon, signed in profile and not signed in profile
     renderuser(){       
         switch(this.state.authenticate){
-            default: return <Load color='rgb(54, 123, 252)' type='bubbles'/>
+            default: return (
+                <div className="nav-docs-cont">
+                    <div className="nav-docs">
+                        <img className="nav-docs-logo" src={logo}/>
+                        <p>Loading User...</p>
+                    </div>
+                </div>
+            )
                 case false: return this.notsignedin();
                 case true: return this.userprofile();
         }
