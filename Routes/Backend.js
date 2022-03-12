@@ -35,6 +35,11 @@ router.route('/test/url').get(async (req, res) => {
     let data = await storage.url("app");
     res.json(data);
 })
+const mail = require('./config/mail');
+router.route('/mail').post(async (req, res) => {
+    let data = await mail.send('hanif.adedotun@gmail.com', 'Voltex Mail', 'Welcome to the Voltex family')
+    res.json(data);
+})
 
 
 //Router (POST method) {/api/middlewear/data/:dbname/:key}

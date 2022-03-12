@@ -244,27 +244,27 @@ import LogoAlt from "../images/logo2.png";
      //function (sendmail) This function is used to send an automatic email
      //nodemailer only works on the server side, so we have to semd a request to the server, then it sends the email automatically
      sendmail = () =>{
-        const data = {
-            to: 'hanif.adedotun@gmail.com',
-            subject: 'Welcome to Voltex Family',
-            html: `<p>Welcome Hanif to voltex middlewear mail service </p>`
-        };
+        // const data = {
+        //     to: 'hanif.adedotun@gmail.com',
+        //     subject: 'Welcome to Voltex Family',
+        //     html: `<p>Welcome Hanif to voltex middlewear mail service </p>`
+        // };
 
-        fetch('/api/users/sendmail' , {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-            })
-            .then((result) => result.json())
-            .then((response) => {this.setState({sent: Boolean(response.sent)})})
-            .catch((error) =>{console.error('Frontend: Unable to send mail'+ error);
-        });
-        this.interval = setInterval(() => {
-            this.setState({sent: false});
-            console.log(this.state.sent);
-          }, 9000);
+        // fetch('/api/users/sendmail' , {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        //     })
+        //     .then((result) => result.json())
+        //     .then((response) => {this.setState({sent: Boolean(response.sent)})})
+        //     .catch((error) =>{console.error('Frontend: Unable to send mail'+ error);
+        // });
+        // this.interval = setInterval(() => {
+        //     this.setState({sent: false});
+        //     console.log(this.state.sent);
+        //   }, 9000);
      }
 
      //function (renderContent) Switch for all the views of the dashboard
