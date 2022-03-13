@@ -214,6 +214,14 @@
 .formTable Form{
     margin: 1em auto 1em auto ;
 }
+.filter-words{
+    color: var(--primary);
+    text-align: left;
+}
+.filter-words:hover{
+    background-color: var(--primary) !important;
+    color: white;
+}
 .t-button{
     background-color: white !important;
     padding: .5em 1em;

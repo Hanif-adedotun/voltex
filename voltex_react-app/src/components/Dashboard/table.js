@@ -156,7 +156,7 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
                         <Col xs={3}>
                             <Form.Select size="md" value={filter} onChange={(e) => setFilter(e.target.value) }>
                                 {csv_head.map((v,i) =>
-                                <option value={i}>{v}</option>
+                                <option value={i} className='filter-words'>{v}</option>
                                 )}
                             </Form.Select>
                         </Col>

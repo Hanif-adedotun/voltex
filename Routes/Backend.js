@@ -35,9 +35,21 @@ router.route('/test/url').get(async (req, res) => {
     let data = await storage.url("app");
     res.json(data);
 })
+
+
 const mail = require('./config/mail');
-router.route('/mail').post(async (req, res) => {
-    let data = await mail.send('hanif.adedotun@gmail.com', 'Voltex Mail', 'Welcome to the Voltex family')
+
+router.route('/mail').get((req, res) => {
+    
+    let data = mail.show('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+    res.send(data);
+
+}).post(async (req, res) => {
+    let data = await mail.send({
+        to:'hanif.adedotun@gmail.com', 
+        subject: 'Voltex Mail', 
+        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    })
     res.json(data);
 })
 

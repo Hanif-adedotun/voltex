@@ -7,37 +7,51 @@ html(lang="en")
           style(type="text/css").
                @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;500&display=swap');
                body{
-                    font-family: 'Manrope', 'Courier New', Courier, monospace;
+                    font-family: 'Manrope', sans-serif, 'Courier New', Courier, monospace;
                     text-align: center;
                     margin: auto .5em;
+                    background-color: rgba(50, 80, 157, 0.1);
                }
-               h1{
+               h2{
                     text-align: center;
                     margin: auto;
+                    color: #32509D;
                }
                .logo{
                     text-align: center;
-                    height: 20%;
-                    width: 10%;
+                    height: auto;
+                    width: 60px;
                     margin: auto;
                }
-               a{
-                    color: #61dafb;
-                    text-decoration: none;
+               .lbrk{
+                    height: .01px;
+                    color: gray;
+                    background-color:gray;
+               }
+               .greet{
+                    margin: 1em auto;
+                    text-align: left;
+                    font-size: medium;
+                    color: #32509D;
                }
                .ebody{
                     text-align: left;
+                    margin-bottom: 2em;
                }
-               @media only screen and (max-width: 600px) {
-                    .logo{
-                         height: 30%;
-                         width: 20%;
-                    }
+               .footer{
+                    font-size: small;
+                    text-align: center;
+
                }
+
      body
           p
           img(src="https://firebasestorage.googleapis.com/v0/b/voltex-9b3e0.appspot.com/o/app%2Flogo.png?alt=media&token=a69bdb18-8a43-47f0-9f75-3cb6aaf7f7a5", alt="Voltex Middlwear logo", class="logo")
-          h1 Voltex middlewear
+          h2 Voltex
+          h2.greet Hello,
           div(class="ebody") #{body}
+          hr.lbrk
           p 
-               a(href="http://hanif-adedotun.com" ) Hanif Portfolio
+               a(href="mailto:voltex.designs@outlook.com" ) 
+                    img(src="https://img.icons8.com/color/20/000000/gmail-new.png", alt="Mail") 
+          p.footer © 2022 Voltex. All rights reserved

@@ -19,11 +19,16 @@ var transporter = nodemailer.createTransport({
      }
 });
 
-const sendMail =async (to, subject, body) =>{
+const showMail = (body) =>{
+  return emailhtml({
+    body: `${body}`
+  }) 
+}
+const sendMail =async ({to, subject, body}) =>{
 
 var mailOptions = {
      from: keys.email.user,
-     to: `${to}, contact@startvest.com`,
+     to: `${to}, contact@startvest.io`,
      subject: subject,
      html: emailhtml({
       body: `${body}`
@@ -44,5 +49,6 @@ await transporter.sendMail(mailOptions, function(error, info){
 }
 
 module.exports = {
-     send: sendMail
+     send: sendMail,
+     show: showMail
 }
