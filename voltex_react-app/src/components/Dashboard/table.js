@@ -14,11 +14,31 @@ import EmptyIcon from '../images/illustrations/empty.svg';
 //Export to CSV 
 import { CSVLink } from "react-csv";
 
+ 
 //function (delete_button) The component for the delete button
 //@param {i} index of the row to be deleted
 //@param {val} the Object Id of the row, to be sent to the server
 //@param {del}  A function called from the dashboard.js to communicate with the server
-const Delete = ({i, val, del, show, onHide}) =>{
+const Delete = ({i, val, load_db, show, onHide}) =>{
+    const [text, setText] = useState(null);
+    //function (tableDelete) function to delete a row in the table
+     //@param (val) the id of the row to delete
+     //Functions for child element Table.js
+     const tableDelete = async (val) =>{
+         
+        setText('Deleting Row...');
+
+        await fetch(`/api/users/delete/${val}`, {
+           method: 'DELETE',
+           headers: {
+               'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+              },
+           })
+           .then(resp => resp.json()) // or res.json()
+           .then(delres => {setText(delres.deleted); setTimeout(() => {setText(null); onHide(); load_db();}, 1000)})
+           .catch((error) =>{console.error('Unable to delete data in database' + error); setText('Unable to delete row, try again...') });
+       // Note that add effect of delete button loading when delete is pressed
+   }
     console.log(i);
         return(
             <Modal
@@ -33,13 +53,18 @@ const Delete = ({i, val, del, show, onHide}) =>{
             <Modal.Body>
             <div className='popup'>    
                  {/* <Button className="close" id={i} onClick={onHide}> &times;</Button> */}
-                <div className="content">
-                 <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
-                 <p>{i} {val}</p>
-                </div>
-                <button className='btn btn-success del_button' onClick={()=>{del(val); onHide()}} >{'Delete'}</button>
-                <button className='btn btn-danger del_button' onClick={onHide}>Close</button>
-                </div>
+                 {(text) ? 
+                 <h2 className='ptxt'>{text}</h2>
+                 :
+                 <div>
+                    <div className="content">
+                        <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
+                    </div>
+                    <button className='btn btn-success del_button' onClick={(e)=>{e.preventDefault(); tableDelete(val); onHide()}} >{"Delete"}</button>
+                    <button className='btn btn-danger del_button' onClick={onHide}>Close</button>
+                </div> 
+            }
+            </div>
             </Modal.Body>
             </Modal> 
 
@@ -63,14 +88,20 @@ Delete.propTypes = {
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
-const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
+const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
 
     const [show, setShow] = useState(false);
+    const [data, setData] = useState({
+        text: null,
+        i:null,
+        val: null,
+        del: null,
+    })
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState(0);
     const [t_length, set_length] = useState(0);
 
-
+    
     const searchResult = ({body, cells}) =>{
 
         if(body.length === 0){
@@ -87,19 +118,19 @@ const Table_ = ({tableName, table, delval, delText, loadDatabase, rotate, sendma
             )
         }
         return(
-                body.map((v,i) => 
+            body.map((v,i) => 
                 <tr key={i}>
                     <td>{i+1}</td>
                  {Object.values(v.db_values).map((r,k) => <td key={k}>{r}</td> )}
-                 <td id={i}>{<button className='btn-delete' onClick={(e) => {console.log(i);setShow(true)}}> Delete </button>}
-                 <Delete
-                    i={i}
-                    val={v._id}
-                    del={delval}
+                 <td id={i}>{<button className='btn-delete' onClick={(e) => {console.log(i);setShow(true); setData({i:i, val:v._id})}}> Delete </button>}</td>
+                
+                    <Delete
+                    i={data.i}
+                    val={data.val}
                     show={show}
                     onHide={() => setShow(false)}
+                    load_db={loadDatabase}
                     />
-                    </td>
                 </tr>
                 )
         )

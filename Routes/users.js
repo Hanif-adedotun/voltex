@@ -209,21 +209,29 @@ router.route('/addTable')
 router.route('/delete/:id').delete( async (req, res) =>{
 
 var resp;
-    await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
+    // await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
+    //   resp = {
+    //     code: 200,
+    //     deleted: "Deleted data successfully!",
+    //   }
+    //   res.status(200).json(resp);
+
+    // }).catch(function(err){
+    //   resp = {
+    //     code: 500,
+    //     deleted: false,
+    //   }
+    //   console.log(err);
+    //   res.status(500).json(resp);
+    // })
+    setTimeout(() =>{
       resp = {
         code: 200,
-        deleted: true,
+        deleted: "Deleted data successfully!",
       }
       res.status(200).json(resp);
-
-    }).catch(function(err){
-      resp = {
-        code: 500,
-        deleted: false,
-      }
-      console.log(err);
-      res.status(500).json(resp);
-    })
+    }, 2000)
+    
         
 })
 

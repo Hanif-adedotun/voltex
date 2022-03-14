@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import './dashboard.css';
+import {Clipboard, ClipboardCheck} from 'react-bootstrap-icons';
+
 
 function Settings({show, onHide, options}) {
      const [editurl, seteditUrl] = useState(false);
      const [url, setUrl] = useState([]);
      const [serverRes, setServerRes] = useState([]);
 
-     const [copyTxt, setCopyText] = useState("Copy!");
+     const [copyTxt, setCopyText] = useState(<Clipboard height={20} width={20}></Clipboard>);
     console.log(options.i);
 
 
@@ -17,11 +19,12 @@ function Settings({show, onHide, options}) {
         console.error('Unable to copy to clipboard ');
     });
     //change the text of the copy button to copied
-    setCopyText("Copied to clipboard!");
+    // setCopyText("Copied to clipboard!");
+    setCopyText(<ClipboardCheck height={20} width={20}></ClipboardCheck>);
 
    setInterval(() => {
-      setCopyText("Copy!");
-    }, 2000);
+      setCopyText(<Clipboard height={20} width={20}></Clipboard>);
+    }, 3000);
   }
    //function (uploadEditVal) To upload the text of the user to the databas
     //@param {event} the inbuilt event parameter of js
@@ -50,7 +53,7 @@ function Settings({show, onHide, options}) {
        <Modal
          show={show}
           onHide={onHide}
-         size="md"
+         size="lg"
          centered
          className='modal'
        >
@@ -59,8 +62,13 @@ function Settings({show, onHide, options}) {
          <Modal.Body className="acc-body">
                   <h2 className='f-head'>Set Up your Table</h2>
                   <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                  <p><span className='acc-body-label'>Form Action URL:</span> <a href={String(options.actionUrl)} >{options.actionUrl}</a><Button id='dEdit-button' onClick={() => copyUrl(options.actionUrl)}>{copyTxt}</Button></p>
-                    <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <Button id='dEdit-button' onClick={() => seteditUrl(true)}>Edit</Button></p>
+                  <p><span className='acc-body-label'>Form Action URL:</span> <a href={String(options.actionUrl)} >{options.actionUrl}</a>
+                  <button id='dEdit-button' onClick={() => copyUrl(options.actionUrl)}>{copyTxt}</button>
+                  </p>
+                    <p>
+                      <span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> 
+                      {/* <Button id='dEdit-button' onClick={() => seteditUrl(true)}>Edit</Button> */}
+                    </p>
                     {(editurl === true) ? 
                     <p>
                          <span className='acc-body-label'>

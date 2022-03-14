@@ -29,7 +29,7 @@ const compileView = pug.compileFile(path.join(__dirname +'/config/backend.pug'))
 router.use(bodyParser.urlencoded({ extended: true }));
 
 
-// @params {Address} is /api/middlewear/data
+// @params {Address} is /api/data
 const storage = require('./config/bucket');
 router.route('/test/url').get(async (req, res) => {
     let data = await storage.url("app");

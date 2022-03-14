@@ -10,7 +10,7 @@ var test = require('./v2');
 
 router.use('/users', users);//Go to users file for any request from the frontend
 router.use('/auth', passport);//To either sign in or sign out user using passport
-router.use('/middlewear/data', backend);//Go to the backend file for any form post request
+router.use('/data', backend);//Go to the backend file for any form post request
 router.use('/v2', test);
    
 

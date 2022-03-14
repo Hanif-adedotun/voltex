@@ -174,9 +174,12 @@
 }
 /* Button element of dEdit */
 #dEdit-button{
+    margin-left: .45em;
     background-color: var(--primary);
     border: none;
     border-radius: 5px;
+    color: white !important;
+    padding: .5em  .7em !important;
 }
 /* Input feild for editing */
 .inputEdit{
@@ -329,28 +332,21 @@
 /* End of Form */
 
 /* Modal popup */
-.popup{
-    padding: 1em;
-    background-color: white;
-    border-radius: 10px;
-    width: max-content;
-    height: max-content;
-}
-.popup .close{
-text-decoration: none;
-border: none;
-font-size: x-large;
-color: red;
+.popup .ptext{
+    font-weight: bold;
+    font-size: medium;
+    color: var(--primary) !important;
+    margin: 1em auto;
 }
 .popup .content{
  font-weight: bold;
  font-size: large;
  margin: .5em auto;
+ color: var(--primary) !important;
 }
 
 .del_button{
     margin: 1em  1em;
-    text-shadow: 2px 2px 4px #000000;
     /* box-shadow:  4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) */
 }
 

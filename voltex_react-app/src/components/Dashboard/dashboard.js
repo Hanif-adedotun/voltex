@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './dashboard.css';
 
 import Emptydash from './EmptyDash';
@@ -32,6 +32,13 @@ import LogoAlt from "../images/logo2.png";
             // Form Modal state
              form: false,
              setting: false,
+             setting_data:{
+                name: null, 
+                url: null, 
+                id: null,
+                actionUrl: null,
+                i:null
+             },
 
              //Table.js 
              delres: '',
@@ -127,6 +134,13 @@ import LogoAlt from "../images/logo2.png";
 
     //function (dashboard_content) to render the dashboard view to the user, with different components
      dashboard_content = () => {
+        //  const [data, setData] = useState({
+        //     name: null, 
+        //     url: null, 
+        //     id: null,
+        //     actionUrl: null,
+        //     i:null
+        //  })
            
         return(
             // The section before the table itself, for the table properties
@@ -138,20 +152,28 @@ import LogoAlt from "../images/logo2.png";
                 >
                     {this.state.dashboard.data[0].tables.map((v,i) => 
                        <Tab tabClassName='tab-tab' eventKey={i} title={v.tablename} key={i}>
-                            <Button className='btn-setting' onClick={() => this.setState({setting: true})}><Sliders height={20} width={20}/> Settings</Button>
+                            <Button className='btn-setting' 
+                            onClick={() => {
+                                            this.setState({setting: true, setting_data:{
+                                                name: v.tablename, 
+                                                url: v.url, 
+                                                id: v.uniqueID,
+                                                actionUrl: this.state.actionUrl[i],
+                                                i:i}}); 
+                                            }}>
+                                <Sliders height={20} width={20}/> Settings</Button>
                            <Settings
                         show={this.state.setting}
                         onHide={() => this.setState({setting: false})}
                         options={{
-                            name: v.tablename, 
-                            url: v.url, 
-                            id: v.uniqueID,
-                            actionUrl: this.state.actionUrl[i],
-                            i:i
+                            name: this.state.setting_data.name, 
+                            url: this.state.setting_data.url, 
+                            id: this.state.setting_data.id,
+                            actionUrl: this.state.setting_data.actionUrl,
+                            i: this.state.setting_data.i
                         }}
                         />
-                         {/* <p>{this.state.dashboard.action_url[i]}</p>
-                         <p>{v.tablename}{JSON.stringify(this.state.dashboard.table[i])}</p> */}
+                         
                 {/* The table data  */}
                 {/*
                     @param {tableName} The name of the user's table 
@@ -163,7 +185,7 @@ import LogoAlt from "../images/logo2.png";
                     <Table 
                     tableName={v.tablename} 
                     table={this.state.dashboard.table[i]} 
-                    delval={this.tableDelete} delText={this.state.delres} 
+                    delText={this.state.delres} 
                     loadDatabase={this.loadDatabase}
                     rotate={this.state.rotate}
                     sendmail={this.sendmail}
