@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import './dashboard.css';
-import {Clipboard, ClipboardCheck} from 'react-bootstrap-icons';
+import {Clipboard, ClipboardCheck, CheckCircle} from 'react-bootstrap-icons';
 
 
 function Settings({show, onHide, options}) {
@@ -10,9 +10,7 @@ function Settings({show, onHide, options}) {
      const [serverRes, setServerRes] = useState([]);
 
      const [copyTxt, setCopyText] = useState(<Clipboard height={20} width={20}></Clipboard>);
-    console.log(options.i);
-
-
+ 
    const copyUrl = (text) => {
     navigator.clipboard.writeText(text).then(function(){
     }, function(err){
@@ -20,11 +18,11 @@ function Settings({show, onHide, options}) {
     });
     //change the text of the copy button to copied
     // setCopyText("Copied to clipboard!");
-    setCopyText(<ClipboardCheck height={20} width={20}></ClipboardCheck>);
+    setCopyText(<CheckCircle height={20} width={20}></CheckCircle>);
 
    setInterval(() => {
       setCopyText(<Clipboard height={20} width={20}></Clipboard>);
-    }, 3000);
+    }, 2000);
   }
    //function (uploadEditVal) To upload the text of the user to the databas
     //@param {event} the inbuilt event parameter of js

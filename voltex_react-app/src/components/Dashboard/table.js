@@ -39,7 +39,7 @@ const Delete = ({i, val, load_db, show, onHide}) =>{
            .catch((error) =>{console.error('Unable to delete data in database' + error); setText('Unable to delete row, try again...') });
        // Note that add effect of delete button loading when delete is pressed
    }
-    console.log(i);
+
         return(
             <Modal
             show={show}
@@ -89,7 +89,7 @@ Delete.propTypes = {
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
 const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
-
+    // console.log(table);
     const [show, setShow] = useState(false);
     const [data, setData] = useState({
         text: null,
@@ -99,7 +99,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
     })
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState(0);
-    const [t_length, set_length] = useState(0);
+    
 
     
     const searchResult = ({body, cells}) =>{
@@ -107,7 +107,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
         if(body.length === 0){
             return(
                 <tr>
-                    <td colspan={String(cells+2)}>
+                    <td colSpan={String(cells+2)}>
                         <div className='empty-search'>
                             <img  src={EmptyIcon} alt="Void Logo" />
                         </div>
@@ -142,7 +142,6 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
         return(
             table.filter(item => {
                 var bd =  Object.values(item.db_values).map((val, ind)=> val);
-                // console.log(bd[f]);
                 return(
                     bd[f].toLowerCase().includes(search.toLowerCase())
                 )
@@ -159,6 +158,8 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
             Object.values(item.db_values).map((val, ind)=> val)
         );
     }
+
+    const [t_length, set_length] = useState(csv_body.length);
   
         return(
             <div>
@@ -176,20 +177,23 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
                     <Form>
                     <Row>
                         {/* <Col xs={6}><Form.Control type="text" className="t-input" placeholder="Search..." /></Col> */}
-                        <Col xs={6}><InputGroup>
+                        <Col xs={5}><InputGroup>
                             <InputGroup.Text className="t-input-icon" placeholder><Search width={15} height={15}/></InputGroup.Text>
                             <Form.Control type="text" className="t-input" placeholder="Search..." value={search} onChange={(e) => {
                                 setSearch(e.target.value); 
-                                set_length(searchTable(e.target.value).length || csv_body.length)
+                                set_length(searchTable(filter).length)
                                 }} />
                         </InputGroup></Col>
                         {/* <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col> */}
-                        <Col xs={3}>
+                        <Col xs={4}>
+                        <InputGroup>
+                            <InputGroup.Text className="t-input-icon" placeholder><FunnelFill width={15} height={15}/></InputGroup.Text>
                             <Form.Select size="md" value={filter} onChange={(e) => setFilter(e.target.value) }>
                                 {csv_head.map((v,i) =>
                                 <option value={i} className='filter-words'>{v}</option>
                                 )}
                             </Form.Select>
+                            </InputGroup>
                         </Col>
                         <Col xs={3}>
                         

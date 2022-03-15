@@ -134,14 +134,7 @@ import LogoAlt from "../images/logo2.png";
 
     //function (dashboard_content) to render the dashboard view to the user, with different components
      dashboard_content = () => {
-        //  const [data, setData] = useState({
-        //     name: null, 
-        //     url: null, 
-        //     id: null,
-        //     actionUrl: null,
-        //     i:null
-        //  })
-           
+    //    console.log(this.state.dashboard.data[0].userid);           
         return(
             // The section before the table itself, for the table properties
             <div className='dashboard_content'>
@@ -182,14 +175,16 @@ import LogoAlt from "../images/logo2.png";
                     @param {delText} *IN CONSTRUCTION* The text to display while deleting value
                     @param {loadDatabase} The function to refresh the table data from the server
                 */}
-                    <Table 
-                    tableName={v.tablename} 
-                    table={this.state.dashboard.table[i]} 
-                    delText={this.state.delres} 
-                    loadDatabase={this.loadDatabase}
-                    rotate={this.state.rotate}
-                    sendmail={this.sendmail}
-                    actionUrl={this.state.dashboard.action_url[i]}/>
+                      <Table 
+                        tableName={v.tablename} 
+                        // table={this.state.dashboard.table[i]} 
+                        table={this.state.dashboard.table[this.state.key]} 
+                        delText={this.state.delres} 
+                        loadDatabase={this.loadDatabase}
+                        rotate={this.state.rotate}
+                        sendmail={this.sendmail}
+                        actionUrl={this.state.dashboard.action_url[i]}/>
+                    
                     </Tab>
                     )}
                     <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} >
@@ -243,14 +238,14 @@ import LogoAlt from "../images/logo2.png";
       //function (loading) returns the loading animation with a text of waiting
      loading = () =>{
          return(
-            <div className='loading-cont'>
+            // <div className='loading-cont'>
                 <div className='loading'>
                         {/* <Load color=' #ffffff' type='bubbles'/> 
                         <p className='unique space'>Please wait while we are checking for your table......</p> */}
                     <img src={LogoAlt} className='load-logo'/>
                     <p>Loading table.....</p>
                 </div>
-            </div>
+            // </div>
          )
      }
      //function (serverError) returns an error by the server 
