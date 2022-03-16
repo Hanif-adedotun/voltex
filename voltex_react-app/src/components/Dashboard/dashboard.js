@@ -73,6 +73,7 @@ import LogoAlt from "../images/logo2.png";
      }
 
      componentDidMount(){
+        document.title = "Dashboard - Voltex"
          this.loadDatabase();
         
      }
@@ -225,6 +226,7 @@ import LogoAlt from "../images/logo2.png";
     }
      //function (signedout) returns the signed out view  
      signedout = () =>{
+        document.title = "Sign in to voltex"
         return(
             <div className='signedout'>
                 <div className='signedout-cont'>
@@ -250,6 +252,7 @@ import LogoAlt from "../images/logo2.png";
      }
      //function (serverError) returns an error by the server 
      serverError = () =>{
+        document.title = "Server Error"
          return(
              <div>
                   <img src={Warning} className='signedout-img'/>

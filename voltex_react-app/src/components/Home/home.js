@@ -67,6 +67,7 @@ class Home extends React.Component{
       }
 
       componentDidMount(){
+        document.title = "Home - Voltex"
         this.interval = setInterval(() => {
           this.setState({internet: tim()});
         }, 1500);

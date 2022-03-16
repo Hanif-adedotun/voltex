@@ -4,6 +4,7 @@ import "./about.css";
 import { Slide, AttentionSeeker , Bounce} from "react-awesome-reveal";
 
 function About(){
+     document.title = "About - Voltex";
      const [summary, setsummary] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis commodo tellus amet venenatis. Accumsan neque sit malesuada mi imperdiet tincidunt. Luctus adipiscing id erat massa dignissim volutpat pellentesque. Mattis a nulla odio quisque risus proin.");
      const [list, setList] = useState([
           "Lorem ipsum dolor sit amet, consectetur adipiscing",

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
 import {Navbar, Nav} from 'react-bootstrap';
- 
+import {PersonBoundingBox} from 'react-bootstrap-icons';
 
 import './nav.css';
 import Dashboard from '../Dashboard/dashboard';
@@ -40,14 +40,14 @@ class navigation extends React.Component{
         //function (defaultimage) puts the default glyphicon image if no user is connected
         defaultimage = () =>{
             return(
-                <span className="glyphicon glyphicon-user g-nav"></span>
+                <PersonBoundingBox width={10} height={10}/>
             );
         }
         //function (userImage) component for the user image sent by the server
         //@param {imgsrc} the url of the user icon sent by Google 
         userImage = (imgsrc) =>{
             return(
-                <img src={imgsrc} alt='User icon' className='nav-img-circle' ></img>
+                <img src={imgsrc} alt='User icon' className='nav-img-circle'></img>
             );
         }
         //function (renderImage) the switch for the views
@@ -92,6 +92,7 @@ class navigation extends React.Component{
                     <Route path='/profile' exact component={Profile}/>
                     <Route path='/docs' exact component={() => {
                         window.location.href = 'https://voltex.readme.io';
+                        document.title = "Documentation - Voltex";
                         return (
                             <div className="nav-docs-cont">
                                 <div className="nav-docs">
