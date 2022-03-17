@@ -60,7 +60,7 @@ const Delete = ({i, val, load_db, show, onHide}) =>{
                     <div className="content">
                         <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
                     </div>
-                    <button className='btn btn-success del_button' onClick={(e)=>{e.preventDefault(); tableDelete(val); onHide()}} >{"Delete"}</button>
+                    <button className='btn btn-success del_button' onClick={(e)=>{e.preventDefault(); tableDelete(val);}} >{"Delete"}</button>
                     <button className='btn btn-danger del_button' onClick={onHide}>Close</button>
                 </div> 
             }
@@ -89,7 +89,6 @@ Delete.propTypes = {
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
 const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
-    // console.log(table);
     const [show, setShow] = useState(false);
     const [data, setData] = useState({
         text: null,
@@ -103,7 +102,11 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
 
     
     const searchResult = ({body, cells}) =>{
-
+    t_length[0]=body.length;
+    /*  
+        Updates the value of the variable without causing
+        the appliaction to render
+    */
         if(body.length === 0){
             return(
                 <tr>
@@ -151,7 +154,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
     }
     //To get the the keys of the data
   
-    if(table.length > 0) {
+    if(!table || table.length > 0) {
         var head = Object.keys(table[0].db_values); 
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
         var csv_body = table.map((item, index) =>
@@ -159,7 +162,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
         );
     }
 
-    const [t_length, set_length] = useState(csv_body.length);
+    const t_length = useState(csv_body.length);
   
         return(
             <div>
@@ -181,7 +184,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
                             <InputGroup.Text className="t-input-icon" placeholder><Search width={15} height={15}/></InputGroup.Text>
                             <Form.Control type="text" className="t-input" placeholder="Search..." value={search} onChange={(e) => {
                                 setSearch(e.target.value); 
-                                set_length(searchTable(filter).length)
+                                // set_length(searchTable(filter).length);
                                 }} />
                         </InputGroup></Col>
                         {/* <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col> */}
