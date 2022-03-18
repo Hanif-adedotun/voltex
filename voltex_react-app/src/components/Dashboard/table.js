@@ -50,22 +50,25 @@ const Delete = ({i, val, load_db, show, onHide}) =>{
             >
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body>
-            <div className='popup'>    
-                 {/* <Button className="close" id={i} onClick={onHide}> &times;</Button> */}
+
                  {(text) ? 
-                 <h2 className='ptxt'>{text}</h2>
+                 <Modal.Body>
+                    <div className='popup'> 
+                        <h2 className='ptxt'>{text}</h2>
+                    </div>
+                </Modal.Body>
                  :
-                 <div>
+                 <Modal.Body>
+                 <div className='popup'> 
                     <div className="content">
                         <div className='text-primary' value={val}>Are you sure you want to delete field {i+1}?</div>
                     </div>
                     <button className='btn btn-success del_button' onClick={(e)=>{e.preventDefault(); tableDelete(val);}} >{"Delete"}</button>
                     <button className='btn btn-danger del_button' onClick={onHide}>Close</button>
-                </div> 
+                    </div>
+                </Modal.Body>
             }
-            </div>
-            </Modal.Body>
+            
             </Modal> 
 
         );
@@ -73,10 +76,10 @@ const Delete = ({i, val, load_db, show, onHide}) =>{
 } 
 
 
-//The propety type of the function (delete_button)
+// //The propety type of the function (delete_button)
 Delete.propTypes = {
-        i: PropTypes.number.isRequired,
-        val: PropTypes.string.isRequired
+        i: PropTypes.number,
+        val: PropTypes.string
 }
 
 
@@ -88,7 +91,7 @@ Delete.propTypes = {
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
-const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, actionUrl}) =>{
+const Table_ = ({tableName, table, delText, loadDatabase, rotate, actionUrl}) =>{
     const [show, setShow] = useState(false);
     const [data, setData] = useState({
         text: null,
@@ -101,7 +104,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
     
 
     
-    const searchResult = ({body, cells}) =>{
+    const SearchResult = ({body, cells}) =>{
     t_length[0]=body.length;
     /*  
         Updates the value of the variable without causing
@@ -179,21 +182,21 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
                     <h4>{(tableName) ? tableName: 'Table'}</h4>
                     <Form>
                     <Row>
-                        {/* <Col xs={6}><Form.Control type="text" className="t-input" placeholder="Search..." /></Col> */}
+                        
                         <Col xs={5}><InputGroup>
-                            <InputGroup.Text className="t-input-icon" placeholder><Search width={15} height={15}/></InputGroup.Text>
+                            <InputGroup.Text className="t-input-icon" ><Search width={15} height={15}/></InputGroup.Text>
                             <Form.Control type="text" className="t-input" placeholder="Search..." value={search} onChange={(e) => {
                                 setSearch(e.target.value); 
-                                // set_length(searchTable(filter).length);
+                    
                                 }} />
                         </InputGroup></Col>
-                        {/* <Col xs={3}><Button className="t-button"><FunnelFill width={15} height={15}/> Filter</Button></Col> */}
+                    
                         <Col xs={4}>
                         <InputGroup>
-                            <InputGroup.Text className="t-input-icon" placeholder><FunnelFill width={15} height={15}/></InputGroup.Text>
+                            <InputGroup.Text className="t-input-icon"><FunnelFill width={15} height={15}/></InputGroup.Text>
                             <Form.Select size="md" value={filter} onChange={(e) => setFilter(e.target.value) }>
                                 {csv_head.map((v,i) =>
-                                <option value={i} className='filter-words'>{v}</option>
+                                <option key={i} value={i} className='filter-words'>{v}</option>
                                 )}
                             </Form.Select>
                             </InputGroup>
@@ -220,13 +223,13 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
                             <th><button id='table-refresh'  onClick={loadDatabase}>
                                 <ArrowRepeat className={(rotate) ? ' rotate':''} width={20} height={20}/>
                                 </button>
-                            </th> {/* for the delete row*/}
+                            </th>{/* for the delete row*/}
                         </tr>
                         </thead>
                         <tbody className='table-body'>
                                                        
-                            {searchResult({body: searchTable(filter), cells: csv_body[0].length})}
-                           
+                            {/* {searchResult({body: searchTable(filter), cells: csv_body[0].length})} */}
+                           <SearchResult body= {searchTable(filter)} cells= {csv_body[0].length}/>
                         </tbody>
                         </Table>
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
@@ -245,13 +248,13 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, sendmail, acti
 
 //Property of the function (Table)
 Table.propTypes = {
-    tableName: PropTypes.string.isRequired,
-    table: PropTypes.array.isRequired,
-    delval: PropTypes.func.isRequired,
+    tableName: PropTypes.string,
+    table: PropTypes.array,
+    delval: PropTypes.func,
     delText: PropTypes.string,
-    loadDatabase: PropTypes.func.isRequired,
-    rotate: PropTypes.bool.isRequired,
-    sendmail: PropTypes.func.isRequired
+    loadDatabase: PropTypes.func,
+    rotate: PropTypes.bool,
+    sendmail: PropTypes.func
 }
 
 export default Table_;

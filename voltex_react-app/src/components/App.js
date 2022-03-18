@@ -16,7 +16,7 @@ class App extends React.Component{
 
   componentDidMount(){
     // this.interval = setInterval(() => this.setState({time: showTime()}), 15000);
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
   }
 
   componentWillUnmount(){
@@ -26,7 +26,7 @@ class App extends React.Component{
   checkLocation = () => {
     if(window.location.pathname === "/dashboard"){
       return "blue";
-    }
+    } 
   }
 
   render() {

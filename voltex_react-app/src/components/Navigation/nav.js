@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
+import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import {Navbar, Nav} from 'react-bootstrap';
 import {PersonBoundingBox} from 'react-bootstrap-icons';
 
@@ -12,7 +12,6 @@ import About from '../about/about';
 //Logo
 import logo from '../images/logo.png';
 
-let bg = "http://localhost:5000";
 class navigation extends React.Component{
     
     constructor(){
@@ -96,7 +95,7 @@ class navigation extends React.Component{
                         return (
                             <div className="nav-docs-cont">
                                 <div className="nav-docs">
-                                    <img className="nav-docs-logo" src={logo}/>
+                                    <img className="nav-docs-logo" alt="Voltex Logo" src={logo}/>
                                     <p>Loading Docs...</p>
                                 </div>
                             </div>

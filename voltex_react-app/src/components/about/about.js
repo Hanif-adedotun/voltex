@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {Container} from "react-bootstrap";
 import "./about.css";
-import { Slide, AttentionSeeker , Bounce} from "react-awesome-reveal";
+import { Slide, Bounce} from "react-awesome-reveal";
 
 function About(){
      document.title = "About - Voltex";
-     const [summary, setsummary] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis commodo tellus amet venenatis. Accumsan neque sit malesuada mi imperdiet tincidunt. Luctus adipiscing id erat massa dignissim volutpat pellentesque. Mattis a nulla odio quisque risus proin.");
-     const [list, setList] = useState([
+     const [summary] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis commodo tellus amet venenatis. Accumsan neque sit malesuada mi imperdiet tincidunt. Luctus adipiscing id erat massa dignissim volutpat pellentesque. Mattis a nulla odio quisque risus proin.");
+     const [list] = useState([
           "Lorem ipsum dolor sit amet, consectetur adipiscing",
           "Lorem ipsum dolor sit amet, consectetur adipiscing",
           "Lorem ipsum dolor sit amet, consectetur adipiscing",
@@ -30,7 +30,7 @@ function About(){
                     <ul>
                     <Slide cascade>
                          {list.map((v,i) =>
-                         <li>{v}</li>
+                         <li key={i}>{v}</li>
                          )}
                     </Slide>
                          

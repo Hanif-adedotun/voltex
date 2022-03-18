@@ -41,7 +41,7 @@ class Profile extends React.Component{
     componentDidMount(){
         fetch('/api/users/login/profile')//fetch the data from our express server running on localhost:8080
         .then(res => res.json())//parse the data in json format
-        .then(response => this.setState({user: response.user, authenticate: response.authenticate}, () => {console.log('Profile updated'); this.renderuser();}))
+        .then(response => this.setState({user: response.user, authenticate: response.authenticate}, () => {this.renderuser();}))
         .catch((error) =>{console.error('Unable to get user image' + error);});
     };
     
@@ -121,7 +121,7 @@ class Profile extends React.Component{
             default: return (
                 <div className="nav-docs-cont">
                     <div className="nav-docs">
-                        <img className="nav-docs-logo" src={logo}/>
+                        <img className="nav-docs-logo" src={logo} alt="Voltex logo"/>
                         <p>Loading User...</p>
                     </div>
                 </div>

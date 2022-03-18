@@ -117,8 +117,8 @@ class Home extends React.Component{
 
                  <Container className="feat">
                       {this.state.features.map((f, i) =>
-                        <Row className="feat-cont">
-                        <Col sm={{ span: 6, order: (i%2 == 0) ? "first":"last"}} className="feat-head-cont"><div className="feat-head">{f[0]}</div></Col>
+                        <Row className="feat-cont" key={i}>
+                        <Col sm={{ span: 6, order: (i%2 === 0) ? "first":"last"}} className="feat-head-cont"><div className="feat-head">{f[0]}</div></Col>
                         <Col sm={6}><img src={f[1]} className="feat-img shadow" alt="html code form" /></Col>
                       </Row>
                       )}

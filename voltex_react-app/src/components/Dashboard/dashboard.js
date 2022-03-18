@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './dashboard.css';
 
 import Emptydash from './EmptyDash';
@@ -11,7 +11,6 @@ import {Sliders, Plus} from 'react-bootstrap-icons';
 import {Link } from "react-router-dom";
 
 //Loader
-import Load from '../objects/loading';
 import Settings from './settings';
 
 // SVG
@@ -183,7 +182,6 @@ import LogoAlt from "../images/logo2.png";
                         delText={this.state.delres} 
                         loadDatabase={this.loadDatabase}
                         rotate={this.state.rotate}
-                        sendmail={this.sendmail}
                         actionUrl={this.state.dashboard.action_url[i]}/>
                     
                     </Tab>
@@ -230,7 +228,7 @@ import LogoAlt from "../images/logo2.png";
         return(
             <div className='signedout'>
                 <div className='signedout-cont'>
-                <img src={LoginIcon} className='signedout-img'/>
+                <img src={LoginIcon} alt="Signed out Icon" className='signedout-img'/>
                 <div className='s-text'>You need to Sign in to access dashboard</div>
                 <Link to='/profile'><Button className='btn-setting'>Sign in now!</Button></Link>
                 </div>
@@ -240,14 +238,10 @@ import LogoAlt from "../images/logo2.png";
       //function (loading) returns the loading animation with a text of waiting
      loading = () =>{
          return(
-            // <div className='loading-cont'>
                 <div className='loading'>
-                        {/* <Load color=' #ffffff' type='bubbles'/> 
-                        <p className='unique space'>Please wait while we are checking for your table......</p> */}
-                    <img src={LogoAlt} className='load-logo'/>
+                    <img src={LogoAlt} alt="Voltex Logo" className='load-logo'/>
                     <p>Loading table.....</p>
                 </div>
-            // </div>
          )
      }
      //function (serverError) returns an error by the server 
@@ -255,39 +249,13 @@ import LogoAlt from "../images/logo2.png";
         document.title = "Server Error"
          return(
              <div>
-                  <img src={Warning} className='signedout-img'/>
+                  <img src={Warning} alt="Server error Icon" className='signedout-img'/>
                  <p className='serverErr'>There is either a network error or Server Error, Check your internet connection and refresh!</p>
              </div>
          )
      }
      
-     //function (sendmail) This function is used to send an automatic email
-     //nodemailer only works on the server side, so we have to semd a request to the server, then it sends the email automatically
-     sendmail = () =>{
-        // const data = {
-        //     to: 'hanif.adedotun@gmail.com',
-        //     subject: 'Welcome to Voltex Family',
-        //     html: `<p>Welcome Hanif to voltex middlewear mail service </p>`
-        // };
-
-        // fetch('/api/users/sendmail' , {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        //     })
-        //     .then((result) => result.json())
-        //     .then((response) => {this.setState({sent: Boolean(response.sent)})})
-        //     .catch((error) =>{console.error('Frontend: Unable to send mail'+ error);
-        // });
-        // this.interval = setInterval(() => {
-        //     this.setState({sent: false});
-        //     console.log(this.state.sent);
-        //   }, 9000);
-     }
-
-     //function (renderContent) Switch for all the views of the dashboard
+         //function (renderContent) Switch for all the views of the dashboard
      renderContent(){
         // console.log('Status Server '+this.state.dashboard.status);
          switch(this.state.dashboard.status){

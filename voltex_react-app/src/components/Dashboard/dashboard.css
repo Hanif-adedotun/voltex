@@ -127,7 +127,6 @@
     margin: none;
 }
 
-
 .acc{
     background-color: white;
     color: black;
@@ -142,6 +141,7 @@
     text-decoration: none;
 }
 .acc-body{
+    overflow-x: scroll !important;
     width: 100%;
     padding: inherit;
     font-size: medium;
@@ -153,7 +153,7 @@
 }
 .acc-body-label{
     font-weight: bold;
-    color: var(--primary);
+    color: var(--primary); 
 }
 
 .acc-body p a{
