@@ -91,7 +91,8 @@ Delete.propTypes = {
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
-const Table_ = ({tableName, table, delText, loadDatabase, rotate, actionUrl}) =>{
+//@param {d} Object data of the response from server to store in localStorage
+const Table_ = ({tableName, table, delText, loadDatabase, rotate, d}) =>{
     const [show, setShow] = useState(false);
     const [data, setData] = useState({
         text: null,
@@ -123,6 +124,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, actionUrl}) =>
                 
             )
         }
+
         return(
             body.map((v,i) => 
                 <tr key={i}>
@@ -158,6 +160,9 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, actionUrl}) =>
     //To get the the keys of the data
   
     if(!table || table.length > 0) {
+        // Once the table loads once, it would be automatically stored in the localstorage
+        localStorage.setItem("table", JSON.stringify(d));
+
         var head = Object.keys(table[0].db_values); 
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
         var csv_body = table.map((item, index) =>

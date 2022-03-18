@@ -51,6 +51,12 @@ class navigation extends React.Component{
         }
         //function (renderImage) the switch for the views
         renderImage(){
+            (this.state.imageUrl) ? 
+                localStorage.setItem("user", this.state.user)
+                : 
+                localStorage.removeItem("user")
+                localStorage.removeItem("table");
+
             switch(this.state.imageUrl){
                 case null: return this.defaultimage();
                 default: return this.userImage(this.state.imageUrl);

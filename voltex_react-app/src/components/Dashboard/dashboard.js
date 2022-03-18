@@ -72,9 +72,17 @@ import LogoAlt from "../images/logo2.png";
      }
 
      componentDidMount(){
-        document.title = "Dashboard - Voltex"
-         this.loadDatabase();
+        document.title = "Dashboard - Voltex";
+        // console.log( "User in local storage"+localStorage.getItem("user"));
+        // console.log( "Table in local storage"+localStorage.getItem("table"));
         
+        let user = localStorage.getItem("user");
+        let table = localStorage.getItem("table");
+
+         if(user && table){  
+             this.setState({dashboard: JSON.parse(table), actionUrl:JSON.parse(table).action_url});
+         }
+        setTimeout(() => this.loadDatabase(), 1000);
      }
 
         
@@ -182,8 +190,9 @@ import LogoAlt from "../images/logo2.png";
                         delText={this.state.delres} 
                         loadDatabase={this.loadDatabase}
                         rotate={this.state.rotate}
-                        actionUrl={this.state.dashboard.action_url[i]}/>
-                    
+                        actionUrl={this.state.dashboard.action_url[i]}
+                        d={this.state.dashboard}/>
+                        
                     </Tab>
                     )}
                     <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} >
