@@ -75,7 +75,7 @@ import LogoAlt from "../images/logo2.png";
         document.title = "Dashboard - Voltex";
         // console.log( "User in local storage"+localStorage.getItem("user"));
         // console.log( "Table in local storage"+localStorage.getItem("table"));
-        
+        this.props.setKey();
         let user = localStorage.getItem("user");
         let table = localStorage.getItem("table");
 

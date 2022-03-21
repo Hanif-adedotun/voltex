@@ -39,6 +39,7 @@ class Profile extends React.Component{
     }
 
     componentDidMount(){
+        this.props.setKey();
         fetch('/api/users/login/profile')//fetch the data from our express server running on localhost:8080
         .then(res => res.json())//parse the data in json format
         .then(response => this.setState({user: response.user, authenticate: response.authenticate}, () => {this.renderuser();}))

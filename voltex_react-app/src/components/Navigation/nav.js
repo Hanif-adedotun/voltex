@@ -1,7 +1,6 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import {Navbar, Nav} from 'react-bootstrap';
-import {PersonBoundingBox} from 'react-bootstrap-icons';
 
 import './nav.css';
 import Dashboard from '../Dashboard/dashboard';
@@ -17,14 +16,15 @@ class navigation extends React.Component{
     constructor(){
         super();
         this.state = {
-            imageUrl: null
+            imageUrl: null,
+            key: "home"
         };
     }
     componentDidMount(){
         this.getImage();//Get the image initially
-        // this.interval = setInterval(() => {
-        //     this.getImage();
-        //   }, 20000);//then check every minute 8 seconds for 
+        this.interval = setInterval(() => {
+            this.getImage();
+          }, 8000);//then check every minute 8 seconds for 
     }
 
     //function (getImage) get the user image from the database
@@ -58,6 +58,8 @@ class navigation extends React.Component{
 
     //function (render) Renders the views to the user
     render(){
+        let key = this.state.key;
+        console.log(key);
         return(
             <Router>
              <Navbar collapseOnSelect expand="md" sticky="top" className='nav-cus shadow'>
@@ -71,10 +73,10 @@ class navigation extends React.Component{
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link href="/" className='nav-l'>Home</Nav.Link>
-                        <Nav.Link href="/about" className='nav-l'>About</Nav.Link>
-                        <Nav.Link href="/docs" className='nav-l'>Docs</Nav.Link>
-                        <Nav.Link href="/dashboard" className='nav-l'>Dashboard</Nav.Link>
+                        <Nav.Link href="/" className={`nav-l ${(key === 'home' ) ? 'nav-active': ''}`}>Home</Nav.Link>
+                        <Nav.Link href="/about" className={`nav-l ${(key === 'about') ? 'nav-active': ''}`} >About</Nav.Link>
+                        <Nav.Link href="/docs" className={`nav-l ${(key === 'docs') ? 'nav-active': ''}`}  >Docs</Nav.Link>
+                        <Nav.Link href="/dashboard" className={`nav-l ${(key === 'dashboard') ? 'nav-active': ''}`} >Dashboard</Nav.Link>
                     </Nav>
                     <Nav className="mr-auto">
                         <Nav.Link href="/profile" className={`nav-p ${(this.state.imageUrl) ? "img-c" : null}` } >{this.renderImage()}</Nav.Link>
@@ -85,12 +87,15 @@ class navigation extends React.Component{
                 <div className='content'>
                 <Switch >
                     <Route path='/' exact component={Home}/>
-                    <Route path='/about' exact component={About}/>
-                    <Route path='/dashboard' exact component={Dashboard}/>
-                    <Route path='/profile' exact component={Profile}/>
+                    <Route path='/about' exact><About setKey={() => this.setState({key: "about"})}/></Route>
+                    <Route path='/dashboard' exact><Dashboard setKey={() => this.setState({key: "dashboard"})}/></Route>
+                    <Route path='/profile' exact ><Profile setKey={() => this.setState({key: "profile"})}/></Route>
                     <Route path='/docs' exact component={() => {
                         window.location.href = 'https://voltex.readme.io';
                         document.title = "Documentation - Voltex";
+                        setTimeout(() => {
+                            this.setState({key: "docs"})
+                        }, 20)
                         return (
                             <div className="nav-docs-cont">
                                 <div className="nav-docs">

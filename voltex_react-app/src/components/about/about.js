@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Container} from "react-bootstrap";
 import "./about.css";
 import { Slide, Bounce} from "react-awesome-reveal";
 
-function About(){
-     document.title = "About - Voltex";
+function About({setKey}){
+     useEffect(() => {
+          document.title = "About - Voltex";
+          setKey();
+        }, []);
+     
      const [summary] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis commodo tellus amet venenatis. Accumsan neque sit malesuada mi imperdiet tincidunt. Luctus adipiscing id erat massa dignissim volutpat pellentesque. Mattis a nulla odio quisque risus proin.");
      const [list] = useState([
           "Lorem ipsum dolor sit amet, consectetur adipiscing",
