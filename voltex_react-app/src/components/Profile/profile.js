@@ -69,13 +69,14 @@ class Profile extends React.Component{
         .catch((error) =>{console.error('Unable to sign out' + error);});
         
         localStorage.removeItem("user");
+        localStorage.removeItem("table");
         window.location.reload();
     
    }
 
 //function (userprofile) the view for the user when signed in
     userprofile = () =>{
-        // localStorage.setItem("user", this.state.user);
+
         return(
             <div className='l-card'>
                 <div className='l-card-d'>
@@ -97,6 +98,7 @@ class Profile extends React.Component{
     //function (handlesignout) view when an account is not signed in
     notsignedin = () =>{
         localStorage.removeItem("user");
+        localStorage.removeItem("table");
         return(
             <div className='l-card shadow' id='signin'>
                 <div className='signin-container'>

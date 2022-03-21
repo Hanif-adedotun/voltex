@@ -36,12 +36,6 @@ class navigation extends React.Component{
             .catch((error) =>{console.error('Unable to get user image' + error);});
         }
 
-        //function (defaultimage) puts the default glyphicon image if no user is connected
-        defaultimage = () =>{
-            return(
-                <PersonBoundingBox width={10} height={10}/>
-            );
-        }
         //function (userImage) component for the user image sent by the server
         //@param {imgsrc} the url of the user icon sent by Google 
         userImage = (imgsrc) =>{
@@ -55,10 +49,9 @@ class navigation extends React.Component{
                 localStorage.setItem("user", this.state.user)
                 : 
                 localStorage.removeItem("user")
-                localStorage.removeItem("table");
 
             switch(this.state.imageUrl){
-                case null: return this.defaultimage();
+                case null: return "Login";
                 default: return this.userImage(this.state.imageUrl);
             }
         }
@@ -84,7 +77,7 @@ class navigation extends React.Component{
                         <Nav.Link href="/dashboard" className='nav-l'>Dashboard</Nav.Link>
                     </Nav>
                     <Nav className="mr-auto">
-                        <Nav.Link href="/profile" className={`nav-p ${(this.state.imageUrl) ? "img-c" : null}` } >{(this.state.imageUrl) ? this.renderImage(): "Login"}</Nav.Link>
+                        <Nav.Link href="/profile" className={`nav-p ${(this.state.imageUrl) ? "img-c" : null}` } >{this.renderImage()}</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
             </Navbar>

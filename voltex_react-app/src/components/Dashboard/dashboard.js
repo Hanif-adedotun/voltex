@@ -79,10 +79,13 @@ import LogoAlt from "../images/logo2.png";
         let user = localStorage.getItem("user");
         let table = localStorage.getItem("table");
 
+
          if(user && table){  
              this.setState({dashboard: JSON.parse(table), actionUrl:JSON.parse(table).action_url});
+            console.log("Local storage data used"+ this.state.dashboard.status)
          }
-        setTimeout(() => this.loadDatabase(), 1000);
+        // setTimeout(() => this.loadDatabase(), 200);
+        this.loadDatabase();
      }
 
         
@@ -266,7 +269,7 @@ import LogoAlt from "../images/logo2.png";
      
          //function (renderContent) Switch for all the views of the dashboard
      renderContent(){
-        // console.log('Status Server '+this.state.dashboard.status);
+        console.log('Status Server '+this.state.dashboard.status);
          switch(this.state.dashboard.status){
              default: return this.loading();
 

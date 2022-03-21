@@ -161,7 +161,8 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, d}) =>{
   
     if(!table || table.length > 0) {
         // Once the table loads once, it would be automatically stored in the localstorage
-        localStorage.setItem("table", JSON.stringify(d));
+        window.localStorage.setItem("table", JSON.stringify(d));
+        // window.localStorage.setItem("name", "Hanif Adedotun");
 
         var head = Object.keys(table[0].db_values); 
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
