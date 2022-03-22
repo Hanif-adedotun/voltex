@@ -158,12 +158,11 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, d}) =>{
         )
     }
     //To get the the keys of the data
-  
-    if(!table || table.length > 0) {
+  console.log(table);
+    if(!table || table.length > 0 || table === undefined) {
         // Once the table loads once, it would be automatically stored in the localstorage
         window.localStorage.setItem("table", JSON.stringify(d));
-        // window.localStorage.setItem("name", "Hanif Adedotun");
-
+        
         var head = Object.keys(table[0].db_values); 
         var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
         var csv_body = table.map((item, index) =>

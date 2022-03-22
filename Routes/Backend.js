@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 // const util = require('util');
 
 const keys = require('./config/keys');
-const DB = require('./Database/database');
 const firebase = require('./Database/firebase');
 // const { json } = require('body-parser');
 var path = require('path');
@@ -26,15 +25,19 @@ const pug = require('pug');
 const compileView = pug.compileFile(path.join(__dirname +'/config/backend.pug'));
 
 //support parsing of application/x-www-form-urlencoded post data
-router.use(bodyParser.urlencoded({ extended: true }));
-
+router.use(bodyParser.urlencoded({ limit: "50MB", extended: true}));
+// router.use(bodyParser.raw({type: "multipart/form-data", limit: "10000kb", strict: false}));
 
 // @params {Address} is /api/data
 const storage = require('./config/bucket');
-router.route('/test/url').get(async (req, res) => {
-    let data = await storage.url("app");
+router.route('/test/bucket').get(async (req, res) => {
+    let data = await storage.url("app/logo.png");
     res.json(data);
-})
+}).post(async (req, res) =>{
+    const file = req.body;
+    console.log(file);
+    res.json(req.headers["content-type"])
+});
 
 
 const mail = require('./config/mail');

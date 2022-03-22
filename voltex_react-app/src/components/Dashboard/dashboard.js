@@ -187,8 +187,7 @@ import LogoAlt from "../images/logo2.png";
                     @param {loadDatabase} The function to refresh the table data from the server
                 */}
                       <Table 
-                        tableName={v.tablename} 
-                        // table={this.state.dashboard.table[i]} 
+                        tableName={v.tablename}  
                         table={this.state.dashboard.table[this.state.key]} 
                         delText={this.state.delres} 
                         loadDatabase={this.loadDatabase}
@@ -202,11 +201,12 @@ import LogoAlt from "../images/logo2.png";
                    Fill the form
                    <FormUI
                         show={this.state.form}
-                        onHide={() => {this.setState({form: false}); this.setState({key: 0})}}
+                        onHide={() => {this.setState({form: false, key:0})}}
                         newTable={false}
                         docid={this.state.dashboard.data[0].id}
                         />
                     </Tab>
+
                 </Tabs>
                 
             

@@ -2,35 +2,59 @@
 var firebase = require('firebase')
 const config = require('../config/keys.js');
 
-// // Initialize Firebase
-// firebase.initializeApp(config.firebase.config)
-
 // // Data
 let storage = firebase.storage();
 
-const getImage = async (folder) =>{
-     let images = new Array();
-     let storageRef = storage.ref();
-     //2.
-     storageRef.listAll().then(async function (res) {
-         //3.
-          res.items.forEach((imageRef) => {
-           imageRef.getDownloadURL().then((url) => {
-               //4.
-              images.push(url);
-           });
-         });
-       })
-       .catch(function (error) {
-         console.log(error);
-         return error;
-       });
+const admin = require('firebase-admin');
+const cert = require('./firebase-cert.json');
+admin.initializeApp({
+  credential: admin.credential.cert(cert),
+	storageBucket: config.firebase.config.storageBucket
+});
+var buck = admin.storage().bucket();
 
-       return images;
+const getFile = async (file) =>{
+    const options = {
+      version: 'v2',
+      action: 'read',
+      expires: Date.now() + 1000 * 60 * 60
+    };
+  
+    try{
+      const [url] = await buck.file(file).getSignedUrl(options);
+      console.log(url);
+      return(url);
+  }catch(e){
+    return null;
+  }
 }
+
+
+async function uploadFile(folder, filepath, filename) {
+	
+  try{
+      await bucket.upload(filepath, {
+      gzip: true,
+      destination: folder+filename,
+      metadata: {
+        cacheControl: 'public, max-age=31536000'
+      }
+    });
+
+    console.log(`${filename} uploaded to bucket.`);
+    return `${filename} uploaded to bucket.`;
+
+  }catch(e){
+    return null;
+  }
+}
+
+// filepath = '/location_of/file_to_upload';
+// filename = 'name_of_the_file' //can be anything, it will be the name with which it will be uploded to the firebase storage.
+
 const bucket = {
-     upload: null,
-     url: getImage, 
+     upload: uploadFile,
+     url: getFile, 
      delete: null,
 } 
 
