@@ -12,8 +12,8 @@ const querystring = require('querystring');
 // const formidableMiddleware = require('express-formidable');
 
 //To parse images
-const mul = require('multer');
-
+const multer = require('multer');
+const fs = require("fs");
 //mongodb
 const mongo = require('./Database/mongodb');
 
@@ -30,13 +30,54 @@ router.use(bodyParser.urlencoded({ limit: "50MB", extended: true}));
 
 // @params {Address} is /api/data
 const storage = require('./config/bucket');
+const upload = multer({
+    dest: "./files"
+})
 router.route('/test/bucket').get(async (req, res) => {
-    let data = await storage.url("app/logo.png");
+    let data = await storage.url("backend/hanif (3).jpg");
     res.json(data);
-}).post(async (req, res) =>{
-    const file = req.body;
-    console.log(file);
-    res.json(req.headers["content-type"])
+}).post(upload.single("image"), async (req, res)=>{
+   try{
+       console.log(req.file);
+    //    {
+    //   fieldname: 'image',
+    //  originalname: 'hanif (3).jpg',
+    //   encoding: '7bit',
+    //   mimetype: 'image/jpeg',
+    //   destination: './files',
+    //   filename: 'f87693490f917332f9458a77982ccead',
+    //    path: 'files\\f87693490f917332f9458a77982ccead',
+    //     size: 740928
+    //    }
+    const tempPath = req.file.path;
+    const name = req.file.originalname;
+    const targetPath = path.join(__dirname, `./files/${name}`);
+
+    let response = await storage.upload("backend/", tempPath, name);
+    res.json(response);
+    
+    
+    // fs.rename(tempPath, targetPath, async (err) => {
+    //     if (err) return handleError(err, res);
+
+    //     // res
+    //     //   .status(200)
+    //     //   .contentType("text/plain")
+    //     //   .end("File uploaded!");
+    //     let response = await storage.upload("backend/", targetPath, name);
+    //     res.json(response);
+    //   });
+    }catch(e){
+        res
+        .status(500)
+        .contentType("text/plain")
+        .end("Unable to add file" + e);
+    }
+
+    // fs.unlink(filePath, (e) => {
+    //     if(e){console.log(e)};
+    //     console.log("Deleted successfully");
+    // });
 });
 
 

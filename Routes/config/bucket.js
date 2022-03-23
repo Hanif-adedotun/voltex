@@ -33,7 +33,7 @@ const getFile = async (file) =>{
 async function uploadFile(folder, filepath, filename) {
 	
   try{
-      await bucket.upload(filepath, {
+      await buck.upload(filepath, {
       gzip: true,
       destination: folder+filename,
       metadata: {
@@ -41,7 +41,7 @@ async function uploadFile(folder, filepath, filename) {
       }
     });
 
-    console.log(`${filename} uploaded to bucket.`);
+    // console.log(`${filename} uploaded to bucket.`);
     return `${filename} uploaded to bucket.`;
 
   }catch(e){

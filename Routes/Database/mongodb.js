@@ -66,7 +66,7 @@ var connect_find_new = async (database, collection, keyVal) =>{
           useUnifiedTopology: true,
      }).catch(err => {console.log(err);})
 
-     if(!client){return;}
+     if(!client){return null;}
 
      try{
           var dbo = client.db(database);
