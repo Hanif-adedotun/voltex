@@ -67,7 +67,7 @@ router.get('/login/dashboard', async (req, res) => {
        }
 
        data = await firebase.read(id);
-
+      //  console.log("firebase.read" + JSON.stringify(data));
   
        if(data.length <= 0 || data[0].tables.length <= 0){
        serverRes = {
@@ -209,28 +209,28 @@ router.route('/addTable')
 router.route('/delete/:id').delete( async (req, res) =>{
 
 var resp;
-    // await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
-    //   resp = {
-    //     code: 200,
-    //     deleted: "Deleted data successfully!",
-    //   }
-    //   res.status(200).json(resp);
-
-    // }).catch(function(err){
-    //   resp = {
-    //     code: 500,
-    //     deleted: false,
-    //   }
-    //   console.log(err);
-    //   res.status(500).json(resp);
-    // })
-    setTimeout(() =>{
+    await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
       resp = {
         code: 200,
         deleted: "Deleted data successfully!",
       }
       res.status(200).json(resp);
-    }, 2000)
+
+    }).catch(function(err){
+      resp = {
+        code: 500,
+        deleted: false,
+      }
+      console.log(err);
+      res.status(500).json(resp);
+    })
+    // setTimeout(() =>{
+    //   resp = {
+    //     code: 200,
+    //     deleted: "Deleted data successfully!",
+    //   }
+    //   res.status(200).json(resp);
+    // }, 2000)
     
         
 })

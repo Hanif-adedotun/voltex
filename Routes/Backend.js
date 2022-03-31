@@ -53,8 +53,8 @@ router.route('/test/bucket').get(async (req, res) => {
     const name = req.file.originalname;
     const targetPath = path.join(__dirname, `./files/${name}`);
 
-    let response = await storage.upload("backend/", tempPath, name);
-    res.json(response);
+    // let response = await storage.upload("backend/", tempPath, name);
+    res.json({'1':req.body , '2': req.file});
     
     
     // fs.rename(tempPath, targetPath, async (err) => {
@@ -102,7 +102,7 @@ router.route('/mail').get((req, res) => {
 //To post the results to the database from the users form backend_page
 //@params(dbname) is the name of the user id from Google
 //@params(key) is the unique 8 character key given to the user
-router.route('/:dbname/:key').get((req, res) =>{
+router.route('/:userid/:uniqueID').get((req, res) =>{
     res.status(401).send(compileView({
         pageTitle: '401-Unauthorized access',
         error: true,
@@ -111,84 +111,94 @@ router.route('/:dbname/:key').get((req, res) =>{
       
    
 
-}).post(async (req, res)=>{
+}).post(upload.single("file"), async (req, res)=>{
     req.setMaxListeners(100);//This sets the maximum api requests at once to 100 requests
+    console.log(req.body);
+                    
     const userID = req.params.userid;
     let data = await firebase.read(userID);
     
     let d = data[0].tables.filter((item) => item.uniqueID == req.params.uniqueID)
     
     const uniqueID = d[0].uniqueID, url = d[0].url;
-
+    // res.send(uniqueID + url + req.body['user-url']);
+   
     if(req.params.uniqueID === uniqueID && req.body['user-url']  === url){
         var tablres = {
             key:  uniqueID, //key,
             db_values: {}    
         }
 
-        //reconfigure the parsing and sending of data 
-        switch(req.headers["content-type"]){
-            default: parsedata(req.body);
-            break;
-            case "application/x-www-form-urlencoded": parsedata(req.body);
-            break;
-            case "multipart/form-data": parsemult(req.body);
-            break;
-            case "text/plain": parsedata(req.body);//check for how to parse text/plain data
-            break;
-        }
+        
+        
+        return;
 
-        //If files are included in the data sent use a different middleware
-        function parsemult(){
-            res.send('This function is still in progress')
-        }
 
          //function (parsedata) to parse the user form data and add it to mongodb database
          //@param (data) this is the body of the form sent to the api
          //@param (type) if set to true it parse the data not used for plain text
          //If it is just plain text use a normal data
-                async function parsedata(data){
-                    for (var field in data){ 
-                        // field = field.toLowerCase();
-                        var forbidden = ['done', 'user-url', 'submit', 'send' ];
-                        //To avoid sending a send button value to the database
-                        if(!forbidden.includes(field.toLowerCase())){
-                            if(data[field] === ''){
-                                tablres.db_values[field] = 'null';
-                            }else{
-                                tablres.db_values[field] = data[field];
-                            }
-                        }              
-                    }
-                    
-                    // console.log(Object(tablres));
-                            //   res.json(tablres);        
 
-                    //Insert the data into the database
-                    //mongo.insert(name of database, name of collection, data to insert)
-                    if(tablres.db_values){
-                        await mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, Object(tablres)).then(function(respon){
-                            if(respon){
-                                // console.log(respon);
-                                // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
-                                 res.status(200).redirect(req.body['user-url']);
-                            }
-
-                           
-                        }).catch(function(err){
-                            console.log('Could not add, Error: ' + err)
-                            res.status(500).send(compileView({
-                                pageTitle: 'Voltex',
-                                error: true,
-                                text: 'Could not add to database, try again later',
-                              }))
-                        });
-                         
+            for (var field in req.body){ 
+                // field = field.toLowerCase();
+                var forbidden = ['done', 'user-url', 'submit', 'send' ];
+                //To avoid sending a send button value to the database
+                if(!forbidden.includes(field.toLowerCase())){
+                    if(data[field] === ''){
+                        tablres.db_values[field] = 'null';
+                    }else{
+                        tablres.db_values[field] = data[field];
                     }
-                                      
+                }              
             }
 
+            // If there is a file, add it to the database
+            if(req.file){
+                console.log("There is a file");
+    
+                    try{
+                        console.log(req.file);
+                     const tempPath = req.file.path;
+                     const name = req.file.originalname;
+                     const targetPath = path.join(__dirname, `./files/${name}`);
+                 
+                     await storage.upload("backend/", tempPath, name);
+                     tablres.db_values["file"] = name;
+                    
+                     
+                     }catch(e){
+                        res.status(500).send(compileView({
+                            pageTitle: 'Voltex',
+                            error: true,
+                            text: 'Could not add to database, try again later',
+                          }))
+                     }
+                     
+            }
+            
+            
+            //Insert the data into the database
+            //mongo.insert(name of database, name of collection, data to insert)
+            if(tablres.db_values){
+                await mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, Object(tablres)).then(function(respon){
+                    if(respon){
+                        // console.log(respon);
+                        // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
+                            res.status(200).redirect(req.body['user-url']);
+                    }
 
+                    
+                }).catch(function(err){
+                    console.log('Could not add, Error: ' + err)
+                    res.status(500).send(compileView({
+                        pageTitle: 'Voltex',
+                        error: true,
+                        text: 'Could not add to database, try again later',
+                        }))
+                });
+                    
+            }
+    
     }else{
         res.status(404).send(compileView({
             pageTitle: '404-Not found',

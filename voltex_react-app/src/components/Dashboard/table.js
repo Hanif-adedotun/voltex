@@ -35,7 +35,7 @@ const Delete = ({i, val, load_db, show, onHide}) =>{
               },
            })
            .then(resp => resp.json()) // or res.json()
-           .then(delres => {setText(delres.deleted); setTimeout(() => {setText(null); onHide(); load_db();}, 1000)})
+           .then(delres => {setText(delres.deleted); setTimeout(() => {onHide();setText(null);  load_db();}, 1000)})
            .catch((error) =>{console.error('Unable to delete data in database' + error); setText('Unable to delete row, try again...') });
        // Note that add effect of delete button loading when delete is pressed
    }
