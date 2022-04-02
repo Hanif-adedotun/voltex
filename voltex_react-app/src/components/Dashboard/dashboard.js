@@ -197,20 +197,18 @@ import LogoAlt from "../images/logo2.png";
                         
                     </Tab>
                     )}
-                    <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} >
+                    <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} onClick={(e) => {e.preventDefault(); this.setState({form: true})}}>
                    Fill the form
-                   <FormUI
+                   {/* <FormUI
                         show={this.state.form}
                         onHide={() => {this.setState({form: false, key:0})}}
                         newTable={false}
                         docid={this.state.dashboard.data[0].id}
-                        />
+                        /> */}
                     </Tab>
 
                 </Tabs>
-                
-            
-              <span className='unique'>{(this.state.sent) ? 'E-mail has been sent successfully!': ''}</span>
+
             </div>
         );
      }

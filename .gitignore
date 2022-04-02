@@ -1,4 +1,4 @@
 Routes/config/keys.js
-Routes/config/firebase-cert.json
+Routes/config/firebasecert.json
 node_modules
 scratch

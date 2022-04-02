@@ -6,7 +6,7 @@ const config = require('../config/keys.js');
 let storage = firebase.storage();
 
 const admin = require('firebase-admin');
-const cert = require('./firebase-cert.json');
+const cert = require('./firebasecert.json');
 admin.initializeApp({
   credential: admin.credential.cert(cert),
 	storageBucket: config.firebase.config.storageBucket

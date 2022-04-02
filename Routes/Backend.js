@@ -129,11 +129,6 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
             db_values: {}    
         }
 
-        
-        
-        return;
-
-
          //function (parsedata) to parse the user form data and add it to mongodb database
          //@param (data) this is the body of the form sent to the api
          //@param (type) if set to true it parse the data not used for plain text
@@ -164,7 +159,7 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
                  
                      await storage.upload("backend/", tempPath, name);
                      tablres.db_values["file"] = name;
-                    
+                
                      
                      }catch(e){
                         res.status(500).send(compileView({
@@ -175,8 +170,7 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
                      }
                      
             }
-            
-            
+   
             //Insert the data into the database
             //mongo.insert(name of database, name of collection, data to insert)
             if(tablres.db_values){
