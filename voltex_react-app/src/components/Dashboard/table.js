@@ -102,6 +102,7 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, d}) =>{
     })
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState(0);
+    const t_length = useState([]);
     
 
     
@@ -158,8 +159,8 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, d}) =>{
         )
     }
     //To get the the keys of the data
-  console.log(table);
-    if(!table || table.length > 0 || table === undefined) {
+    console.log(table[0]);
+    if(table[0] || table.length > 0 || table[0] !== undefined) {
         // Once the table loads once, it would be automatically stored in the localstorage
         window.localStorage.setItem("table", JSON.stringify(d));
         
@@ -168,13 +169,14 @@ const Table_ = ({tableName, table, delText, loadDatabase, rotate, d}) =>{
         var csv_body = table.map((item, index) =>
             Object.values(item.db_values).map((val, ind)=> val)
         );
+        t_length[0] = csv_body.length;
     }
 
-    const t_length = useState(csv_body.length);
+    
   
         return(
             <div>
-                {(table === [] || table.length <= 0) ? 
+                {(!table[0] || table.length <= 0 || table[0] === undefined) ? 
                 <div>
                     <p>
                     <img id='empty_logo' src={VoidLogo} alt="Void Logo" />

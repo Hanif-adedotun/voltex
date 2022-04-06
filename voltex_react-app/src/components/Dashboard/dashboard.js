@@ -68,7 +68,7 @@ import LogoAlt from "../images/logo2.png";
              ))
          .catch((error) =>{console.error('Unable to get data from database' + error);});
 
-        
+        console.log(this.state.dashboard);
      }
 
      componentDidMount(){
@@ -188,7 +188,7 @@ import LogoAlt from "../images/logo2.png";
                 */}
                       <Table 
                         tableName={v.tablename}  
-                        table={this.state.dashboard.table[this.state.key]} 
+                        table={this.state.dashboard.table[i]} //this.state.key
                         delText={this.state.delres} 
                         loadDatabase={this.loadDatabase}
                         rotate={this.state.rotate}
@@ -197,14 +197,14 @@ import LogoAlt from "../images/logo2.png";
                         
                     </Tab>
                     )}
-                    <Tab tabClassName='tab-tab' eventKey="+" title={<Plus height={30} width={30}/>} onClick={(e) => {e.preventDefault(); this.setState({form: true})}}>
+                    <Tab tabClassName='tab-tab' eventKey={"+"} title={<Plus height={30} width={30}/>} >
                    Fill the form
-                   {/* <FormUI
+                   <FormUI
                         show={this.state.form}
                         onHide={() => {this.setState({form: false, key:0})}}
                         newTable={false}
                         docid={this.state.dashboard.data[0].id}
-                        /> */}
+                        />
                     </Tab>
 
                 </Tabs>
@@ -267,7 +267,6 @@ import LogoAlt from "../images/logo2.png";
      
          //function (renderContent) Switch for all the views of the dashboard
      renderContent(){
-        console.log('Status Server '+this.state.dashboard.status);
          switch(this.state.dashboard.status){
              default: return this.loading();
 

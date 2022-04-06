@@ -59,7 +59,6 @@ class navigation extends React.Component{
     //function (render) Renders the views to the user
     render(){
         let key = this.state.key;
-        console.log(key);
         return(
             <Router>
              <Navbar collapseOnSelect expand="md" sticky="top" className='nav-cus shadow'>

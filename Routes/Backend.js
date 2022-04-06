@@ -139,14 +139,15 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
                 var forbidden = ['done', 'user-url', 'submit', 'send' ];
                 //To avoid sending a send button value to the database
                 if(!forbidden.includes(field.toLowerCase())){
-                    if(data[field] === ''){
+                    if(req.body[field] === ''){
                         tablres.db_values[field] = 'null';
                     }else{
-                        tablres.db_values[field] = data[field];
+                        tablres.db_values[field] = req.body[field];
                     }
                 }              
             }
-
+            console.log(req.body);
+            return;
             // If there is a file, add it to the database
             if(req.file){
                 console.log("There is a file");
@@ -170,7 +171,7 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
                      }
                      
             }
-   
+
             //Insert the data into the database
             //mongo.insert(name of database, name of collection, data to insert)
             if(tablres.db_values){
