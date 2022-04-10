@@ -146,8 +146,6 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
                     }
                 }              
             }
-            console.log(req.body);
-            return;
             // If there is a file, add it to the database
             if(req.file){
                 console.log("There is a file");

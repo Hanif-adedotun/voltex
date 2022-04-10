@@ -99,7 +99,7 @@ class Home extends React.Component{
                      <Col className='h-left' md={{ span: 6, order: 'first'}} xs={{ span:12, order: 'last' }}>
                        <div className="h-left-div">
                        <div className='h-head'>
-                        <h1 >Quickly store your forms without having any backend</h1>
+                        <h1 >Quickly store your forms without having any backend code</h1>
                        </div>
                        <Row>
                          <Col xs={6} className="btn-pri"><Link to="/profile"><button>Get Started <ArrowRightShort height={30} width={30}/></button></Link></Col>
