@@ -315,18 +315,68 @@ router.route('/sendmail').post((req, res) => {
 
     const htmlOutput = mjml2html(`
     <mjml>
-      <mj-body>
-        <mj-section>
-          <mj-column>
-            <mj-text>
-              Hello World!
-            </mj-text>
-          </mj-column>
-        </mj-section>
+      <mj-body font-family="sans-serif, 'Courier New', Courier, monospace">
+
+      <mj-section full-width="full-width">
+        <mj-column>
+          <mj-image width="50px" src="https://firebasestorage.googleapis.com/v0/b/voltex-9b3e0.appspot.com/o/app%2Flogo.png?alt=media&token=a69bdb18-8a43-47f0-9f75-3cb6aaf7f7a5" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section full-width="full-width" >
+        <mj-column>
+          <mj-text  align="center"
+                    font-size="50px"
+                    color="rgba(50, 80, 157, 1)">
+            Voltex
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-text  align="left"
+                    font-size="25px"
+                    line-height="1.4"
+                    color="rgba(50, 80, 157, .8)">
+                    <p>This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque volutpat risus justo, vel convallis sem blandit in. Suspendisse ipsum neque, sagittis a sodales eget, rhoncus vitae odio. Maecenas tristique ante augue, vitae lacinia erat tristique id. Praesent vehicula velit at orci vehicula dictum. Morbi ac efficitur diam. Integer rutrum iaculis felis, eu cursus nulla dignissim sit amet. Aliquam vel eros tortor. Curabitur a est viverra, fringilla ante sed, porta nulla. Etiam ultrices tempus enim, vitae faucibus nisl tincidunt eu. Mauris cursus rutrum nunc. Integer elementum sapien vel erat porttitor, vel vehicula ante posuere.
+
+                    Nam vel ipsum rutrum, blandit est ac, convallis tortor. Mauris egestas purus viverra, volutpat felis vitae, dapibus tortor. Nullam lobortis sem sed tempus sagittis. Curabitur et libero ut felis sodales placerat. Nulla vitae euismod ipsum, in vehicula elit. Phasellus id risus orci. Nullam purus felis, posuere vitae lectus nec, feugiat posuere turpis. Etiam a porta ipsum. Duis iaculis hendrerit ultrices. Suspendisse urna nunc, consectetur quis fermentum eu, volutpat sit amet lacus. Nulla et ipsum sit amet diam molestie pretium. Aenean non ligula elit. Nunc elementum ipsum et nulla bibendum, et scelerisque tellus condimentum.</p>
+                  
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      
+      <mj-section full-width="full-width" background-color="#000" padding-left="5px" padding-right="5px">
+        <mj-text  align="center"
+                  font-size="15px"
+                  line-height="2"	
+                  color="rgba(255, 255, 255, .7)">
+          Voltex helps you store your frontend form responses. <br margin-top="10px"> Visit our website <a href='https://hanif-adedotun.com' css-class="color: rgba(255, 255, 255, .5); text-decoration: none;" >here</a> or reach out to us <a href='mailto:hanif.adedotun@gmail.com' >via email</a>
+        </mj-text>
+    </mj-section>
+
+    <mj-section margin="0" full-width="full-width" background-color="#000" padding-left="5px" padding-right="5px">
+      <mj-column>
+        <mj-social>
+          <mj-social-element name="twitter"></mj-social-element>
+        </mj-social>
+      </mj-column>
+      </mj-section>
+
+      <mj-section full-width="full-width" background-color="#000">
+        <mj-text  align="center"
+                  font-size="13px"
+                  color="rgba(255, 255, 255, .6)">
+          © 2022 Voltex. All rights reserved.
+        </mj-text>
+    </mj-section>
+
       </mj-body>
     </mjml>
   `, {keepComments: false});
-  // res.send(htmlOutput);
+  // res.send(htmlOutput.html);
   // return;
 
   var nodemailer = require('nodemailer');
@@ -347,17 +397,8 @@ router.route('/sendmail').post((req, res) => {
     var mailOptions = {
          from: keys.email.user,
          to: `${req.body.to}, hanif.adedotun@gmail.com`,
-         subject: req.body.subject,
+         subject: req.body.subject || "Testing email",
          html: htmlOutput.html,
-        //  html: emailhtml({
-        //   body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque volutpat risus justo, vel convallis sem blandit in. Suspendisse ipsum neque, sagittis a sodales eget, rhoncus vitae odio. Maecenas tristique ante augue, vitae lacinia erat tristique id. Praesent vehicula velit at orci vehicula dictum. Morbi ac efficitur diam. Integer rutrum iaculis felis, eu cursus nulla dignissim sit amet. Aliquam vel eros tortor. Curabitur a est viverra, fringilla ante sed, porta nulla. Etiam ultrices tempus enim, vitae faucibus nisl tincidunt eu. Mauris cursus rutrum nunc. Integer elementum sapien vel erat porttitor, vel vehicula ante posuere.
-
-        //   Nam vel ipsum rutrum, blandit est ac, convallis tortor. Mauris egestas purus viverra, volutpat felis vitae, dapibus tortor. Nullam lobortis sem sed tempus sagittis. Curabitur et libero ut felis sodales placerat. Nulla vitae euismod ipsum, in vehicula elit. Phasellus id risus orci. Nullam purus felis, posuere vitae lectus nec, feugiat posuere turpis. Etiam a porta ipsum. Duis iaculis hendrerit ultrices. Suspendisse urna nunc, consectetur quis fermentum eu, volutpat sit amet lacus. Nulla et ipsum sit amet diam molestie pretium. Aenean non ligula elit. Nunc elementum ipsum et nulla bibendum, et scelerisque tellus condimentum.
-          
-        //   Sed et pharetra sem. Vivamus egestas efficitur fermentum. Duis sed congue eros, non congue ligula. Etiam id metus a eros consectetur semper elementum sagittis mi. Sed suscipit nisi in nibh convallis tempus. Donec semper, justo sed venenatis accumsan, tortor quam venenatis sem, quis suscipit enim enim vel nunc. Vestibulum in nibh at ligula scelerisque porttitor. Cras sodales urna vitae facilisis condimentum. Duis blandit ante quis sollicitudin vehicula. Integer sed commodo enim. Sed id finibus quam. Nam porta pellentesque facilisis.
-          
-        //   Curabitur laoreet lobortis dolor quis accumsan. Cras imperdiet, nulla ac molestie iaculis, mauris elit viverra felis, ac consequat dui magna a velit. Pellentesque iaculis pharetra sem, malesuada malesuada turpis laoreet et. Aenean et faucibus est, in sollicitudin mi. Praesent elementum sagittis felis, id eleifend ligula vulputate at. Curabitur dapibus est in diam ornare feugiat. Pellentesque dictum elit sed metus commodo, sed pretium risus egestas. Morbi congue eleifend vulputate. Mauris lorem tortor, iaculis in erat et, aliquet ultrices nisl. Suspendisse ac erat nisl. Nam nisi metus, cursus vel ipsum vel, sodales mollis ex.`
-        // })
     }
 
     transporter.sendMail(mailOptions, function(error, info){
