@@ -373,7 +373,7 @@ router.route('/sendmail').post((req, res) => {
         </mj-text>
     </mj-section>
 
-      </mj-body>
+    </mj-body>
     </mjml>
   `, {keepComments: false});
   // res.send(htmlOutput.html);
