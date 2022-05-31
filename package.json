@@ -6,7 +6,7 @@
   "main": "middlewear_server.js",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "set NODE_ENV=prod && gh-pages -d build",
     "compile": "babel src –presets react –out-dir static",
     "watch": "babel src –presets react –out-dir static –watch",
     "test": "jest",
