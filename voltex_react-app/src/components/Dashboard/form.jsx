@@ -6,7 +6,7 @@ function FormUI({show, onHide, newTable, docid,}) {
      const[name, setName] = useState([]);
      const [url, setUrl] = useState([]);
      const [key, setKey] = useState([]);
-     const [serverRes, setServerRes] = useState([]);
+     const serverRes = useState([]);
      const [SubmitBtn, setSubmitBtn] = useState("Create Table");
 
 //function (uploadValues) this function is to tell the server to upload the form 
@@ -16,7 +16,7 @@ const uploadValues = (event) =>{
      event.preventDefault();
      setSubmitBtn("Submiting...");
      console.log('Submitting form to server');
-
+    
     const data = {
         url: "https://"+url,
         Tablename: name,
@@ -35,10 +35,10 @@ const uploadValues = (event) =>{
          body: JSON.stringify(data)
          })
          .then((result) => result.json())
-         .then((response) => {setServerRes(response.errors)})
+         .then((response) => {serverRes[0] = response.errors;})
          .catch( (error) =>{console.error('Unable to validate error ' + error);});
 
-    setSubmitBtn("Create Table");
+         setSubmitBtn("Create Table");
   }
 
 //function (generateID) this function is to tell the server to generate a unique 8letter string 

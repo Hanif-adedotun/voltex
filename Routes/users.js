@@ -132,6 +132,11 @@ router.route('/createDB')
           var err = errors.errors.map((v,i) => ({id: i, ...v}));
           return res.status(400).json({ errors: err});
         }else{
+
+          setTimeout(() => {
+            res.status(200).json({errors: null, msg: "Successfully added"});
+          },1000);
+          return;
           try {
                var  
                user = req.user, 

@@ -70,6 +70,13 @@ var readAll =  async() => {
 // @Function ReadData()
 // userid: unique login ID of user
 // @Returns  (Object) of the specific user
+/**
+ * Input parameters
+ * @param {Number} userid The unique number identifying a user
+ * 
+ * Return the Object of the user 
+ * @param {Object} data full details about the user
+ */
 var ReadData = async (userid) =>{
   const snapshot = await User.get();
   let list = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));

@@ -122,8 +122,15 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
     
     const uniqueID = d[0].uniqueID, url = d[0].url;
     // res.send(uniqueID + url + req.body['user-url']);
-   
-    if(req.params.uniqueID === uniqueID && req.body['user-url']  === url){
+
+    if(!req.body['user-url']){
+        res.status(500).send(compileView({
+            pageTitle: 'No user Url',
+            error: true,
+            text: 'User url is not present in the body of the request',
+          }));
+
+    }else if(req.params.uniqueID === uniqueID && req.body['user-url']  === url){
         var tablres = {
             key:  uniqueID, //key,
             db_values: {}    
@@ -193,8 +200,8 @@ router.route('/:userid/:uniqueID').get((req, res) =>{
             }
     
     }else{
-        res.status(404).send(compileView({
-            pageTitle: '404-Not found',
+        res.status(403).send(compileView({
+            pageTitle: '403-Forbidden',
             error: true,
             four: '404',
             text: 'You are not authorized to view this page, please check your form parameters and try again.'
