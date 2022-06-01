@@ -5,4 +5,4 @@ Voltex is a platform that solves the problem of having to create a backend to st
 🚧 Currently in development
 
 ## Beta testing
-📅 Starts 1st May
+📅 Starts 1st July
